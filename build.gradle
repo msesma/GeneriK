@@ -1,0 +1,68 @@
+buildscript {
+    ext.kotlin_version = '1.1.4-2'
+    ext.gradle_version = '3.0.0-beta2'
+    ext.compile_sdk_version = 26
+    ext.min_sdk_version = 16
+    ext.target_sdk_version = 26
+
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        jcenter()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    multidex = '1.0.2'
+    support = '26.1.0'
+    constraint = '1.0.2'
+
+    rx_java = '2.1.1'
+    rx_android = '2.0.1'
+    rx_kotlin = '1.0.0-RC2'
+    rx_relay = '2.0.0'
+
+    easy_permissions = '0.3.0'
+    materialdrawerkt = '1.0.6'
+    butterknife = '8.6.0'
+    dagger = '2.5'
+    picasso = '2.5.2'
+
+    retrofit = '2.3.0'
+    adapter_rxjava_old = '1.0.0'
+    adapter_rxjava = '2.3.0'
+    converter_gson = '2.0.0'
+    okhttp = '3.6.0'
+
+    oltu_version = "1.0.1"
+    swagger_annotations_version = "1.5.15"
+    jodatime_version = "2.9.9"
+
+    junit = '4.12'
+    robolectric = '3.3'
+    assertj = '1.1.1'
+    mockito = '2.7.14'
+    mockito_kotlin = '1.5.0'
+    espresso = '2.2.2'
+    mockwebserver = '3.6.0'
+    runner = '0.5'
+    commons = '2.4'
+}

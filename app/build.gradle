@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion compile_sdk_version
+    defaultConfig {
+        applicationId "com.paradigmadigital"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+        }
+        release {
+//            storeFile file('company.keystore')
+//            storePassword 'password'
+//            keyAlias 'alias'
+//            keyPassword 'password'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dexOptions {
+        maxProcessCount 4
+        javaMaxHeapSize "4g"
+    }
+
+}
+
+tasks.matching { it instanceof Test }.all {
+    testLogging.events = ["failed", "passed", "skipped"]
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+//    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+//    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+//    implementation "com.jakewharton.rxrelay2:rxrelay:$rx_relay"
+
+    implementation "com.android.support:design:$support"
+    implementation "com.android.support:support-annotations:$support"
+    implementation "com.android.support:customtabs:$support"
+    implementation "com.android.support.constraint:constraint-layout:$constraint"
+
+    implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
+    implementation "pub.devrel:easypermissions:$easy_permissions"
+
+    kapt "com.jakewharton:butterknife-compiler:$butterknife"
+    implementation "com.jakewharton:butterknife:$butterknife"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger:$dagger"
+
+//    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+//    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+//    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+//    implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
+//    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava"
+//    implementation "com.squareup.retrofit2:converter-gson:$converter_gson"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation("com.squareup.assertj:assertj-android:$assertj") {
+        exclude module: 'support-annotations'
+    }
+    testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation("com.nhaarman:mockito-kotlin-kt1.1:$mockito_kotlin") {
+        exclude module: 'kotlin-reflect'
+        exclude module: 'kotlin-stdlib'
+    }
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver"
+    testImplementation "commons-io:commons-io:$commons"
+    testImplementation "com.android.support:multidex:$multidex"
+
+    androidTestImplementation("com.android.support.test:runner:$runner") {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso") {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espresso") {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espresso") {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-annotations'
+        exclude module: 'design'
+    }
+    androidTestImplementation "com.android.support:multidex-instrumentation:$multidex"
+}

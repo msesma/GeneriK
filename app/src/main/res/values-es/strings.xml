@@ -1,0 +1,33 @@
+<resources>
+    <string name="refresh">Actualizar</string>
+    <string name="location_permission_request">Esta app necesita acceso a los ervicios de localización</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="login_button">Entrar</string>
+    <string name="register">Registro</string>
+    <string name="terms">Términos y condiciones</string>
+    <string name="email_hint">Email</string>
+    <string name="pass_hint">Contraseña</string>
+    <string name="pass_forgot">¿Has olvidado tu contraseña?</string>
+    <string name="pass_empty">La contraseña no puede estar en blanco</string>
+    <string name="email_format">Formato de email inválido</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="confirm_pass_change">¿Estas seguro de que quieres resetear la contraseña?</string>
+    <string name="verification_code">Código de verificación</string>
+    <string name="code_explain">Hemos enviado un código de verificación por SMS</string>
+    <string name="send_new">Enviar de nuevo</string>
+    <string name="recover_password">Recuperar contraseña</string>
+    <string name="pass_confirm_hint">Confirmar contraseña</string>
+    <string name="new_pass_title">Nueva contraseña para la cuenta</string>
+    <string name="pass_not_match">Las contraseñas no coinciden</string>
+    <string name="register_button">Registrar</string>
+    <string name="email_confirm_hint">Confirmar email</string>
+    <string name="name_hint">Nombre completo</string>
+    <string name="phone_hint">Número de teléfono</string>
+    <string name="email_match">las direcciones de correo no coinciden</string>
+    <string name="hi">Hola %1$s!</string>
+    <string name="main_menu">Menú principal</string>
+    <string name="profile">Mi perfil</string>
+    <string name="logout">Terminar sesión</string>
+    <string name="legal">Términos y condiciones</string>
+</resources>

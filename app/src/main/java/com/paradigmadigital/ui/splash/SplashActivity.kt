@@ -1,0 +1,30 @@
+package com.paradigmadigital.ui.splash
+
+import android.os.Bundle
+import android.os.Handler
+import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.navigation.Navigator
+import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.ui.BaseActivity
+import javax.inject.Inject
+
+class SplashActivity : BaseActivity() {
+
+    @Inject
+    lateinit var navigator: Navigator
+    @Inject
+    lateinit var repository: Repository
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+        activityComponent.inject(this)
+
+        Handler().postDelayed(Runnable { navigate() }, 250)
+    }
+
+    private fun navigate() {
+        if (repository.isLoggedIn()) navigator.navigateToMain() else navigator.navigateToLoginRegister()
+        finish()
+    }
+}

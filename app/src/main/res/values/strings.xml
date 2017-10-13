@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name" translatable="false">Paradigma</string>
+    <string name="empty" translatable="false"/>
+
+    <string name="refresh">Refresh</string>
+    <string name="location_permission_request">This app needs access to location services</string>
+    <string name="connection_error">Connection error</string>
+    <string name="login_button">Log in</string>
+    <string name="register">Register</string>
+    <string name="terms">Terms and conditions</string>
+    <string name="email_hint">Email</string>
+    <string name="pass_hint">Password</string>
+    <string name="pass_forgot">Forgot password?</string>
+    <string name="pass_empty">Password cannot be empty</string>
+    <string name="email_format">Invalid email format</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_pass_change">Do you want to recover your password?</string>
+    <string name="verification_code">Verification code</string>
+    <string name="code_explain">An SMS with the verification code has been sent</string>
+    <string name="send_new">Send new</string>
+    <string name="recover_password">Recover password</string>
+    <string name="pass_confirm_hint">Confirm password</string>
+    <string name="new_pass_title">Enter a new password for this account</string>
+    <string name="pass_not_match">Passwords don\'t match</string>
+    <string name="register_button">Register</string>
+    <string name="email_confirm_hint">Confirm email</string>
+    <string name="name_hint">Full name</string>
+    <string name="phone_hint">Telephone</string>
+    <string name="email_match">Email address don\'t match</string>
+    <string name="hi">Hi %1$s!</string>
+    <string name="main_menu">Main menu</string>
+    <string name="profile">My profile</string>
+    <string name="logout">Logout</string>
+    <string name="legal">Terms and conditions</string>
+</resources>
