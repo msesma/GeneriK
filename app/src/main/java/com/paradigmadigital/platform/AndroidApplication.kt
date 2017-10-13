@@ -4,8 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import com.crashlytics.android.Crashlytics
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
+import io.fabric.sdk.android.Fabric
 
 
 class AndroidApplication : Application() {
@@ -19,6 +21,7 @@ class AndroidApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
     }
 

@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "435667469672",
+    "firebase_url": "https://sacred-courier-418.firebaseio.com",
+    "project_id": "sacred-courier-418"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435667469672:android:0ecb8fec267a0c4c",
+        "android_client_info": {
+          "package_name": "com.paradigmadigital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435667469672-p2628gmomp1vl23d6jbfn0gau3eeakbp.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "435667469672.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGZXCVMn-nyrPLUNHP3VTV__M7SqcsSX4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

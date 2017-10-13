@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion compile_sdk_version
@@ -45,6 +47,10 @@ android {
 
 }
 
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 tasks.matching { it instanceof Test }.all {
     testLogging.events = ["failed", "passed", "skipped"]
 }
@@ -77,6 +83,10 @@ dependencies {
 //    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava"
 //    implementation "com.squareup.retrofit2:converter-gson:$converter_gson"
 
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlver@aar") {
+        transitive = true;
+    }
+
     testImplementation "junit:junit:$junit"
     testImplementation("com.squareup.assertj:assertj-android:$assertj") {
         exclude module: 'support-annotations'
@@ -106,3 +116,5 @@ dependencies {
         exclude module: 'design'
     }
 }
+
+//apply plugin: 'com.google.gms.google-services'

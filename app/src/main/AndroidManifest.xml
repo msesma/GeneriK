@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.paradigmadigital.postoscarrefour">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.paradigmadigital.platform.AndroidApplication"
         android:allowBackup="true"
@@ -58,6 +60,10 @@
 
         <activity android:name="com.paradigmadigital.ui.main.MainActivity"
             android:theme="@style/AppDrawerTheme"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f852becfbbe47cd294b50f934b8c89322f2a3ee4" />
     </application>
 
 </manifest>
