@@ -31,7 +31,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    multidex = '1.0.2'
     support = '26.1.0'
     constraint = '1.0.2'
 

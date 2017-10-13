@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
 class DrawerInstrumentedTest {
 
     companion object {
-        private val TERMS_URL = "https://www.carrefour.com.br/termos-de-uso"
+        private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
         private val WAIT_DRAWER_OPEN_MILLIS = 500L
     }
 

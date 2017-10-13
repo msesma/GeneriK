@@ -27,7 +27,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -87,7 +88,6 @@ dependencies {
     }
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver"
     testImplementation "commons-io:commons-io:$commons"
-    testImplementation "com.android.support:multidex:$multidex"
 
     androidTestImplementation("com.android.support.test:runner:$runner") {
         exclude module: 'support-annotations'
@@ -105,5 +105,4 @@ dependencies {
         exclude module: 'support-annotations'
         exclude module: 'design'
     }
-    androidTestImplementation "com.android.support:multidex-instrumentation:$multidex"
 }

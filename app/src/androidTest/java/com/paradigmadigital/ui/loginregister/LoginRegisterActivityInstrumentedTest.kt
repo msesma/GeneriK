@@ -26,8 +26,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class LoginRegisterActivityInstrumentedTest {
     companion object {
-        private val TERMS_URL = "https://www.carrefour.com.br/termos-de-uso"
-        private val SUPPORT_PHONE = "55 21 123456789"
+        private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
     }
 
     @get:Rule
