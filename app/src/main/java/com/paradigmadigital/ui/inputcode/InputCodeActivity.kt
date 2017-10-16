@@ -2,6 +2,7 @@ package com.paradigmadigital.ui.inputcode
 
 import android.os.Bundle
 import com.paradigmadigital.R
+import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class InputCodeActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator)
+        presenter.initialize(decorator, intent.extras.getBoolean(Navigator.EXTRA_FROM_REGISTER))
     }
 
 

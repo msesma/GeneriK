@@ -68,6 +68,8 @@ dependencies {
     implementation "com.android.support:customtabs:$support"
     implementation "com.android.support.constraint:constraint-layout:$constraint"
 
+    implementation "com.google.android.gms:play-services-auth:$playservices"
+
     implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
     implementation "pub.devrel:easypermissions:$easy_permissions"
 

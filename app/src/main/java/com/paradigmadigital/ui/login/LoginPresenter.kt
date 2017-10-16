@@ -21,7 +21,9 @@ constructor(
             //TODO Real login
         }
 
-        override fun onForgotPassword() = navigator.navigateToInputCode()
+        override fun onForgotPassword() {
+            navigator.navigateToInputCode()
+        }
     }
 
     fun initialize(decorator: LoginUserInterface) {

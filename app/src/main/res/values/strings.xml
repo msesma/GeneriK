@@ -33,4 +33,5 @@
     <string name="profile">My profile</string>
     <string name="logout">Logout</string>
     <string name="legal">Terms and conditions</string>
+    <string name="phone_empty">Phone number cannot be empty</string>
 </resources>

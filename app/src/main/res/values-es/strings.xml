@@ -30,4 +30,5 @@
     <string name="profile">Mi perfil</string>
     <string name="logout">Terminar sesión</string>
     <string name="legal">Términos y condiciones</string>
+    <string name="phone_empty">El número no puede dejarse en blanco</string>
 </resources>

@@ -15,8 +15,8 @@ constructor(
 
     private val delegate = object : RegisterUserInterface.Delegate {
         override fun onRegister(name: String, tel: String, email: String, pass: String) {
-            //TODO
-            navigator.navigateToLoginRegister()
+            navigator.navigateToInputCode()
+            //TODO: Send data to backend (This does not request an SMS)
         }
     }
 

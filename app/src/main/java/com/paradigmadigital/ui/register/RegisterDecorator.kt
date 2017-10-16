@@ -52,7 +52,7 @@ class RegisterDecorator
 
     @OnClick(R.id.bt_register)
     fun onRegisterClick() {
-        var ok = true
+        var ok = verifyPhone()
         ok = verifyEmail(ok)
         ok = verifyPassword(ok)
 
@@ -62,6 +62,12 @@ class RegisterDecorator
                 tel = tel.text.toString(),
                 pass = pass1.text.toString()
         )
+    }
+
+    private fun verifyPhone(): Boolean {
+        val ok = android.util.Patterns.PHONE.matcher(tel.text.toString()).matches()
+        if (!ok) tel.error = activity.getString(R.string.phone_empty)
+        return ok
     }
 
     private fun verifyPassword(ok: Boolean): Boolean {
