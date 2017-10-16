@@ -26,6 +26,7 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:hint="@string/email_hint"
+            android:autofillHints="emailAddress"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -47,6 +48,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:hint="@string/pass_hint"
+            android:autofillHints="password"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -81,14 +83,14 @@
         android:id="@+id/guideline_left"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintGuide_begin="24dp"
+        app:layout_constraintGuide_begin="@dimen/left_guideline_pos"
         />
 
     <android.support.constraint.Guideline android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/guideline_right"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="48dp"
+        app:layout_constraintGuide_end="@dimen/right_guideline_pos"
         app:layout_constraintEnd_toEndOf="parent"
         />
 

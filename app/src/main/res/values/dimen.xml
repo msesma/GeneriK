@@ -2,4 +2,8 @@
 <resources>
     <dimen name="input_code_button_v_pos">24dp</dimen>
     <dimen name="input_code_button_v_sep">8dp</dimen>
+
+    <dimen name="left_guideline_pos">24dp</dimen>
+    <dimen name="right_guideline_pos">48dp</dimen>
+    <dimen name="symmetric_guideline_pos">24dp</dimen>
 </resources>
