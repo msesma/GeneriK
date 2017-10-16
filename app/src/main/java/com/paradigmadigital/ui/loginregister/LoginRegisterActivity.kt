@@ -1,7 +1,7 @@
 package com.paradigmadigital.ui.loginregister
 
 import android.os.Bundle
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 

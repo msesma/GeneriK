@@ -2,7 +2,7 @@ package com.paradigmadigital.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.BaseActivity

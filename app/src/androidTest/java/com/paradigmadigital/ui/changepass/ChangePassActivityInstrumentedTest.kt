@@ -6,7 +6,7 @@ import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test

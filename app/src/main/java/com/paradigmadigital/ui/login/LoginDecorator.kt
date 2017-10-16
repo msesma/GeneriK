@@ -6,7 +6,7 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject

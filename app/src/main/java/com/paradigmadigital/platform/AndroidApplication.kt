@@ -2,6 +2,7 @@ package com.paradigmadigital.platform
 
 import android.app.Activity
 import android.app.Application
+import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.crashlytics.android.Crashlytics
@@ -23,6 +24,7 @@ class AndroidApplication : Application() {
         super.onCreate()
         Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
     }
 
     protected fun createComponent(): ApplicationComponent {

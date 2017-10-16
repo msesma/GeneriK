@@ -8,7 +8,7 @@ import android.support.customtabs.CustomTabsCallback
 import android.support.customtabs.CustomTabsClient
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 

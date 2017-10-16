@@ -6,7 +6,7 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.builders.footer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import com.mikepenz.materialdrawer.Drawer
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject

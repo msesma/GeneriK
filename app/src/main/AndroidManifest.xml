@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.paradigmadigital.postoscarrefour">
+    package="com.paradigmadigital">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.paradigmadigital.ui.splash.SplashActivity">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,44 +20,44 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.paradigmadigital.ui.loginregister.LoginRegisterActivity" />
+        <activity android:name=".ui.loginregister.LoginRegisterActivity" />
 
-        <activity android:name="com.paradigmadigital.ui.login.LoginActivity"
+        <activity android:name=".ui.login.LoginActivity"
             android:label="@string/login_button"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.paradigmadigital.ui.loginregister.LoginRegisterActivity" />
+                android:value=".ui.loginregister.LoginRegisterActivity" />
         </activity>
 
-        <activity android:name="com.paradigmadigital.ui.inputcode.InputCodeActivity"
+        <activity android:name=".ui.inputcode.InputCodeActivity"
             android:label="@string/verification_code"
             android:theme="@style/InputCodeTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.paradigmadigital.ui.login.LoginActivity" />
+                android:value=".ui.login.LoginActivity" />
         </activity>
 
-        <activity android:name="com.paradigmadigital.ui.changepass.ChangePassActivity"
+        <activity android:name=".ui.changepass.ChangePassActivity"
             android:label="@string/recover_password"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.paradigmadigital.ui.login.LoginActivity" />
+                android:value=".ui.login.LoginActivity" />
         </activity>
 
-        <activity android:name="com.paradigmadigital.ui.register.RegisterActivity"
+        <activity android:name=".ui.register.RegisterActivity"
             android:label="@string/register"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.paradigmadigital.ui.loginregister.LoginRegisterActivity" />
+                android:value=".ui.loginregister.LoginRegisterActivity" />
         </activity>
 
-        <activity android:name="com.paradigmadigital.ui.main.MainActivity"
+        <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppDrawerTheme"/>
 
         <meta-data

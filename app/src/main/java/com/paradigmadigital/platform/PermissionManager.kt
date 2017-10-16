@@ -3,7 +3,7 @@ package com.paradigmadigital.platform
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject

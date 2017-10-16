@@ -4,7 +4,7 @@ import android.app.Activity
 import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import com.paradigmadigital.platform.Callback
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import javax.inject.Inject
 
 

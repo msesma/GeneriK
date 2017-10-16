@@ -5,7 +5,7 @@ import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.paradigmadigital.navigation.DrawerManager
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 

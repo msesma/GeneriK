@@ -3,7 +3,7 @@ package com.paradigmadigital.ui.loginregister
 import android.view.View
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.paradigmadigital.postoscarrefour.R
+import com.paradigmadigital.R
 import javax.inject.Inject
 
 
