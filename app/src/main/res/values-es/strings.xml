@@ -25,10 +25,11 @@
     <string name="name_hint">Nombre completo</string>
     <string name="phone_hint">Número de teléfono</string>
     <string name="email_match">las direcciones de correo no coinciden</string>
-    <string name="hi">Hola %1$s!</string>
+    <string name="hi">¡Hola %1$s !</string>
     <string name="main_menu">Menú principal</string>
     <string name="profile">Mi perfil</string>
     <string name="logout">Terminar sesión</string>
     <string name="legal">Términos y condiciones</string>
     <string name="phone_empty">El número no puede dejarse en blanco</string>
+    <string name="user">usuario</string>
 </resources>

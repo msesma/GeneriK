@@ -73,8 +73,10 @@ dependencies {
     implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
     implementation "pub.devrel:easypermissions:$easy_permissions"
 
-    implementation "android.arch.lifecycle:extensions:$archlifecyclever"
-    kapt "android.arch.lifecycle:compiler:$archlifecyclever"
+    implementation "android.arch.lifecycle:extensions:$archcomponentsver"
+    kapt "android.arch.lifecycle:compiler:$archcomponentsver"
+    implementation "android.arch.persistence.room:runtime:$archcomponentsver"
+    kapt "android.arch.persistence.room:compiler:$archcomponentsver"
 
     kapt "com.jakewharton:butterknife-compiler:$butterknife"
     implementation "com.jakewharton:butterknife:$butterknife"

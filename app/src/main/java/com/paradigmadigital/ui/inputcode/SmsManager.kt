@@ -11,6 +11,7 @@ import com.google.android.gms.common.api.Status
 import com.paradigmadigital.platform.Callback
 import javax.inject.Inject
 
+//http://android-developers.googleblog.com/2017/10/effective-phone-number-verification.html
 
 class SmsManager
 @Inject

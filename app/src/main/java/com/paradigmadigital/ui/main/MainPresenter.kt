@@ -1,12 +1,10 @@
 package com.paradigmadigital.ui.main
 
-import com.paradigmadigital.repository.Repository
 import javax.inject.Inject
 
 class MainPresenter
 @Inject
 constructor(
-        val repository: Repository
 ) {
 
     private var decorator: MainUserInterface? = null
@@ -15,9 +13,9 @@ constructor(
 
     }
 
-    fun initialize(decorator: MainUserInterface) {
+    fun initialize(decorator: MainUserInterface, viewModel: MainViewModel) {
         this.decorator = decorator
-        this.decorator?.initialize(delegate, repository.getUserName())
+        this.decorator?.initialize(delegate, viewModel)
     }
 
     fun dispose() {
