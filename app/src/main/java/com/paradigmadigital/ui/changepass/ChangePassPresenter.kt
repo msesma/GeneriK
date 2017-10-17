@@ -1,14 +1,12 @@
 package com.paradigmadigital.ui.changepass
 
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
 import javax.inject.Inject
 
 class ChangePassPresenter
 @Inject
 constructor(
-        val navigator: Navigator,
-        val repository: Repository
+        val navigator: Navigator
 ) {
 
     private var decorator: ChangePassUserInterface? = null

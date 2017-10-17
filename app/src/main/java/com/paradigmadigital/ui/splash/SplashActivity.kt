@@ -6,9 +6,14 @@ import com.paradigmadigital.R
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.BaseActivity
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity() {
+
+    companion object {
+        private val DELAY = TimeUnit.MILLISECONDS.toMillis(250)
+    }
 
     @Inject
     lateinit var navigator: Navigator
@@ -20,7 +25,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         activityComponent.inject(this)
 
-        Handler().postDelayed(Runnable { navigate() }, 250)
+        Handler().postDelayed(Runnable(this::navigate), DELAY)
     }
 
     private fun navigate() {

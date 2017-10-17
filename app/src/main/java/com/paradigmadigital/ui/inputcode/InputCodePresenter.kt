@@ -1,16 +1,14 @@
 package com.paradigmadigital.ui.inputcode
 
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
 import javax.inject.Inject
 
 
 class InputCodePresenter
 @Inject
 constructor(
-        val navigator: Navigator,
-        val repository: Repository,
-        val smsManager: SmsManager
+        private val navigator: Navigator,
+        private val smsManager: SmsManager
 ) {
 
     private var decorator: InputCodeUserInterface? = null

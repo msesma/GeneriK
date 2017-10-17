@@ -8,7 +8,7 @@ import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.paradigmadigital.platform.Callback
+import com.paradigmadigital.platform.CallbackFun
 import javax.inject.Inject
 
 //http://android-developers.googleblog.com/2017/10/effective-phone-number-verification.html
@@ -16,10 +16,10 @@ import javax.inject.Inject
 class SmsManager
 @Inject
 constructor(
-        val context: Context,
-        val smsClient: SmsRetrieverClient
+        private val context: Context,
+        private val smsClient: SmsRetrieverClient
 ) {
-    var callback: Callback<String>? = null
+    var callback: CallbackFun<String>? = null
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -33,7 +33,7 @@ constructor(
         }
     }
 
-    fun initialize(callback: Callback<String>) {
+    fun initialize(callback: CallbackFun<String>) {
         this.callback = callback
         smsClient.startSmsRetriever()
         context.registerReceiver(receiver, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))

@@ -14,9 +14,9 @@ import javax.inject.Inject
 
 class DrawerManager @Inject
 constructor(
-        val navigator: Navigator,
-        val repository: Repository,
-        val activity: BaseActivity
+        private val navigator: Navigator,
+        private val repository: Repository,
+        private val activity: BaseActivity
 ) {
     fun configureDrawer(activityToolbar: Toolbar): Drawer {
         return activity.drawer {

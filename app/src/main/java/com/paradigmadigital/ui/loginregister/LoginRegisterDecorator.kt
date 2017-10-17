@@ -10,7 +10,6 @@ import javax.inject.Inject
 class LoginRegisterDecorator
 @Inject constructor(): LoginRegisterUserInterface {
 
-
     private var delegate: LoginRegisterUserInterface.Delegate? = null
 
     fun bind(view: View) {

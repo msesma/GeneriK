@@ -1,5 +1,7 @@
 package com.paradigmadigital.ui.register
 
+import android.os.Build
+import android.support.v4.app.ActivityCompat.startIntentSenderForResult
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -7,14 +9,24 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.OnFocusChange
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.credentials.HintRequest
+import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.R
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 
+
 class RegisterDecorator
 @Inject constructor(
-        val activity: BaseActivity
+        private val activity: BaseActivity,
+        private val apiClient: GoogleApiClient
 ) : RegisterUserInterface {
+
+    companion object {
+        val RESOLVE_HINT = 100
+    }
 
     @BindView(R.id.et_name)
     lateinit var name: EditText
@@ -44,10 +56,8 @@ class RegisterDecorator
         this.delegate = delegate
     }
 
-    private fun initToolbar() {
-        val actionBar = activity.supportActionBar
-        actionBar?.setDisplayShowTitleEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun setPhone(phone: String) {
+        tel.setText(phone)
     }
 
     @OnClick(R.id.bt_register)
@@ -62,6 +72,23 @@ class RegisterDecorator
                 tel = tel.text.toString(),
                 pass = pass1.text.toString()
         )
+    }
+
+    @OnFocusChange(R.id.et_tel)
+    fun onTelFieldFocused(focused: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O || !focused) return
+        requestHint()
+    }
+
+    private fun requestHint() {
+        val hintRequest = HintRequest.Builder()
+                .setPhoneNumberIdentifierSupported(true)
+                .build()
+
+        val intent = Auth.CredentialsApi.getHintPickerIntent(apiClient, hintRequest)
+
+        startIntentSenderForResult(activity, intent.intentSender,
+                RESOLVE_HINT, null, 0, 0, 0, null)
     }
 
     private fun verifyPhone(): Boolean {
@@ -110,5 +137,11 @@ class RegisterDecorator
             ok1 = false
         }
         return ok1
+    }
+
+    private fun initToolbar() {
+        val actionBar = activity.supportActionBar
+        actionBar?.setDisplayShowTitleEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

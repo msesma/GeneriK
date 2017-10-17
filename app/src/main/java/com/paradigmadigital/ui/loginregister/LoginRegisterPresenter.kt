@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LoginRegisterPresenter
 @Inject
 constructor(
-        val navigator: Navigator
+        private val navigator: Navigator
 ) {
 
     private var decorator: LoginRegisterUserInterface? = null

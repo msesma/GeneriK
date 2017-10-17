@@ -13,15 +13,15 @@ import com.paradigmadigital.platform.AndroidApplication
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    fun Activity.getRootView(): ViewGroup = (this.findViewById<ViewGroup>(android.R.id.content) as ViewGroup)
-            .getChildAt(0) as ViewGroup
-
     private val applicationComponent: ApplicationComponent
         get() = (application as AndroidApplication).applicationComponent
 
-    lateinit var activityComponent: ActivityComponent
+    protected lateinit var activityComponent: ActivityComponent
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    fun Activity.getRootView(): ViewGroup = (this.findViewById<ViewGroup>(android.R.id.content) as ViewGroup)
+            .getChildAt(0) as ViewGroup
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityComponent = DaggerActivityComponent.builder()
                 .applicationComponent(applicationComponent)

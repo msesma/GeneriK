@@ -1,3 +1,3 @@
 package com.paradigmadigital.platform
 
-typealias Callback<T> = (T) -> Unit
+typealias CallbackFun<T> = (T) -> Unit

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class ChangePassDecorator
 @Inject constructor(
-        val activity: BaseActivity
+        private val activity: BaseActivity
 ) : ChangePassUserInterface {
 
     @BindView(R.id.et_pass1)

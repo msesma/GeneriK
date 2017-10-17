@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class InputCodeDecorator
 @Inject constructor(
-        val activity: BaseActivity
+        private val activity: BaseActivity
 ) : InputCodeUserInterface {
 
     companion object {

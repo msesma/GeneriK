@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RegisterPresenter
 @Inject
 constructor(
-        val navigator: Navigator,
+        navigator: Navigator,
         useCase: RegisterUserUseCase
 ) {
 
@@ -31,5 +31,9 @@ constructor(
 
     fun dispose() {
         this.decorator = null
+    }
+
+    fun setPhone(phone: String?) {
+        if (phone != null) decorator?.setPhone(phone)
     }
 }

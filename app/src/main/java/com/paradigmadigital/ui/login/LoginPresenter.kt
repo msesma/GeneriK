@@ -8,8 +8,8 @@ import javax.inject.Inject
 class LoginPresenter
 @Inject
 constructor(
-        val navigator: Navigator,
-        val repository: Repository
+        private val navigator: Navigator,
+        private val repository: Repository
 ) {
 
     private var decorator: LoginUserInterface? = null

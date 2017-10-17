@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class MainDecorator
 @Inject constructor(
-        val activity: BaseActivity,
+        private val activity: BaseActivity,
         private val drawerManager: DrawerManager
 ) : MainUserInterface {
 

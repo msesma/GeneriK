@@ -6,13 +6,13 @@ import javax.inject.Inject
 class Preferences
 @Inject
 constructor(
-        val sharedPreferences: SharedPreferences
+        private val sharedPreferences: SharedPreferences
 ) {
     companion object {
         val IS_LOGGED_IN_KEY = "IS_LOGGED_IN_KEY"
     }
 
-    val editor = sharedPreferences.edit()
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     var isloggedIn: Boolean
         get() = sharedPreferences.getBoolean(IS_LOGGED_IN_KEY, false)

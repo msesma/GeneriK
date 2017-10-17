@@ -1,7 +1,9 @@
 package com.paradigmadigital.platform
 
 import android.content.Context
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.injection.PerActivity
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
@@ -22,4 +24,13 @@ class ActivityModule(private val activity: BaseActivity) {
     @Provides
     @PerActivity
     internal fun provideSmsRetrieverClient(context: Context) = SmsRetriever.getClient(context)
+
+    @Provides
+    @PerActivity
+    internal fun funProvideApiClient(activity: BaseActivity): GoogleApiClient {
+        return GoogleApiClient.Builder(activity)
+                .enableAutoManage(activity,null)
+                .addApi(Auth.CREDENTIALS_API)
+                .build()
+    }
 }

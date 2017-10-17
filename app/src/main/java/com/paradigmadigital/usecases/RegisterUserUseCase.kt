@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class RegisterUserUseCase
 @Inject constructor(
-        val repository: Repository
+        private val repository: Repository
 ){
 
     fun execute(user: User, pass: String){

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 data class MainViewModel
 constructor(
-        val app: Application
+        private val app: Application
 ) : AndroidViewModel(app) {
 
     @Inject lateinit var repository: Repository

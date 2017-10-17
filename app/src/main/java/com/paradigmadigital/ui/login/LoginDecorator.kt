@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 class LoginDecorator
 @Inject constructor(
-        val activity: BaseActivity,
-        val dialog: AlertDialog
+        private val activity: BaseActivity,
+        private val dialog: AlertDialog
 ) : LoginUserInterface {
 
     @BindView(R.id.et_email)

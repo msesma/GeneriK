@@ -25,4 +25,5 @@ class ApplicationModule(private val application: AndroidApplication) {
     internal fun providePackageManager(): PackageManager {
         return application.packageManager
     }
+
 }

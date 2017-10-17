@@ -15,12 +15,12 @@ import javax.inject.Inject
 class Navigator
 @Inject
 constructor(
-        val activity: BaseActivity,
+        private val activity: BaseActivity,
         private val browser: CustomTabsManager
 ) {
     companion object {
         private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
-        public val EXTRA_FROM_REGISTER = "extra_from_register"
+        val EXTRA_FROM_REGISTER = "extra_from_register"
     }
 
     fun navigateToLoginRegister() {
