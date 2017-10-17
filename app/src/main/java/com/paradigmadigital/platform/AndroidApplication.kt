@@ -8,10 +8,16 @@ import android.os.Bundle
 import com.crashlytics.android.Crashlytics
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
+import com.q42.qlassified.Qlassified
+import com.q42.qlassified.Storage.QlassifiedSharedPreferencesService
 import io.fabric.sdk.android.Fabric
 
 
 class AndroidApplication : Application() {
+
+    companion object {
+        private val SECURE_PREFERENCES = "secure_preferences"
+    }
 
     val applicationComponent = createComponent()
     val activityLifecycleCallback = object : ActivityLifecycleAdapter() {
@@ -25,6 +31,12 @@ class AndroidApplication : Application() {
         Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
+        initializeEncryptedPreferences()
+    }
+
+    private fun initializeEncryptedPreferences() {
+        Qlassified.Service.start(this)
+        Qlassified.Service.setStorageService(QlassifiedSharedPreferencesService(this, SECURE_PREFERENCES))
     }
 
     protected fun createComponent(): ApplicationComponent {

@@ -6,6 +6,7 @@ import com.paradigmadigital.domain.db.Database
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.repository.Preferences
 import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.SecurePreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,7 +31,8 @@ class DomainModule() {
     @Singleton
     @Provides
     fun provideRepository(preferences: Preferences,
+                          securePreferences: SecurePreferences,
                           userDao: UserDao): Repository {
-        return Repository(preferences, userDao)
+        return Repository(preferences, securePreferences, userDao)
     }
 }

@@ -45,6 +45,7 @@ ext {
     rx_relay = '2.0.0'
 
     easy_permissions = '0.3.0'
+    qlassified = '0.1.1'
     materialdrawerkt = '1.0.6'
     butterknife = '8.6.0'
     dagger = '2.5'

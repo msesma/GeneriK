@@ -72,6 +72,7 @@ dependencies {
 
     implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
     implementation "pub.devrel:easypermissions:$easy_permissions"
+    implementation "com.q42:qlassified:$qlassified"
 
     implementation "android.arch.lifecycle:extensions:$archcomponentsver"
     kapt "android.arch.lifecycle:compiler:$archcomponentsver"
