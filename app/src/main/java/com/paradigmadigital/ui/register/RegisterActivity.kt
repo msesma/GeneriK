@@ -23,7 +23,7 @@ class RegisterActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator)
+        presenter.initialize(decorator, resultViewModel)
     }
 
     override fun onDestroy() {

@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.register
 
+import android.arch.lifecycle.Observer
 import android.os.Build
 import android.support.v4.app.ActivityCompat.startIntentSenderForResult
 import android.text.TextUtils
@@ -14,15 +15,20 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.R
+import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.BaseDecorator
+import com.paradigmadigital.ui.ResultViewModel
 import javax.inject.Inject
 
 
 class RegisterDecorator
 @Inject constructor(
         private val activity: BaseActivity,
-        private val apiClient: GoogleApiClient
-) : RegisterUserInterface {
+        private val apiClient: GoogleApiClient,
+        private val dialog: AlertDialog
+) : BaseDecorator(dialog), RegisterUserInterface {
 
     companion object {
         val RESOLVE_HINT = 100
@@ -52,8 +58,10 @@ class RegisterDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: RegisterUserInterface.Delegate) {
+    override fun initialize(delegate: RegisterUserInterface.Delegate, resultViewModel: ResultViewModel) {
         this.delegate = delegate
+
+        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
     override fun setPhone(phone: String) {
@@ -66,18 +74,31 @@ class RegisterDecorator
         ok = verifyEmail(ok)
         ok = verifyPassword(ok)
 
-        if (ok) delegate?.onRegister(
-                name = name.text.toString(),
-                email = email1.text.toString(),
-                tel = tel.text.toString(),
-                pass = pass1.text.toString()
-        )
+        if (ok) {
+            delegate?.onRegister(
+                    name = name.text.toString(),
+                    email = email1.text.toString(),
+                    tel = tel.text.toString(),
+                    pass = pass1.text.toString()
+            )
+            startWaitingMode()
+        }
     }
+
 
     @OnFocusChange(R.id.et_tel)
     fun onTelFieldFocused(focused: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O || !focused) return
         requestHint()
+    }
+
+    override fun handleResult(result: NetworkResult?) {
+        if (result == NetworkResult.SUCCESS) {
+            delegate?.onRegistered()
+            stopWaitingMode()
+            return
+        }
+        super.handleResult(result)
     }
 
     private fun requestHint() {

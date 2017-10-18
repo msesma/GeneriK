@@ -36,8 +36,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dexOptions {
@@ -84,16 +84,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
     implementation "com.google.dagger:dagger:$dagger"
 
-//    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-//    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
-//    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-//    implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
-//    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava"
-//    implementation "com.squareup.retrofit2:converter-gson:$converter_gson"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 
     implementation("com.crashlytics.sdk.android:crashlytics:$crashlver@aar") {
         transitive = true;
     }
+
+    debugImplementation "com.facebook.stetho:stetho:$estetho"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:$estetho"
 
     testImplementation "junit:junit:$junit"
     testImplementation("com.squareup.assertj:assertj-android:$assertj") {

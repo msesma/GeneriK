@@ -1,6 +1,7 @@
 package com.paradigmadigital.ui
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
@@ -13,13 +14,12 @@ import com.paradigmadigital.platform.AndroidApplication
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    lateinit var resultViewModel: ResultViewModel
+
     private val applicationComponent: ApplicationComponent
         get() = (application as AndroidApplication).applicationComponent
 
     protected lateinit var activityComponent: ActivityComponent
-
-    fun Activity.getRootView(): ViewGroup = (this.findViewById<ViewGroup>(android.R.id.content) as ViewGroup)
-            .getChildAt(0) as ViewGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,5 +27,9 @@ abstract class BaseActivity : AppCompatActivity() {
                 .applicationComponent(applicationComponent)
                 .activityModule(ActivityModule(this))
                 .build()
+
+        resultViewModel = ViewModelProviders.of(this).get(ResultViewModel::class.java)
     }
+
+    fun Activity.getRootView() = (window.decorView as ViewGroup).getChildAt(0) as ViewGroup
 }

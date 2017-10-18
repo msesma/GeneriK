@@ -35,4 +35,8 @@
     <string name="legal">Terms and conditions</string>
     <string name="phone_empty">Phone number cannot be empty</string>
     <string name="user">user</string>
+
+    <string name="connectivity_error">Connectrivity error. Try again later</string>
+    <string name="server_error">Server error. Try again later</string>
+    <string name="unknown_error">Unknown error. Try again later</string>
 </resources>

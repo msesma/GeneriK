@@ -3,6 +3,7 @@ package com.paradigmadigital.repository
 import android.arch.lifecycle.LiveData
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.repository.providers.RegisterProvider
 import javax.inject.Inject
 
 
@@ -10,9 +11,13 @@ class Repository
 @Inject
 constructor(
         private val preferences: Preferences,
-        private val securePreferences: SecurePreferences,
-        private val userDao: UserDao
+        private val registerProvider: RegisterProvider,
+        private val networkResultLiveData: NetworkResultLiveData,
+        private val userDao: UserDao,
+        private val securePreferences: SecurePreferences
 ) {
+
+    fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
     fun isLoggedIn() = preferences.isloggedIn
 
@@ -28,8 +33,6 @@ constructor(
     fun getPass() = securePreferences.password
 
     fun setUser(user: User, pass: String) {
-        //TODO: Send data to backend (This does not request an SMS), on Ok insert on DB or if error report back
-        securePreferences.password = pass
-        userDao.insert(user)
+        registerProvider.registerUser(user, pass) { networkResultLiveData.setNetworkResult(it) }
     }
 }

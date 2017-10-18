@@ -32,4 +32,8 @@
     <string name="legal">Términos y condiciones</string>
     <string name="phone_empty">El número no puede dejarse en blanco</string>
     <string name="user">usuario</string>
+
+    <string name="connectivity_error">Error de conexión.Inténtalo más tarde</string>
+    <string name="server_error">Error de servidor.Inténtalo más tarde</string>
+    <string name="unknown_error">Error desconocido.Inténtalo más tarde</string>
 </resources>
