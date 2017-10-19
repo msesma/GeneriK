@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.login
 
+import android.os.SystemClock
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.action.ViewActions.replaceText
@@ -27,15 +28,16 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun goToMainOnLoginClickWithCorrectData() {
-        activityTestRule.activity
         Intents.init()
 
         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("test@email.com"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_login))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -47,14 +49,14 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun showErrorOnLoginClickWithBadMail() {
-        activityTestRule.activity
-
-        Espresso.onView(ViewMatchers.withId(R.id.et_email))
+         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("test@email"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_login))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -65,14 +67,14 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun showErrorOnLoginClickWithNoMail() {
-        activityTestRule.activity
-
-        Espresso.onView(ViewMatchers.withId(R.id.et_email))
+         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_login))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -83,14 +85,14 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun showErrorOnLoginClickWithNoPass() {
-        activityTestRule.activity
-
         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("test@email.com"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_login))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -116,7 +118,6 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun forgotDialogOpensInputCodeActivity() {
-        activityTestRule.activity
         Intents.init()
         val btForgot = Espresso.onView(ViewMatchers.withId(R.id.bt_forgot))
 

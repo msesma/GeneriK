@@ -21,15 +21,16 @@ import org.junit.runner.RunWith
 class SplashActivityInstrumentedTest {
 
     @get:Rule
-    var activityTestRule = ActivityTestRule(SplashActivity::class.java)
+    var activityTestRule = ActivityTestRule(SplashActivity::class.java, true, false)
 
     @Test
     fun goToLoginRegisterIfNotLoggedIn() {
         val pref = PreferenceManager.getDefaultSharedPreferences(InstrumentationRegistry.getTargetContext())
         pref.edit().putBoolean("IS_LOGGED_IN_KEY", false).apply()
+        activityTestRule.launchActivity(null)
         Intents.init()
 
-        SystemClock.sleep(250)
+        SystemClock.sleep(500)
         Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
         Intents.release()
     }
@@ -38,16 +39,18 @@ class SplashActivityInstrumentedTest {
     fun goToMAinIfLoggedIn() {
         val pref = PreferenceManager.getDefaultSharedPreferences(InstrumentationRegistry.getTargetContext())
         pref.edit().putBoolean("IS_LOGGED_IN_KEY", true).apply()
+        activityTestRule.launchActivity(null)
         Intents.init()
 
 
-        SystemClock.sleep(250)
+        SystemClock.sleep(500)
         Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
         Intents.release()
     }
 
     @Test
     fun ShowSplashScreen() {
+        activityTestRule.launchActivity(null)
 
         Espresso.onView(ViewMatchers.withId(R.id.logo))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))

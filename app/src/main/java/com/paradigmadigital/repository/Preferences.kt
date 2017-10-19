@@ -9,7 +9,7 @@ constructor(
         private val sharedPreferences: SharedPreferences
 ) {
     companion object {
-        val IS_LOGGED_IN_KEY = "IS_LOGGED_IN_KEY"
+        private val IS_LOGGED_IN_KEY = "IS_LOGGED_IN_KEY"
     }
 
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()

@@ -3,6 +3,7 @@ package com.paradigmadigital.ui.loginregister
 import android.app.Activity
 import android.app.Instrumentation
 import android.net.Uri
+import android.os.SystemClock
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions.click
@@ -45,9 +46,9 @@ class LoginRegisterActivityInstrumentedTest {
 
     @Test
     fun startLoginActivityOnLoginClick() {
-        activityTestRule.activity
         Intents.init()
 
+        SystemClock.sleep(100)
         Espresso.onView(withId(R.id.bt_login))
                 .check(matches(isDisplayed()))
                 .perform(click())
@@ -59,7 +60,6 @@ class LoginRegisterActivityInstrumentedTest {
 
     @Test
     fun startRegisterActivityOnRegisterClick() {
-        activityTestRule.activity
         Intents.init()
 
         Espresso.onView(withId(R.id.bt_register))
@@ -73,10 +73,10 @@ class LoginRegisterActivityInstrumentedTest {
 
     @Test
     fun startTermsWebViewOnTermsClick() {
-        activityTestRule.activity
         Intents.init()
         intending(not(isInternal())).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
 
+        SystemClock.sleep(100)
         Espresso.onView(withId(R.id.bt_terms))
                 .check(matches(isDisplayed()))
                 .perform(click())

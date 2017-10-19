@@ -17,9 +17,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentedTest {
-    companion object {
-        private val SUPPORT_PHONE = "55 21 123456789"
-    }
 
     @get:Rule
     var activityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -30,11 +27,11 @@ class MainActivityInstrumentedTest {
         activityTestRule.activity
 
         Espresso.onView(ViewMatchers.isAssignableFrom(Toolbar::class.java))
-                .check(ViewAssertions.matches(withToolbarTitle(Matchers.`is`("Hi Monica!"))))
+                .check(ViewAssertions.matches(withToolbarTitle(Matchers.containsString("Hi"))))
 
     }
 
-    private fun withToolbarTitle(textMatcher: Matcher<CharSequence>): Matcher<Any> {
+    private fun withToolbarTitle(textMatcher: Matcher<String>): Matcher<Any> {
         return object : BoundedMatcher<Any, Toolbar>(Toolbar::class.java) {
             public override fun matchesSafely(toolbar: Toolbar): Boolean {
                 return textMatcher.matches(toolbar.title)

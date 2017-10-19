@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.changepass
 
+import android.os.SystemClock
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
@@ -20,14 +21,15 @@ class ChangePassActivityInstrumentedTest {
 
     @Test
     fun goToLoginOnEnterClickWithCorrectData() {
-        activityTestRule.activity
 
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_enter))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -37,14 +39,15 @@ class ChangePassActivityInstrumentedTest {
 
     @Test
     fun showErrorsOnRegisterClickWithEmptyDataOnPass1() {
-        activityTestRule.activity
 
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_enter))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -55,14 +58,15 @@ class ChangePassActivityInstrumentedTest {
 
     @Test
     fun showErrorsOnRegisterClickWithEmptyDataOnPass2() {
-        activityTestRule.activity
 
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_enter))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -73,14 +77,15 @@ class ChangePassActivityInstrumentedTest {
 
     @Test
     fun showErrorsOnRegisterClickWithDifferentData() {
-        activityTestRule.activity
 
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText("54321"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_enter))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())

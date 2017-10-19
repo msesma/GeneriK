@@ -54,6 +54,7 @@ class DrawerInstrumentedTest {
         Espresso.onView(ViewMatchers.withText(R.string.terms))
                 .perform(ViewActions.click())
 
+        SystemClock.sleep(100)
         Intents.intended(IntentMatchers.hasData(Uri.parse(DrawerInstrumentedTest.TERMS_URL)))
         Intents.release()
     }
@@ -70,6 +71,7 @@ class DrawerInstrumentedTest {
         Espresso.onView(ViewMatchers.withText(R.string.logout))
                 .perform(ViewActions.click())
 
+        SystemClock.sleep(100)
         Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
         Intents.release()
     }
