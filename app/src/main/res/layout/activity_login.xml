@@ -64,6 +64,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:layout_marginTop="16dp"
+        android:enabled="false"
         />
 
     <Button

@@ -2,10 +2,12 @@ package com.paradigmadigital.ui.login
 
 import android.text.TextUtils
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.OnFocusChange
 import com.paradigmadigital.R
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
@@ -22,6 +24,8 @@ class LoginDecorator
     lateinit var email: EditText
     @BindView(R.id.et_pass)
     lateinit var pass: EditText
+    @BindView(R.id.bt_forgot)
+    lateinit var forgot: Button
 
     private var delegate: LoginUserInterface.Delegate? = null
 
@@ -44,6 +48,12 @@ class LoginDecorator
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    @OnFocusChange(R.id.et_email)
+    fun onEmailEntered(focused: Boolean) {
+        if (focused) return
+        forgot.isEnabled = android.util.Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()
+    }
+
     @OnClick(R.id.bt_login)
     fun onLoginClick() {
         val emailText = email.text.toString()
@@ -62,5 +72,5 @@ class LoginDecorator
     }
 
     @OnClick(R.id.bt_forgot)
-    fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty, { delegate?.onForgotPassword() })
+    fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty) { delegate?.onForgotPassword(email.text.toString()) }
 }

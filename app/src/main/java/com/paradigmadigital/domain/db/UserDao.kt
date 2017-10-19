@@ -17,6 +17,6 @@ abstract class UserDao {
     @Query("SELECT * FROM user")
     abstract fun get(): LiveData<User>
 
-    @Query("SELECT uid FROM user")
-    abstract fun getUid(): String
+    @Query("SELECT email FROM user")
+    abstract fun getEmail(): String
 }

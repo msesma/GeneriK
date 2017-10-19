@@ -21,7 +21,8 @@ constructor(
             //TODO Real login
         }
 
-        override fun onForgotPassword() {
+        override fun onForgotPassword(email: String) {
+            repository.setUser(email)
             navigator.navigateToInputCode()
         }
     }

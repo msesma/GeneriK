@@ -9,7 +9,7 @@ interface LoginUserInterface {
 
         fun onLogin(email: String, pass: String)
 
-        fun onForgotPassword()
+        fun onForgotPassword(email: String)
 
     }
 }

@@ -10,6 +10,7 @@ import com.paradigmadigital.repository.NetworkResultCode.DISCONNECTED
 import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import retrofit2.Retrofit
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -45,12 +46,16 @@ constructor(
         sendUserData(user, pass) { networkResultLiveData.setNetworkResult(it) }
     }
 
+    fun setUser(email: String) {
+        userDao.insert(User("","", Date(0),"",email))
+    }
+
     fun requestCode(id: Int) {
-        requestCode(userDao.getUid(), id) { networkResultLiveData.setNetworkResult(it) }
+        requestCode(userDao.getEmail(), id) { networkResultLiveData.setNetworkResult(it) }
     }
 
     fun setPass(id: Int) {
-        sendUserPass(userDao.getUid(), getPass(), id) { networkResultLiveData.setNetworkResult(it) }
+        sendUserPass(userDao.getEmail(), getPass(), id) { networkResultLiveData.setNetworkResult(it) }
     }
 
     private fun sendUserData(user: User, pass: String, callback: CallbackFun<NetworkResult>) {
