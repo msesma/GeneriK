@@ -1,8 +1,6 @@
 package com.paradigmadigital.repository
 
-enum class NetworkResult {
-    SUCCESS,
-    DISCONNECTED,
-    BAD_URL,
-    UNKNOWN
-}
+data class NetworkResult(
+        val result: NetworkResultCode,
+        val requestId: Int
+)

@@ -1,6 +1,8 @@
 package com.paradigmadigital.ui.inputcode
 
 import com.paradigmadigital.navigation.Navigator
+import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.ui.ResultViewModel
 import javax.inject.Inject
 
 
@@ -8,7 +10,8 @@ class InputCodePresenter
 @Inject
 constructor(
         private val navigator: Navigator,
-        private val smsManager: SmsManager
+        private val smsManager: SmsManager,
+        private val repository: Repository
 ) {
 
     private var decorator: InputCodeUserInterface? = null
@@ -16,19 +19,22 @@ constructor(
 
     private val delegate = object : InputCodeUserInterface.Delegate {
         override fun onCode(code: String) {
-            //TODO verify code
-            if (fromRegister) navigator.navigateToLoginRegister() else navigator.navigateToChangePassword()
+            repository.setPass(InputCodeDecorator.REQUEST_SET_PASS)
         }
 
         override fun onSendNew() {
             decorator?.autoComplete("123456")
-            //TODO  Ask the backend to send a new code
+            repository.requestCode(InputCodeDecorator.REQUEST_CODE)
+        }
+
+        override fun onCodeSent(sucess: Boolean) {
+            if (fromRegister || !sucess) navigator.navigateToLoginRegister() else navigator.navigateToChangePassword()
         }
     }
 
-    fun initialize(decorator: InputCodeUserInterface, fromRegister: Boolean) {
+    fun initialize(decorator: InputCodeUserInterface, fromRegister: Boolean, resultViewModel: ResultViewModel) {
         this.decorator = decorator
-        this.decorator?.initialize(delegate)
+        this.decorator?.initialize(delegate, resultViewModel)
         this.fromRegister = fromRegister
 
         requestSmsCode(decorator)
@@ -41,6 +47,6 @@ constructor(
 
     private fun requestSmsCode(decorator: InputCodeUserInterface) {
         smsManager.initialize { decorator.autoComplete(it) }
-        //TODO  Ask the backend to send a code
+        repository.requestCode(InputCodeDecorator.REQUEST_CODE)
     }
 }

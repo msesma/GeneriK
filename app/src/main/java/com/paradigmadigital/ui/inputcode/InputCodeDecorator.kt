@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.inputcode
 
+import android.arch.lifecycle.Observer
 import android.os.Handler
 import android.view.View
 import android.widget.Button
@@ -8,17 +9,25 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.paradigmadigital.R
+import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
+import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.BaseDecorator
+import com.paradigmadigital.ui.ResultViewModel
 import javax.inject.Inject
 
 
 class InputCodeDecorator
 @Inject constructor(
-        private val activity: BaseActivity
-) : InputCodeUserInterface {
+        private val activity: BaseActivity,
+        private val dialog: AlertDialog
+) : BaseDecorator(dialog), InputCodeUserInterface {
 
     companion object {
-        val CODE_LEN = 6
+        val REQUEST_CODE = 0
+        val REQUEST_SET_PASS = 1
+        private val CODE_LEN = 6
     }
 
     @BindView(R.id.tv_code)
@@ -37,8 +46,9 @@ class InputCodeDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: InputCodeUserInterface.Delegate) {
+    override fun initialize(delegate: InputCodeUserInterface.Delegate, resultViewModel: ResultViewModel) {
         this.delegate = delegate
+        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
     override fun autoComplete(text: String) {
@@ -92,5 +102,16 @@ class InputCodeDecorator
         codeText = ""
         code.text = ""
         delegate?.onSendNew()
+    }
+
+    override fun handleResult(result: NetworkResult?) {
+        stopWaitingMode()
+        if (result == null) return
+        when {
+            result.result == SUCCESS && result.requestId == REQUEST_CODE -> return
+            result.result == SUCCESS && result.requestId == REQUEST_SET_PASS -> delegate?.onCodeSent(true)
+            result.requestId == REQUEST_CODE -> dialog.show(R.string.unknown_error, R.string.connection_error) { }
+            result.requestId == REQUEST_SET_PASS -> dialog.show(R.string.unknown_error, R.string.pass_not_updated) { delegate?.onCodeSent(false) }
+        }
     }
 }

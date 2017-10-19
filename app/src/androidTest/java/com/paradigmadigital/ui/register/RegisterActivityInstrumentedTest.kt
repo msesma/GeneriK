@@ -26,6 +26,7 @@ class RegisterActivityInstrumentedTest {
     fun goToLoginRegisterOnRegisterClickWithCorrectData() {
         Intents.init()
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_name))
                 .perform(ViewActions.closeSoftKeyboard())
                 .perform(ViewActions.replaceText("Pepe"))
@@ -56,6 +57,7 @@ class RegisterActivityInstrumentedTest {
 
     @Test
     fun showErrorsOnRegisterClickWithEmptyData() {
+        SystemClock.sleep(100)
          Espresso.onView(ViewMatchers.withId(R.id.et_email1))
                 .perform(ViewActions.closeSoftKeyboard())
                 .perform(ViewActions.replaceText(""))
@@ -84,15 +86,20 @@ class RegisterActivityInstrumentedTest {
 
     @Test
     fun showErrorsOnRegisterClickWithDifferentData() {
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_email1))
                 .perform(ViewActions.closeSoftKeyboard())
                 .perform(ViewActions.replaceText("test@email.com"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_email2))
                 .perform(ViewActions.replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .perform(ViewActions.replaceText("12345"))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass2))
                 .perform(ViewActions.replaceText(""))
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_register))
                 .perform(ViewActions.click())
 

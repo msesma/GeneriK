@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.R
 import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
@@ -27,7 +28,7 @@ class RegisterDecorator
 @Inject constructor(
         private val activity: BaseActivity,
         private val apiClient: GoogleApiClient,
-        private val dialog: AlertDialog
+        dialog: AlertDialog
 ) : BaseDecorator(dialog), RegisterUserInterface {
 
     companion object {
@@ -60,7 +61,6 @@ class RegisterDecorator
 
     override fun initialize(delegate: RegisterUserInterface.Delegate, resultViewModel: ResultViewModel) {
         this.delegate = delegate
-
         resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
@@ -85,7 +85,6 @@ class RegisterDecorator
         }
     }
 
-
     @OnFocusChange(R.id.et_tel)
     fun onTelFieldFocused(focused: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O || !focused) return
@@ -93,7 +92,7 @@ class RegisterDecorator
     }
 
     override fun handleResult(result: NetworkResult?) {
-        if (result == NetworkResult.SUCCESS) {
+        if (result?.result == NetworkResultCode.SUCCESS) {
             delegate?.onRegistered()
             stopWaitingMode()
             return

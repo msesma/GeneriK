@@ -1,9 +1,11 @@
 package com.paradigmadigital.ui.inputcode
 
+import com.paradigmadigital.ui.ResultViewModel
+
 
 interface InputCodeUserInterface {
 
-    fun initialize(delegate: Delegate)
+    fun initialize(delegate: Delegate, resultViewModel: ResultViewModel)
 
     fun autoComplete(text: String)
 
@@ -12,6 +14,8 @@ interface InputCodeUserInterface {
         fun onCode(code: String)
 
         fun onSendNew()
+
+        fun onCodeSent(sucess: Boolean)
 
     }
 }

@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.paradigmadigital.ui.changepass.ChangePassActivity"
     >
+
     <include layout="@layout/wait"/>
 
     <ScrollView

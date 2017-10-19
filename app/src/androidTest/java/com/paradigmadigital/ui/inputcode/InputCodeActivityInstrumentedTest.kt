@@ -40,7 +40,6 @@ class InputCodeActivityInstrumentedTest {
         }
     }
 
-
     @Test
     fun check0to4Buttons() {
         activityTestRuleFromChangePass.launchActivity(null)
@@ -119,7 +118,6 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
-
     @Test
     fun goChangePaswordOn6DigitsClickWithCorrectData() {
         activityTestRuleFromChangePass.launchActivity(null)
@@ -144,7 +142,7 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
-        SystemClock.sleep(100)
+        SystemClock.sleep(2500)
         Intents.intended(IntentMatchers.hasComponent(ChangePassActivity::class.java.name))
         Intents.release()
     }
@@ -158,7 +156,7 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
-        SystemClock.sleep(100)
+        SystemClock.sleep(3500)
         Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
         Intents.release()
     }
@@ -187,7 +185,7 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
-        SystemClock.sleep(100)
+        SystemClock.sleep(3500)
         Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
         Intents.release()
     }
@@ -201,7 +199,7 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
-        SystemClock.sleep(100)
+        SystemClock.sleep(3500)
         Intents.intended(IntentMatchers.hasComponent(ChangePassActivity::class.java.name))
         Intents.release()
     }

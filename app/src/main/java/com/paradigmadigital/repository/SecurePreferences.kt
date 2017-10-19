@@ -12,7 +12,7 @@ class SecurePreferences @Inject constructor(
     }
 
     var password: String
-        get() = Qlassified.Service.getString(PASS_KEY)
+        get() = Qlassified.Service.getString(PASS_KEY) ?: ""
         set(value) {
             Qlassified.Service.put(PASS_KEY, value)
         }

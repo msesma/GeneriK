@@ -8,9 +8,9 @@ import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.Preferences
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.repository.SecurePreferences
-import com.paradigmadigital.repository.providers.RegisterProvider
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -25,7 +25,6 @@ class DomainModule() {
                     .allowMainThreadQueries()
                     .build()
 
-
     @Singleton
     @Provides
     fun provideChannelsDao(db: Database) = db.userDao()
@@ -37,10 +36,11 @@ class DomainModule() {
     @Singleton
     @Provides
     fun provideRepository(preferences: Preferences,
-                          registerProvider: RegisterProvider,
                           networkResultLiveData: NetworkResultLiveData,
                           userDao: UserDao,
-                          securePreferences: SecurePreferences) =
-            Repository(preferences, registerProvider, networkResultLiveData, userDao, securePreferences)
+                          securePreferences: SecurePreferences,
+                          retrofit: Retrofit,
+                          executor: Executor) =
+            Repository(preferences, networkResultLiveData, userDao, securePreferences, retrofit, executor)
 
 }

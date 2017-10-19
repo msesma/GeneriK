@@ -7,6 +7,7 @@ import android.view.View.VISIBLE
 import butterknife.BindView
 import com.paradigmadigital.R
 import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode.*
 
 
 abstract class BaseDecorator
@@ -30,17 +31,11 @@ constructor(
     open fun handleResult(result: NetworkResult?) {
         stopWaitingMode()
         if (result == null) return
-        when (result) {
-            NetworkResult.SUCCESS -> return
-            NetworkResult.DISCONNECTED -> {
-                dialog.show(R.string.connection_error, R.string.empty, { })
-            }
-            NetworkResult.BAD_URL -> {
-                dialog.show(R.string.server_error, R.string.empty, { })
-            }
-            NetworkResult.UNKNOWN -> {
-                dialog.show(R.string.unknown_error, R.string.empty, { })
-            }
+        when (result.result) {
+            SUCCESS -> return
+            DISCONNECTED -> dialog.show(R.string.connection_error, R.string.empty, { })
+            BAD_URL -> dialog.show(R.string.server_error, R.string.empty, { })
+            UNKNOWN -> dialog.show(R.string.unknown_error, R.string.empty, { })
         }
     }
 }

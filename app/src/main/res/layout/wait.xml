@@ -9,7 +9,6 @@
     android:layout_height="match_parent"
     android:background="#55000000"
     android:visibility="invisible"
-    tools:visibility="visible"
     >
 
     <View

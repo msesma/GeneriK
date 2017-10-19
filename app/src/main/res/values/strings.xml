@@ -39,4 +39,5 @@
     <string name="connectivity_error">Connectrivity error. Try again later</string>
     <string name="server_error">Server error. Try again later</string>
     <string name="unknown_error">Unknown error. Try again later</string>
+    <string name="pass_not_updated">Please create a password from login screen</string>
 </resources>

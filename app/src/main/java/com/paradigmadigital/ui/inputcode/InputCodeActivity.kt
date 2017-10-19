@@ -19,7 +19,9 @@ class InputCodeActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator, intent.extras.getBoolean(Navigator.EXTRA_FROM_REGISTER))
+        presenter.initialize(decorator,
+                intent.extras.getBoolean(Navigator.EXTRA_FROM_REGISTER),
+                resultViewModel)
     }
 
 

@@ -19,7 +19,7 @@ constructor(
     private val delegate = object : RegisterUserInterface.Delegate {
 
         override fun onRegister(name: String, tel: String, email: String, pass: String) {
-            val user = User(name, Date(), tel, email)
+            val user = User("", name, Date(), tel, email)
             useCase.execute(user, pass)
         }
 

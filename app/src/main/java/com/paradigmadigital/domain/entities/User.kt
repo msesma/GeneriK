@@ -7,8 +7,10 @@ import java.util.*
 
 @Entity(tableName = "user")
 data class User(
+        @PrimaryKey
+        var uid: String,
         var name: String,
         var registerDate: Date,
         var phone: String,
-        @PrimaryKey var email: String
+        var email: String
 )
