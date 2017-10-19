@@ -14,6 +14,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.paradigmadigital.R
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.changepass.ChangePassActivity
+import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import org.hamcrest.Matchers
 import org.junit.Rule
 import org.junit.Test
@@ -23,18 +24,26 @@ import org.junit.runner.RunWith
 class InputCodeActivityInstrumentedTest {
 
     @get: Rule
-    val activityTestRule = object : ActivityTestRule<InputCodeActivity>(InputCodeActivity::class.java, true, false) {
+    val activityTestRuleFromChangePass = object : ActivityTestRule<InputCodeActivity>(InputCodeActivity::class.java, true, false) {
         override fun getActivityIntent(): Intent {
             val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
             return Intent(targetContext, InputCodeActivity::class.java)
                     .putExtra(Navigator.EXTRA_FROM_REGISTER, false)
         }
     }
+    @get: Rule
+    val activityTestRuleFromRegister = object : ActivityTestRule<InputCodeActivity>(InputCodeActivity::class.java, true, false) {
+        override fun getActivityIntent(): Intent {
+            val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
+            return Intent(targetContext, InputCodeActivity::class.java)
+                    .putExtra(Navigator.EXTRA_FROM_REGISTER, true)
+        }
+    }
 
 
     @Test
     fun check0to4Buttons() {
-        activityTestRule.launchActivity(null)
+        activityTestRuleFromChangePass.launchActivity(null)
 
         Espresso.onView(ViewMatchers.withId(R.id.bt_0))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -58,7 +67,7 @@ class InputCodeActivityInstrumentedTest {
 
     @Test
     fun check5to9Buttons() {
-        activityTestRule.launchActivity(null)
+        activityTestRuleFromChangePass.launchActivity(null)
 
         Espresso.onView(ViewMatchers.withId(R.id.bt_5))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -82,7 +91,7 @@ class InputCodeActivityInstrumentedTest {
 
     @Test
     fun checkBackButton() {
-        activityTestRule.launchActivity(null)
+        activityTestRuleFromChangePass.launchActivity(null)
 
         Espresso.onView(ViewMatchers.withId(R.id.bt_back))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -113,7 +122,7 @@ class InputCodeActivityInstrumentedTest {
 
     @Test
     fun goChangePaswordOn6DigitsClickWithCorrectData() {
-        activityTestRule.launchActivity(null)
+        activityTestRuleFromChangePass.launchActivity(null)
         Intents.init()
 
         Espresso.onView(ViewMatchers.withId(R.id.bt_0))
@@ -141,8 +150,51 @@ class InputCodeActivityInstrumentedTest {
     }
 
     @Test
+    fun goLoginregisterOnSMSWithCorrectData() {
+        activityTestRuleFromRegister.launchActivity(null)
+        Intents.init()
+
+        Espresso.onView(ViewMatchers.withId(R.id.bt_new))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+
+        SystemClock.sleep(100)
+        Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
+        Intents.release()
+    }
+
+    @Test
+    fun goLoginregisterOn6DigitsClickWithCorrectData() {
+        activityTestRuleFromRegister.launchActivity(null)
+        Intents.init()
+
+        Espresso.onView(ViewMatchers.withId(R.id.bt_0))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bt_1))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bt_2))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bt_3))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bt_4))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.bt_5))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
+
+        SystemClock.sleep(100)
+        Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
+        Intents.release()
+    }
+
+    @Test
     fun goChangePaswordOnSMSWithCorrectData() {
-        activityTestRule.launchActivity(null)
+        activityTestRuleFromChangePass.launchActivity(null)
         Intents.init()
 
         Espresso.onView(ViewMatchers.withId(R.id.bt_new))
