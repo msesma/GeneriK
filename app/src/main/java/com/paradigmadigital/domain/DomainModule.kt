@@ -18,14 +18,12 @@ import javax.inject.Singleton
 @Module
 class DomainModule() {
 
-    @Singleton
     @Provides
     fun provideFeedDb(application: Context) =
             Room.databaseBuilder(application, Database::class.java, "data.db")
                     .allowMainThreadQueries()
                     .build()
 
-    @Singleton
     @Provides
     fun provideChannelsDao(db: Database) = db.userDao()
 

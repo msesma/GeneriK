@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.login
 
+import android.arch.lifecycle.Observer
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
@@ -9,8 +10,12 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnFocusChange
 import com.paradigmadigital.R
+import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.BaseDecorator
+import com.paradigmadigital.ui.ResultViewModel
 import javax.inject.Inject
 
 
@@ -18,7 +23,7 @@ class LoginDecorator
 @Inject constructor(
         private val activity: BaseActivity,
         private val dialog: AlertDialog
-) : LoginUserInterface {
+) : BaseDecorator(dialog), LoginUserInterface {
 
     @BindView(R.id.et_email)
     lateinit var email: EditText
@@ -38,8 +43,9 @@ class LoginDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: LoginUserInterface.Delegate) {
+    override fun initialize(delegate: LoginUserInterface.Delegate, resultViewModel: ResultViewModel) {
         this.delegate = delegate
+        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
     private fun initToolbar() {
@@ -68,9 +74,19 @@ class LoginDecorator
             return
         }
 
+        startWaitingMode()
         delegate?.onLogin(email = emailText, pass = passText)
     }
 
     @OnClick(R.id.bt_forgot)
     fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty) { delegate?.onForgotPassword(email.text.toString()) }
+
+    override fun handleResult(result: NetworkResult?) {
+        stopWaitingMode()
+        if (result?.result != SUCCESS) {
+            super.handleResult(result)
+            return
+        }
+        if (delegate?.onLoggedIn() == false) dialog.show(R.string.login_error, R.string.empty) { }
+    }
 }

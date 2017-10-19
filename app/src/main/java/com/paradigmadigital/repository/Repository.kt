@@ -6,8 +6,7 @@ import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.platform.CallbackFun
-import com.paradigmadigital.repository.NetworkResultCode.DISCONNECTED
-import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
+import com.paradigmadigital.repository.NetworkResultCode.*
 import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
@@ -47,7 +46,7 @@ constructor(
     }
 
     fun setUser(email: String) {
-        userDao.insert(User("","", Date(0),"",email))
+        userDao.insert(User("", "", Date(0), "", email))
     }
 
     fun requestCode(id: Int) {
@@ -56,6 +55,11 @@ constructor(
 
     fun setPass(id: Int) {
         sendUserPass(userDao.getEmail(), getPass(), id) { networkResultLiveData.setNetworkResult(it) }
+    }
+
+    fun login(email: String, pass: String) {
+        setLoggedIn(false)
+        sendLogin(email, pass) { networkResultLiveData.setNetworkResult(it) }
     }
 
     private fun sendUserData(user: User, pass: String, callback: CallbackFun<NetworkResult>) {
@@ -99,11 +103,29 @@ constructor(
         }
     }
 
+    private fun sendLogin(email: String, pass: String, callback: CallbackFun<NetworkResult>) {
+        executor.execute {
+            try {
+                SystemClock.sleep(1000) //TODO: call login service
+//                if (loginRegisterService.sendLogin(email, pass).execute().body() == null) throw UnknownHostException()
+                val a = userDao.getEmail()
+                val b = securePreferences.password
+                if (email == userDao.getEmail() && pass == securePreferences.password) {
+                    setLoggedIn(true)
+                }
+                callback(NetworkResult(SUCCESS, 0))
+            } catch (e: Throwable) {
+                securePreferences.password = ""
+                manageExceptions(e, callback, 0)
+            }
+        }
+    }
+
     private fun manageExceptions(e: Throwable, callback: CallbackFun<NetworkResult>, id: Int) {
         when (e) {
             is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
-            is IllegalArgumentException -> callback(NetworkResult(DISCONNECTED, id))
-            else -> callback(NetworkResult(DISCONNECTED, id))
+            is IllegalArgumentException -> callback(NetworkResult(BAD_URL, id))
+            else -> callback(NetworkResult(UNKNOWN, id))
         }
     }
 }

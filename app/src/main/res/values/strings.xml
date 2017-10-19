@@ -40,4 +40,5 @@
     <string name="server_error">Server error. Try again later</string>
     <string name="unknown_error">Unknown error. Try again later</string>
     <string name="pass_not_updated">Please create a password from login screen</string>
+    <string name="login_error">Incorrect user or password</string>
 </resources>

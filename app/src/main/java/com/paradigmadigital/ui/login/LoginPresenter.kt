@@ -2,6 +2,7 @@ package com.paradigmadigital.ui.login
 
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.ui.ResultViewModel
 import javax.inject.Inject
 
 
@@ -15,21 +16,26 @@ constructor(
     private var decorator: LoginUserInterface? = null
 
     private val delegate = object : LoginUserInterface.Delegate {
+
         override fun onLogin(email: String, pass: String) {
-            repository.setLoggedIn(true)
-            navigator.navigateToMain()
-            //TODO Real login
+            repository.login(email, pass)
         }
 
         override fun onForgotPassword(email: String) {
             repository.setUser(email)
             navigator.navigateToInputCode()
         }
+
+        override fun onLoggedIn(): Boolean {
+            val loggedIn = repository.isLoggedIn()
+            if (loggedIn) navigator.navigateToMain()
+            return loggedIn
+        }
     }
 
-    fun initialize(decorator: LoginUserInterface) {
+    fun initialize(decorator: LoginUserInterface, resultViewModel: ResultViewModel) {
         this.decorator = decorator
-        this.decorator?.initialize(delegate)
+        this.decorator?.initialize(delegate, resultViewModel)
     }
 
     fun dispose() {

@@ -86,6 +86,7 @@ class InputCodeDecorator
 
     private fun sendCode() {
         val rawCode = codeText.filter { it != ' ' }
+        startWaitingMode()
         Handler().postDelayed(Runnable {
             delegate?.onCode(rawCode)
         }, 250)
