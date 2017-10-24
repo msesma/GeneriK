@@ -52,6 +52,10 @@ constructor(
         requestCode(userDao.getEmail(), id) { networkResultLiveData.setNetworkResult(it) }
     }
 
+    fun updatePass(pass: String) {
+        securePreferences.password = pass
+    }
+
     fun setPass(id: Int) {
         sendUserPass(userDao.getEmail(), getPass(), id) { networkResultLiveData.setNetworkResult(it) }
     }

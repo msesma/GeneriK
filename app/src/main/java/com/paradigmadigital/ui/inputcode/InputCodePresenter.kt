@@ -15,7 +15,6 @@ constructor(
 ) {
 
     private var decorator: InputCodeUserInterface? = null
-    private var fromRegister = false
 
     private val delegate = object : InputCodeUserInterface.Delegate {
         override fun onCode(code: String) {
@@ -28,14 +27,13 @@ constructor(
         }
 
         override fun onCodeSent(sucess: Boolean) {
-            if (fromRegister || !sucess) navigator.navigateToLoginRegister() else navigator.navigateToChangePassword()
+            navigator.navigateToLoginRegister()
         }
     }
 
-    fun initialize(decorator: InputCodeUserInterface, fromRegister: Boolean, resultViewModel: ResultViewModel) {
+    fun initialize(decorator: InputCodeUserInterface, resultViewModel: ResultViewModel) {
         this.decorator = decorator
         this.decorator?.initialize(delegate, resultViewModel)
-        this.fromRegister = fromRegister
 
         requestSmsCode(decorator)
     }

@@ -1,20 +1,19 @@
 package com.paradigmadigital.ui.changepass
 
-import com.paradigmadigital.navigation.Navigator
+import com.paradigmadigital.usecases.ChangePassUseCase
 import javax.inject.Inject
 
 class ChangePassPresenter
 @Inject
 constructor(
-        val navigator: Navigator
+        useCase: ChangePassUseCase
 ) {
 
     private var decorator: ChangePassUserInterface? = null
 
     private val delegate = object : ChangePassUserInterface.Delegate {
         override fun onNewPass(pass: String) {
-            navigator.closeActivity()
-            //TODO update password
+            useCase.execute(pass)
         }
     }
 

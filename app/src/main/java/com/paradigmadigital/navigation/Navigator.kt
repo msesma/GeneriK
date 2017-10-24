@@ -20,7 +20,6 @@ constructor(
 ) {
     companion object {
         private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
-        val EXTRA_FROM_REGISTER = "extra_from_register"
     }
 
     fun navigateToLoginRegister() {
@@ -47,7 +46,6 @@ constructor(
 
     fun navigateToInputCode() {
         val intent = Intent(activity, InputCodeActivity::class.java)
-        intent.putExtra(EXTRA_FROM_REGISTER, activity is RegisterActivity)
         activity.startActivity(intent)
     }
 
@@ -58,7 +56,6 @@ constructor(
     fun navigateToChangePassword() {
         val intent = Intent(activity, ChangePassActivity::class.java)
         activity.startActivity(intent)
-        if (activity is InputCodeActivity) activity.finish()
     }
 
     fun closeActivity() {

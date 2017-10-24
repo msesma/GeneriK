@@ -23,7 +23,7 @@ constructor(
 
         override fun onForgotPassword(email: String) {
             repository.setUser(email)
-            navigator.navigateToInputCode()
+            navigator.navigateToChangePassword()
         }
 
         override fun onLoggedIn(): Boolean {
