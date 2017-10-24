@@ -37,10 +37,15 @@ constructor(
         return userDao.get()
     }
 
-    fun getPass() = securePreferences.password
-
     fun setUser(user: User, pass: String) {
-        sendUserData(user, pass) { networkResultLiveData.setNetworkResult(it) }
+        executeCall {
+            //            val body = loginRegisterService.sendUserData(user).execute().body()
+//            if (body == null) throw UnknownHostException()
+//            userDao.insert(user.copy(oneRow = "1", uid = body.uid))
+            userDao.insert(user.copy(oneRow = "1", uid = "1234"))
+            securePreferences.password = pass
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
+        }
     }
 
     fun setUser(email: String) {
@@ -48,7 +53,10 @@ constructor(
     }
 
     fun requestCode(id: Int) {
-        requestCode(userDao.getEmail(), id) { networkResultLiveData.setNetworkResult(it) }
+        executeCall(id) {
+            //            if (loginRegisterService.requestCode(uid).execute().body() == null) throw UnknownHostException()
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
+        }
     }
 
     fun updatePass(pass: String) {
@@ -56,69 +64,34 @@ constructor(
     }
 
     fun setPass(id: Int) {
-        sendUserPass(userDao.getEmail(), getPass(), id) { networkResultLiveData.setNetworkResult(it) }
+        executeCall(id) {
+            //                if (loginRegisterService.sendUserPass(uid, pass).execute().body() == null) throw UnknownHostException()
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
+        }
     }
 
     fun login(email: String, pass: String) {
-        sendLogin(email, pass) { networkResultLiveData.setNetworkResult(it) }
-    }
-
-    private fun sendUserData(user: User, pass: String, callback: CallbackFun<NetworkResult>) {
-        executor.execute {
-            try {
-                SystemClock.sleep(1000) //TODO: call register service and get reurned uid
-//                val body = loginRegisterService.sendUserData(user).execute().body()
-//                if ( body == null) throw UnknownHostException()
-//                userDao.insert(user.copy(oneRow = "1", uid = body.uid))
-                userDao.insert(user.copy(oneRow = "1", uid = "1234"))
-                securePreferences.password = pass
-                callback(NetworkResult(SUCCESS, 0))
-            } catch (e: Throwable) {
-                manageExceptions(e, callback, 0)
-            }
-        }
-    }
-
-    private fun requestCode(uid: String, id: Int, callback: CallbackFun<NetworkResult>) {
-        executor.execute {
-            try {
-                SystemClock.sleep(1000) //TODO: call set pass service
-//                if (loginRegisterService.requestCode(uid).execute().body() == null) throw UnknownHostException()
-                callback(NetworkResult(SUCCESS, id))
-            } catch (e: Throwable) {
-                manageExceptions(e, callback, id)
-            }
-        }
-    }
-
-    private fun sendUserPass(uid: String, pass: String, id: Int, callback: CallbackFun<NetworkResult>) {
-        executor.execute {
-            try {
-                SystemClock.sleep(1000) //TODO: call request code service
-//                if (loginRegisterService.sendUserPass(uid, pass).execute().body() == null) throw UnknownHostException()
-                callback(NetworkResult(SUCCESS, id))
-            } catch (e: Throwable) {
-                manageExceptions(e, callback, id)
-            }
-        }
-    }
-
-    private fun sendLogin(email: String, pass: String, callback: CallbackFun<NetworkResult>) {
-        executor.execute {
-            try {
-                SystemClock.sleep(1000) //TODO: call login service
-//                val body = loginRegisterService.sendLogin(email, pass).execute().body()
+        executeCall {
+            //                val body = loginRegisterService.sendLogin(email, pass).execute().body()
 //                if ( body == null) throw UnknownHostException()
 //                userDao.insert(userMapper.map(body))
-                if (email == userDao.getEmail() && pass == securePreferences.password) setLoggedIn(true)
-                callback(NetworkResult(SUCCESS, 0))
+            if (email == userDao.getEmail() && pass == securePreferences.password) setLoggedIn(true)
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
+        }
+    }
+
+    private fun executeCall(id: Int = 0, call: () -> Unit) {
+        executor.execute {
+            try {
+                SystemClock.sleep(1000) //TODO: remove, only to emulate network delay
+                call()
             } catch (e: Throwable) {
-                manageExceptions(e, callback, 0)
+                manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
             }
         }
     }
 
-    private fun manageExceptions(e: Throwable, callback: CallbackFun<NetworkResult>, id: Int) {
+    private fun manageExceptions(e: Throwable, id: Int, callback: CallbackFun<NetworkResult>) {
         when (e) {
             is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
             is IllegalArgumentException -> callback(NetworkResult(BAD_URL, id))
