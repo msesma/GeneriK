@@ -9,8 +9,6 @@
     tools:context="com.paradigmadigital.ui.changepass.ChangePassActivity"
     >
 
-    <include layout="@layout/wait"/>
-
     <ScrollView
         android:id="@+id/form"
         android:layout_width="0dp"
@@ -157,5 +155,7 @@
         app:layout_constraintGuide_end="@dimen/right_guideline_pos"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <include layout="@layout/wait"/>
 
 </android.support.constraint.ConstraintLayout>

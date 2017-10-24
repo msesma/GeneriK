@@ -8,8 +8,6 @@
     tools:context="com.paradigmadigital.ui.inputcode.InputCodeActivity"
     >
 
-    <include layout="@layout/wait"/>
-
     <TextView
         android:id="@+id/tv_code"
         tools:text="1 2 3 4 5 6"
@@ -234,5 +232,7 @@
         app:layout_constraintGuide_end="@dimen/symmetric_guideline_pos"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <include layout="@layout/wait" />
 
 </android.support.constraint.ConstraintLayout>

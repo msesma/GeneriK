@@ -8,8 +8,6 @@
     tools:context="com.paradigmadigital.ui.login.LoginActivity"
     >
 
-    <include layout="@layout/wait"/>
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/et_pass1_layout"
         android:layout_width="0dp"
@@ -96,5 +94,7 @@
         app:layout_constraintGuide_end="@dimen/right_guideline_pos"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <include layout="@layout/wait"/>
 
 </android.support.constraint.ConstraintLayout>
