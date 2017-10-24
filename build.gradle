@@ -35,7 +35,7 @@ ext {
     support = '26.1.0'
     constraint = '1.0.2'
     crashlver = '2.7.0'
-    archcomponentsver = '1.0.0-beta2'
+    archcomponentsver = '1.0.0-rc1'
     playservices = '11.4.2'
 
     rx_java = '2.1.1'
