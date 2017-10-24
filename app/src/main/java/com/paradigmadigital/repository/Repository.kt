@@ -32,7 +32,6 @@ constructor(
 
     fun setLoggedIn(logged: Boolean) {
         preferences.isloggedIn = logged
-        if (!logged) securePreferences.password = ""
     }
 
     fun getUser(): LiveData<User> {
@@ -58,7 +57,6 @@ constructor(
     }
 
     fun login(email: String, pass: String) {
-        setLoggedIn(false)
         sendLogin(email, pass) { networkResultLiveData.setNetworkResult(it) }
     }
 
@@ -97,7 +95,6 @@ constructor(
 //                if (loginRegisterService.sendUserPass(uid, pass).execute().body() == null) throw UnknownHostException()
                 callback(NetworkResult(SUCCESS, id))
             } catch (e: Throwable) {
-                securePreferences.password = ""
                 manageExceptions(e, callback, id)
             }
         }
@@ -108,14 +105,9 @@ constructor(
             try {
                 SystemClock.sleep(1000) //TODO: call login service
 //                if (loginRegisterService.sendLogin(email, pass).execute().body() == null) throw UnknownHostException()
-                val a = userDao.getEmail()
-                val b = securePreferences.password
-                if (email == userDao.getEmail() && pass == securePreferences.password) {
-                    setLoggedIn(true)
-                }
+                if (email == userDao.getEmail() && pass == securePreferences.password) setLoggedIn(true)
                 callback(NetworkResult(SUCCESS, 0))
             } catch (e: Throwable) {
-                securePreferences.password = ""
                 manageExceptions(e, callback, 0)
             }
         }

@@ -110,6 +110,9 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver"
     testImplementation "commons-io:commons-io:$commons"
 
+    androidTestImplementation("com.squareup.assertj:assertj-android:$assertj") {
+        exclude module: 'support-annotations'
+    }
     androidTestImplementation("com.android.support.test:runner:$runner") {
         exclude module: 'support-annotations'
     }
