@@ -13,11 +13,13 @@ import android.support.test.espresso.matcher.ViewMatchers.hasErrorText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.paradigmadigital.R
-import com.paradigmadigital.ui.inputcode.InputCodeActivity
+import com.paradigmadigital.testutils.setFocus
+import com.paradigmadigital.ui.changepass.ChangePassActivity
 import com.paradigmadigital.ui.main.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 @RunWith(AndroidJUnit4::class)
 class LoginActivityInstrumentedTest {
@@ -42,6 +44,7 @@ class LoginActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
+        SystemClock.sleep(1500)
         Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
         Intents.release()
     }
@@ -60,6 +63,7 @@ class LoginActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
+        SystemClock.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(matches(hasErrorText("Invalid email format")))
     }
@@ -78,6 +82,7 @@ class LoginActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
+        SystemClock.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(matches(hasErrorText("Invalid email format")))
     }
@@ -102,8 +107,14 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun forgotDialogOpensAndCloses() {
-        val btForgot = Espresso.onView(ViewMatchers.withId(R.id.bt_forgot))
+        Espresso.onView(ViewMatchers.withId(R.id.et_email))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(replaceText("test@email.com"))
+        SystemClock.sleep(100)
+        Espresso.onView(ViewMatchers.withId(R.id.et_pass))
+                .perform(setFocus())
 
+        val btForgot = Espresso.onView(ViewMatchers.withId(R.id.bt_forgot))
         btForgot.check(matches(ViewMatchers.isDisplayed()))
         btForgot.perform(ViewActions.click())
 
@@ -118,8 +129,14 @@ class LoginActivityInstrumentedTest {
     @Test
     fun forgotDialogOpensInputCodeActivity() {
         Intents.init()
-        val btForgot = Espresso.onView(ViewMatchers.withId(R.id.bt_forgot))
+        Espresso.onView(ViewMatchers.withId(R.id.et_email))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(replaceText("test@email.com"))
+        SystemClock.sleep(100)
+        Espresso.onView(ViewMatchers.withId(R.id.et_pass))
+                .perform(setFocus())
 
+        val btForgot = Espresso.onView(ViewMatchers.withId(R.id.bt_forgot))
         btForgot.check(matches(ViewMatchers.isDisplayed()))
         btForgot.perform(ViewActions.click())
 
@@ -128,7 +145,7 @@ class LoginActivityInstrumentedTest {
         val confirmButton = Espresso.onView(ViewMatchers.withText(R.string.confirm))
         confirmButton.perform(ViewActions.click())
 
-        Intents.intended(IntentMatchers.hasComponent(InputCodeActivity::class.java.name))
+        Intents.intended(IntentMatchers.hasComponent(ChangePassActivity::class.java.name))
         Intents.release()
     }
 
