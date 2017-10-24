@@ -33,9 +33,9 @@ constructor(
         if (result == null) return
         when (result.result) {
             SUCCESS -> return
-            DISCONNECTED -> dialog.show(R.string.connection_error, R.string.empty, { })
-            BAD_URL -> dialog.show(R.string.server_error, R.string.empty, { })
-            UNKNOWN -> dialog.show(R.string.unknown_error, R.string.empty, { })
+            DISCONNECTED -> dialog.show(R.string.connection_error, R.string.empty, true, { })
+            BAD_URL -> dialog.show(R.string.server_error, R.string.empty, true, { })
+            UNKNOWN -> dialog.show(R.string.unknown_error, R.string.empty, true, { })
         }
     }
 }

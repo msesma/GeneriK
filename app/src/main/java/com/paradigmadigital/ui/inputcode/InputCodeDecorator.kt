@@ -111,8 +111,11 @@ class InputCodeDecorator
         when {
             result.result == SUCCESS && result.requestId == REQUEST_CODE -> return
             result.result == SUCCESS && result.requestId == REQUEST_SET_PASS -> delegate?.onCodeSent(true)
-            result.requestId == REQUEST_CODE -> dialog.show(R.string.unknown_error, R.string.connection_error) { }
-            result.requestId == REQUEST_SET_PASS -> dialog.show(R.string.unknown_error, R.string.pass_not_updated) { delegate?.onCodeSent(false) }
+            result.requestId == REQUEST_CODE ->
+                dialog.show(R.string.unknown_error, R.string.connection_error, true) { }
+            result.requestId == REQUEST_SET_PASS ->
+                dialog.show(R.string.unknown_error, R.string.pass_not_updated, true)
+                { delegate?.onCodeSent(false) }
         }
     }
 }

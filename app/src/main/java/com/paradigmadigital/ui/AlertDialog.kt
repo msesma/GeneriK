@@ -13,14 +13,22 @@ class AlertDialog
 constructor(
         private val activity: Activity
 ) {
-    fun show(@StringRes title: Int, @StringRes text: Int, callback: CallbackFun<Unit>) {
+    fun show(@StringRes title: Int, @StringRes text: Int, oneButton: Boolean, callback: CallbackFun<Unit>) {
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(title)
         builder.setMessage(text)
 
-        builder.setPositiveButton(R.string.confirm) { _, _ -> callback(Unit) }
-        builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.cancel() }
+        configureButtons(builder,oneButton, callback)
 
         builder.create().show()
+    }
+
+    private fun configureButtons(builder: AlertDialog.Builder, oneButton: Boolean, callback: CallbackFun<Unit>) {
+        if (oneButton) {
+            builder.setPositiveButton(R.string.ok) { _, _ -> callback(Unit) }
+            return
+        }
+        builder.setPositiveButton(R.string.confirm) { _, _ -> callback(Unit) }
+        builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.cancel() }
     }
 }

@@ -79,7 +79,7 @@ class LoginDecorator
     }
 
     @OnClick(R.id.bt_forgot)
-    fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty) { delegate?.onForgotPassword(email.text.toString()) }
+    fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty, false) { delegate?.onForgotPassword(email.text.toString()) }
 
     override fun handleResult(result: NetworkResult?) {
         stopWaitingMode()
@@ -87,6 +87,6 @@ class LoginDecorator
             super.handleResult(result)
             return
         }
-        if (delegate?.onLoggedIn() == false) dialog.show(R.string.login_error, R.string.empty) { }
+        if (delegate?.onLoggedIn() == false) dialog.show(R.string.login_error, R.string.empty, true) { }
     }
 }
