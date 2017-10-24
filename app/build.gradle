@@ -95,8 +95,8 @@ dependencies {
         transitive = true;
     }
 
-    debugImplementation "com.facebook.stetho:stetho:$estetho"
-    debugImplementation "com.facebook.stetho:stetho-okhttp3:$estetho"
+    implementation "com.facebook.stetho:stetho:$estetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$estetho"
 
     testImplementation "junit:junit:$junit"
     testImplementation("com.squareup.assertj:assertj-android:$assertj") {

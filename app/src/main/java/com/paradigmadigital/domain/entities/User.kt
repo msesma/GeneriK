@@ -8,9 +8,10 @@ import java.util.*
 @Entity(tableName = "user")
 data class User(
         @PrimaryKey
-        var uid: String,
-        var name: String,
-        var registerDate: Date,
-        var phone: String,
-        var email: String
+        var oneRow: String = "0",
+        var uid: String = "",
+        var name: String = "",
+        var registerDate: Date = Date(0),
+        var phone: String = "",
+        var email: String = ""
 )

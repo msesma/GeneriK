@@ -9,7 +9,6 @@ import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
 import retrofit2.Retrofit
 import java.net.UnknownHostException
-import java.util.*
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -45,7 +44,7 @@ constructor(
     }
 
     fun setUser(email: String) {
-        userDao.insert(User("", "", Date(0), "", email))
+        userDao.insert(User(email = email))
     }
 
     fun requestCode(id: Int) {
@@ -70,8 +69,8 @@ constructor(
                 SystemClock.sleep(1000) //TODO: call register service and get reurned uid
 //                val body = loginRegisterService.sendUserData(user).execute().body()
 //                if ( body == null) throw UnknownHostException()
-//                userDao.insert(user.copy(uid = body.uid))
-                userDao.insert(user.copy(uid = ""))
+//                userDao.insert(user.copy(oneRow = "1", uid = body.uid))
+                userDao.insert(user.copy(oneRow = "1", uid = "1234"))
                 securePreferences.password = pass
                 callback(NetworkResult(SUCCESS, 0))
             } catch (e: Throwable) {
@@ -108,7 +107,9 @@ constructor(
         executor.execute {
             try {
                 SystemClock.sleep(1000) //TODO: call login service
-//                if (loginRegisterService.sendLogin(email, pass).execute().body() == null) throw UnknownHostException()
+//                val body = loginRegisterService.sendLogin(email, pass).execute().body()
+//                if ( body == null) throw UnknownHostException()
+//                userDao.insert(userMapper.map(body))
                 if (email == userDao.getEmail() && pass == securePreferences.password) setLoggedIn(true)
                 callback(NetworkResult(SUCCESS, 0))
             } catch (e: Throwable) {

@@ -43,7 +43,6 @@ class LoginActivityInstrumentedTest {
                 .perform(ViewActions.click())
 
         Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
-        //TODO Verify data is inserted in repository
         Intents.release()
     }
 

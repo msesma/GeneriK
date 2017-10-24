@@ -6,6 +6,7 @@ import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.crashlytics.android.Crashlytics
+import com.facebook.stetho.Stetho
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
 import com.q42.qlassified.Qlassified
@@ -31,6 +32,7 @@ class AndroidApplication : Application() {
         Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
+        Stetho.initializeWithDefaults(this);
         initializeEncryptedPreferences()
     }
 
