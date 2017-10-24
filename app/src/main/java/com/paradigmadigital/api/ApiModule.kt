@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.paradigmadigital.BuildConfig
+import com.paradigmadigital.platform.Constants
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -49,15 +50,17 @@ class ApiModule() {
     @Provides
     fun provideOkHttpClient(
             context: Context,
-            loggingInterceptor: HttpLoggingInterceptor
+            loggingInterceptor: HttpLoggingInterceptor,
+            dummyInterceptor: DummyInterceptor
     ): OkHttpClient {
         val cache = Cache(File(context.cacheDir, "http-cache"), CACHE_SIZE)
-        return OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(cacheInterceptor)
                 .addNetworkInterceptor(StethoInterceptor())
                 .cache(cache)
-                .build()
+        if (BuildConfig.DEBUG && Constants.DUMMY_ENABLED) builder.addInterceptor(dummyInterceptor)
+        return builder.build()
     }
 
     @Provides

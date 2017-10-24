@@ -13,5 +13,7 @@ data class User(
         var name: String = "",
         var registerDate: Date = Date(0),
         var phone: String = "",
-        var email: String = ""
+        var email: String = "",
+        var code: String = "",
+        var codeDate: Date = Date(0)
 )

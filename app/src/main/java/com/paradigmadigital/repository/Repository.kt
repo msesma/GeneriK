@@ -2,6 +2,7 @@ package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
 import android.os.SystemClock
+import com.paradigmadigital.api.model.Code
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
@@ -9,7 +10,9 @@ import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
 import retrofit2.Retrofit
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -23,6 +26,11 @@ constructor(
         private val retrofit: Retrofit,
         private val executor: Executor
 ) {
+
+    companion object {
+        val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
+    }
+
     val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
@@ -31,6 +39,9 @@ constructor(
 
     fun setLoggedIn(logged: Boolean) {
         preferences.isloggedIn = logged
+        if (!isLoggedIn()) executeCall {
+            loginRegisterService.logout(userDao.getUser().email)
+        }
     }
 
     fun getUser(): LiveData<User> {
@@ -54,7 +65,10 @@ constructor(
 
     fun requestCode(id: Int) {
         executeCall(id) {
-            //            if (loginRegisterService.requestCode(uid).execute().body() == null) throw UnknownHostException()
+            val response = loginRegisterService.requestCode(userDao.getUser().email).execute()
+            if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
+            val code = response.body() as Code
+            userDao.setCode(code.code, Date(), code.email)
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
@@ -63,9 +77,14 @@ constructor(
         securePreferences.password = pass
     }
 
-    fun setPass(id: Int) {
+    fun setPass(code: String, id: Int) {
+        val user = userDao.getUser()
+        if (user.code != code || Date().time - user.codeDate.time > TIMEOUT) {
+            networkResultLiveData.setNetworkResult(NetworkResult(FAIL, id))
+            return
+        }
         executeCall(id) {
-            //                if (loginRegisterService.sendUserPass(uid, pass).execute().body() == null) throw UnknownHostException()
+           // if (loginRegisterService.sendUserPass(email, pass).execute().body() == null) throw UnknownHostException()
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
@@ -75,7 +94,7 @@ constructor(
             //                val body = loginRegisterService.sendLogin(email, pass).execute().body()
 //                if ( body == null) throw UnknownHostException()
 //                userDao.insert(userMapper.map(body))
-            if (email == userDao.getEmail() && pass == securePreferences.password) setLoggedIn(true)
+            if (email == userDao.getUser().email && pass == securePreferences.password) setLoggedIn(true)
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
         }
     }
@@ -92,9 +111,9 @@ constructor(
     }
 
     private fun manageExceptions(e: Throwable, id: Int, callback: CallbackFun<NetworkResult>) {
-        when (e) {
-            is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
-            is IllegalArgumentException -> callback(NetworkResult(BAD_URL, id))
+        when {
+            e is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
+            e.message == "404" -> callback(NetworkResult(BAD_URL, id))
             else -> callback(NetworkResult(UNKNOWN, id))
         }
     }

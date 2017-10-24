@@ -39,4 +39,5 @@
     <string name="pass_not_updated">Crea una nueva password desde la pantalla login</string>
     <string name="login_error">Usuario o contraseña incorrectos</string>
     <string name="ok">OK</string>
+    <string name="incorrect_code">Código incorrecto</string>
 </resources>

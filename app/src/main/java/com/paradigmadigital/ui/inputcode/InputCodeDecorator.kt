@@ -10,6 +10,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.paradigmadigital.R
 import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode.FAIL
 import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
@@ -109,6 +110,8 @@ class InputCodeDecorator
         stopWaitingMode()
         if (result == null) return
         when {
+            result.result == FAIL && result.requestId == REQUEST_SET_PASS ->
+                dialog.show(R.string.incorrect_code, R.string.empty, true) { }
             result.result == SUCCESS && result.requestId == REQUEST_CODE -> return
             result.result == SUCCESS && result.requestId == REQUEST_SET_PASS -> delegate?.onCodeSent(true)
             result.requestId == REQUEST_CODE ->

@@ -18,7 +18,7 @@ constructor(
 
     private val delegate = object : InputCodeUserInterface.Delegate {
         override fun onCode(code: String) {
-            repository.setPass(InputCodeDecorator.REQUEST_SET_PASS)
+            repository.setPass(code, InputCodeDecorator.REQUEST_SET_PASS)
         }
 
         override fun onSendNew() {
