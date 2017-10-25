@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui
 
-import android.app.Activity
+import android.content.Context
 import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import com.paradigmadigital.R
@@ -11,10 +11,10 @@ import javax.inject.Inject
 class AlertDialog
 @Inject
 constructor(
-        private val activity: Activity
+        private val context: Context
 ) {
     fun show(@StringRes title: Int, @StringRes text: Int, oneButton: Boolean, callback: CallbackFun<Unit>) {
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
         builder.setTitle(title)
         builder.setMessage(text)
 

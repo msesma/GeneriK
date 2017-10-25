@@ -42,4 +42,8 @@
         <item name="android:background">@drawable/primary_button_round_borderless</item>
     </style>
 
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/md_white_1000</item>
+    </style>
+
 </resources>
