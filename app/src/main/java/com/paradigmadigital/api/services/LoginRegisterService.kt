@@ -1,15 +1,21 @@
 package com.paradigmadigital.api.services
 
 import com.paradigmadigital.api.model.Code
+import com.paradigmadigital.api.model.Login
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface LoginRegisterService {
 
-//    @POST("login")
-//    fun login(@Field("user") user: String, @Field("password") password: String): Call<LoginResponse>
+    @POST("register")
+    fun register(@Body user: Login): Call<Login>
+
+    @GET("login")
+    fun login(@Header("Authorization") credentials: String): Call<Login>
+
+    @GET("update")
+    fun setPass(@Header("Authorization") credentials: String): Call<Login>
 
     @GET("logout")
     fun logout(@Query("email") email: String)

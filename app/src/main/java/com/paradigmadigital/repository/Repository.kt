@@ -2,12 +2,16 @@ package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
 import android.os.SystemClock
+import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.model.Code
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
+import okhttp3.Credentials
 import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
@@ -23,8 +27,10 @@ constructor(
         private val networkResultLiveData: NetworkResultLiveData,
         private val userDao: UserDao,
         private val securePreferences: SecurePreferences,
-        private val retrofit: Retrofit,
-        private val executor: Executor
+        private val executor: Executor,
+        private val loginMapper: LoginMapper,
+        private val userMapper: UserMapper,
+        retrofit: Retrofit
 ) {
 
     companion object {
@@ -48,12 +54,12 @@ constructor(
         return userDao.get()
     }
 
-    fun setUser(user: User, pass: String) {
+    fun register(user: User, pass: String) {
         executeCall {
-            //            val body = loginRegisterService.sendUserData(user).execute().body()
-//            if (body == null) throw UnknownHostException()
-//            userDao.insert(user.copy(oneRow = "1", uid = body.uid))
-            userDao.insert(user.copy(oneRow = "1", uid = "1234"))
+            val login = userMapper.map(user)
+            val response = loginRegisterService.register(login).execute()
+            if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
+            userDao.insert(user.copy(uid = (response.body() as Login).uid))
             securePreferences.password = pass
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
         }
@@ -84,17 +90,17 @@ constructor(
             return
         }
         executeCall(id) {
-           // if (loginRegisterService.sendUserPass(email, pass).execute().body() == null) throw UnknownHostException()
+            val response = loginRegisterService.setPass(Credentials.basic(user.email, securePreferences.password)).execute()
+            if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
 
     fun login(email: String, pass: String) {
         executeCall {
-            //                val body = loginRegisterService.sendLogin(email, pass).execute().body()
-//                if ( body == null) throw UnknownHostException()
-//                userDao.insert(userMapper.map(body))
-            if (email == userDao.getUser().email && pass == securePreferences.password) setLoggedIn(true)
+            val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
+            if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
+            userDao.insert(loginMapper.map(response.body() as Login))
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
         }
     }

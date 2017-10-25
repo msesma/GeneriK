@@ -11,6 +11,6 @@ class RegisterUserUseCase
 ){
 
     fun execute(user: User, pass: String){
-        repository.setUser(user, pass)
+        repository.register(user, pass)
     }
 }
