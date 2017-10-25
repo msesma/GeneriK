@@ -117,20 +117,6 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
-
-//    @Test
-//    fun goLoginregisterOnSMSWithCorrectData() {
-//        Intents.init()
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.bt_new))
-//                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//                .perform(ViewActions.click())
-//
-//        SystemClock.sleep(3500)
-//        Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
-//        Intents.release()
-//    }
-
     @Test
     fun goLoginregisterOn6DigitsClickWithCorrectData() {
         Intents.init()
@@ -154,7 +140,7 @@ class InputCodeActivityInstrumentedTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
 
-        SystemClock.sleep(23500)
+        SystemClock.sleep(3500)
         Intents.intended(IntentMatchers.hasComponent(LoginRegisterActivity::class.java.name))
         Intents.release()
     }

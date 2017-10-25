@@ -22,7 +22,6 @@ constructor(
         }
 
         override fun onSendNew() {
-            decorator?.autoComplete("123456") //TODO delete this line. Only for simulation
             repository.requestCode(InputCodeDecorator.REQUEST_CODE)
         }
 
