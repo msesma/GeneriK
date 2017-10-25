@@ -35,7 +35,7 @@ constructor(
             SUCCESS -> return
             DISCONNECTED -> dialog.show(R.string.connection_error, R.string.empty, true, { })
             BAD_URL -> dialog.show(R.string.server_error, R.string.empty, true, { })
-            UNKNOWN -> dialog.show(R.string.unknown_error, R.string.empty, true, { })
+            else -> dialog.show(R.string.unknown_error, R.string.empty, true, { })
         }
     }
 }

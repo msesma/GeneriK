@@ -100,6 +100,7 @@ constructor(
         executeCall {
             val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
             if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
+            setLoggedIn(true)
             userDao.insert(loginMapper.map(response.body() as Login))
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
         }

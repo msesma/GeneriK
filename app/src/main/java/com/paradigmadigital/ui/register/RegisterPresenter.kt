@@ -4,6 +4,7 @@ import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.ResultViewModel
 import com.paradigmadigital.usecases.RegisterUserUseCase
+import java.util.*
 import javax.inject.Inject
 
 class RegisterPresenter
@@ -18,7 +19,7 @@ constructor(
     private val delegate = object : RegisterUserInterface.Delegate {
 
         override fun onRegister(name: String, tel: String, email: String, pass: String) {
-            val user = User()
+            val user = User(name = name, phone = tel, email = email, registerDate = Date())
             useCase.execute(user, pass)
         }
 

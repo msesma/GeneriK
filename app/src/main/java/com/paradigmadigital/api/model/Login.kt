@@ -1,7 +1,6 @@
 package com.paradigmadigital.api.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 class Login {
     @SerializedName("token")
@@ -14,7 +13,7 @@ class Login {
     var name: String = ""
 
     @SerializedName("registerDate")
-    var registerDate: Date = Date(0)
+    var registerDate: Long = 0
 
     @SerializedName("phone")
     var phone: String = ""
