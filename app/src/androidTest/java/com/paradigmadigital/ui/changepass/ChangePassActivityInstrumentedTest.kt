@@ -40,6 +40,7 @@ class ChangePassActivityInstrumentedTest {
     @Test
     fun showErrorsOnRegisterClickWithEmptyDataOnPass1() {
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_pass1))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.replaceText(""))

@@ -13,8 +13,6 @@ import com.paradigmadigital.repository.SecurePreferences
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 @Module
@@ -32,16 +30,11 @@ class DomainModule() {
 
     @Singleton
     @Provides
-    fun provideExecutor(): Executor = Executors.newSingleThreadExecutor()
-
-    @Singleton
-    @Provides
     fun provideRepository(preferences: Preferences,
                           networkResultLiveData: NetworkResultLiveData,
                           userDao: UserDao,
                           securePreferences: SecurePreferences,
                           retrofit: Retrofit,
-                          executor: Executor,
                           loginMapper: LoginMapper,
                           userMapper: UserMapper) =
             Repository(
@@ -49,7 +42,6 @@ class DomainModule() {
                     networkResultLiveData,
                     userDao,
                     securePreferences,
-                    executor,
                     loginMapper,
                     userMapper,
                     retrofit)

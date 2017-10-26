@@ -10,10 +10,11 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath 'com.google.gms:google-services:3.1.0'
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
     }
 }
 
@@ -38,10 +39,7 @@ ext {
     archcomponentsver = '1.0.0-rc1'
     playservices = '11.4.2'
 
-    rx_java = '2.1.1'
-    rx_android = '2.0.1'
-    rx_kotlin = '1.0.0-RC2'
-    rx_relay = '2.0.0'
+    coroutines = '0.18'
 
     easy_permissions = '0.3.0'
     qlassified = '0.1.1'

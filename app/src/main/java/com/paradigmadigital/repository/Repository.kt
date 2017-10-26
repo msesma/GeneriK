@@ -11,11 +11,12 @@ import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 import okhttp3.Credentials
 import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
-import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -27,7 +28,6 @@ constructor(
         private val networkResultLiveData: NetworkResultLiveData,
         private val userDao: UserDao,
         private val securePreferences: SecurePreferences,
-        private val executor: Executor,
         private val loginMapper: LoginMapper,
         private val userMapper: UserMapper,
         retrofit: Retrofit
@@ -45,8 +45,10 @@ constructor(
 
     fun setLoggedIn(logged: Boolean) {
         preferences.isloggedIn = logged
-        if (!isLoggedIn()) executeCall {
-            loginRegisterService.logout(userDao.getUser().email)
+        if (!isLoggedIn()) launch(CommonPool) {
+            executeCall {
+                loginRegisterService.logout(userDao.getUser().email)
+            }
         }
     }
 
@@ -106,14 +108,14 @@ constructor(
         }
     }
 
-    private fun executeCall(id: Int = 0, call: () -> Unit) {
-        executor.execute {
-            try {
-                SystemClock.sleep(1000) //TODO: remove, only to emulate network delay
-                call()
-            } catch (e: Throwable) {
-                manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
-            }
+    private fun executeCall(id: Int = 0, call: () -> Unit) = launch(CommonPool) { suspendExecuteCall(id, call) }
+
+    suspend private fun suspendExecuteCall(id: Int = 0, call: () -> Unit) {
+        try {
+            SystemClock.sleep(1000) //TODO: remove, only to emulate network delay
+            call()
+        } catch (e: Throwable) {
+            manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
         }
     }
 
