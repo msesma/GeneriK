@@ -7,15 +7,15 @@ import co.zsmb.materialdrawerkt.builders.footer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import com.mikepenz.materialdrawer.Drawer
 import com.paradigmadigital.R
-import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.usecases.LogoutUseCase
 import javax.inject.Inject
 
 
 class DrawerManager @Inject
 constructor(
         private val navigator: Navigator,
-        private val repository: Repository,
+        private val logoutUseCase: LogoutUseCase,
         private val activity: BaseActivity
 ) {
     fun configureDrawer(activityToolbar: Toolbar): Drawer {
@@ -46,7 +46,7 @@ constructor(
                 primaryItem(R.string.logout) {
                     selectable = false
                     onClick { _ ->
-                        repository.logout()
+                        logoutUseCase.execute()
                         navigator.navigateToLoginRegister()
                         false
                     }
