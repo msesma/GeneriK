@@ -9,6 +9,7 @@ import com.paradigmadigital.R
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.DrawerManager
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.viewmodels.UserViewModel
 import javax.inject.Inject
 
 class MainDecorator
@@ -33,7 +34,7 @@ class MainDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: MainUserInterface.Delegate, viewModel: MainViewModel) {
+    override fun initialize(delegate: MainUserInterface.Delegate, viewModel: UserViewModel) {
         this.delegate = delegate
 
         viewModel.userLiveData.observe(activity, Observer<User> { user ->

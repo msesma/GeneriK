@@ -32,6 +32,7 @@ class LoginActivityInstrumentedTest {
     fun goToMainOnLoginClickWithCorrectData() {
         Intents.init()
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("test@email.com"))
@@ -51,7 +52,9 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun showErrorOnLoginClickWithBadMail() {
-         Espresso.onView(ViewMatchers.withId(R.id.et_email))
+
+        SystemClock.sleep(200)
+        Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText("test@email"))
         SystemClock.sleep(100)
@@ -70,7 +73,7 @@ class LoginActivityInstrumentedTest {
 
     @Test
     fun showErrorOnLoginClickWithNoMail() {
-         Espresso.onView(ViewMatchers.withId(R.id.et_email))
+        Espresso.onView(ViewMatchers.withId(R.id.et_email))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(replaceText(""))
         SystemClock.sleep(100)

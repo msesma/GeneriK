@@ -12,9 +12,7 @@ constructor(
     private var decorator: ChangePassUserInterface? = null
 
     private val delegate = object : ChangePassUserInterface.Delegate {
-        override fun onNewPass(pass: String) {
-            useCase.execute(pass)
-        }
+        override fun onNewPass(pass: String) = useCase.execute(pass)
     }
 
     fun initialize(decorator: ChangePassUserInterface) {

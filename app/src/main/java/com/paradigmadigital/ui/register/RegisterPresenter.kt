@@ -2,8 +2,8 @@ package com.paradigmadigital.ui.register
 
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.ui.ResultViewModel
 import com.paradigmadigital.ui.register.RegisterDecorator.Companion.REQUEST_REGISTER
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import com.paradigmadigital.usecases.RegisterUserUseCase
 import java.util.*
 import javax.inject.Inject
@@ -24,9 +24,7 @@ constructor(
             useCase.execute(user, pass, REQUEST_REGISTER)
         }
 
-        override fun onRegistered() {
-            navigator.navigateToInputCode()
-        }
+        override fun onRegistered() = navigator.navigateToInputCode()
     }
 
     fun initialize(decorator: RegisterUserInterface, resultViewModel: ResultViewModel) {

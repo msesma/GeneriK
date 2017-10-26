@@ -15,6 +15,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import okhttp3.Credentials
 import retrofit2.Retrofit
+import java.net.HttpURLConnection
 import java.net.UnknownHostException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -35,6 +36,8 @@ constructor(
     companion object {
         private val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
         private val TRUE = 1
+        private val HTTP_FORBIDDEN = HttpURLConnection.HTTP_FORBIDDEN.toString()
+        private val HTTP_NOT_FOUND = HttpURLConnection.HTTP_NOT_FOUND.toString()
     }
 
     val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
@@ -43,7 +46,7 @@ constructor(
 
     fun isLoggedIn(): Boolean {
         val user: User? = userDao.getUser()
-        return user?.loggedIn == TRUE
+        return !user?.token.isNullOrEmpty()
     }
 
     fun logout() {
@@ -103,7 +106,9 @@ constructor(
         executeCall(id) {
             val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
             if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
-            userDao.insert(loginMapper.map(response.body() as Login).copy(loggedIn = TRUE))
+            val login = response.body() as Login
+            if (login.token.isEmpty()) throw RuntimeException(HttpURLConnection.HTTP_FORBIDDEN.toString())
+            userDao.insert(loginMapper.map(login))
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
@@ -122,7 +127,8 @@ constructor(
     private fun manageExceptions(e: Throwable, id: Int, callback: CallbackFun<NetworkResult>) {
         when {
             e is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
-            e.message == "404" -> callback(NetworkResult(BAD_URL, id))
+            e.message == HTTP_NOT_FOUND -> callback(NetworkResult(BAD_URL, id))
+            e.message == HTTP_FORBIDDEN -> callback(NetworkResult(FORBIDDEN, id))
             else -> callback(NetworkResult(UNKNOWN, id))
         }
     }

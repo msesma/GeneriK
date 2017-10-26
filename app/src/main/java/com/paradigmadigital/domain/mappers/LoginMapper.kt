@@ -12,6 +12,7 @@ class LoginMapper @Inject constructor() : Mapper<User, Login> {
             name = input.name,
             registerDate = Date(input.registerDate),
             phone = input.phone,
-            email = input.email
+            email = input.email,
+            token = input.token
     )
 }

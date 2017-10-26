@@ -10,6 +10,7 @@ import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerActivityComponent
 import com.paradigmadigital.platform.ActivityModule
 import com.paradigmadigital.platform.AndroidApplication
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
 
 
 abstract class BaseActivity : AppCompatActivity() {

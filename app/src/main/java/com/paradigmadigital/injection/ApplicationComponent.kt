@@ -8,8 +8,8 @@ import com.paradigmadigital.domain.DomainModule
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.platform.ApplicationModule
 import com.paradigmadigital.repository.Repository
-import com.paradigmadigital.ui.ResultViewModel
-import com.paradigmadigital.ui.main.MainViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.UserViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -23,7 +23,7 @@ interface ApplicationComponent {
 
     fun inject(into: ResultViewModel)
 
-    fun inject(into: MainViewModel)
+    fun inject(into: UserViewModel)
 
     //Exposed to sub-graphs
     fun provideContext(): Context

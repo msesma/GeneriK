@@ -16,5 +16,5 @@ data class User(
         var email: String = "",
         var code: String = "",
         var codeDate: Date = Date(0),
-        var loggedIn: Int = 0
+        var token: String = ""
 )

@@ -10,13 +10,16 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnFocusChange
 import com.paradigmadigital.R
+import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.platform.Constants.LOGIN
 import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode.FORBIDDEN
 import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
-import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.UserViewModel
 import javax.inject.Inject
 
 
@@ -48,15 +51,14 @@ class LoginDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: LoginUserInterface.Delegate, resultViewModel: ResultViewModel) {
+    override fun initialize(
+            delegate: LoginUserInterface.Delegate,
+            userViewModel: UserViewModel,
+            resultViewModel: ResultViewModel) {
         this.delegate = delegate
-        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
-    }
 
-    private fun initToolbar() {
-        val actionBar = activity.supportActionBar
-        actionBar?.setDisplayShowTitleEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        userViewModel.userLiveData.observe(activity, Observer<User> { handleUserChanges(it) })
+        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
     @OnFocusChange(R.id.et_email)
@@ -86,14 +88,25 @@ class LoginDecorator
     @OnClick(R.id.bt_forgot)
     fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty, false) { delegate?.onForgotPassword(email.text.toString()) }
 
+    private fun initToolbar() {
+        val actionBar = activity.supportActionBar
+        actionBar?.setDisplayShowTitleEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun handleUserChanges(user: User?) {
+        if (!user?.token.isNullOrEmpty()) delegate?.onLoggedIn()
+    }
+
     override fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in LOGIN..LOGIN + 99) return
 
         stopWaitingMode()
-        if (result?.result != SUCCESS) {
-            super.handleResult(result)
-            return
+        when (result?.result) {
+            FORBIDDEN -> dialog.show(R.string.login_error, R.string.empty, true) { }
+            SUCCESS -> {
+            }
+            else -> super.handleResult(result)
         }
-        if (delegate?.onLoggedIn() == false) dialog.show(R.string.login_error, R.string.empty, true) { }
     }
 }

@@ -21,7 +21,7 @@ import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
-import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import javax.inject.Inject
 
 

@@ -1,9 +1,11 @@
 package com.paradigmadigital.ui.login
 
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
-import com.paradigmadigital.ui.ResultViewModel
 import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.UserViewModel
+import com.paradigmadigital.usecases.ForgotPassUseCase
+import com.paradigmadigital.usecases.LoginUseCase
 import javax.inject.Inject
 
 
@@ -11,32 +13,24 @@ class LoginPresenter
 @Inject
 constructor(
         private val navigator: Navigator,
-        private val repository: Repository
+        private val loginUseCase: LoginUseCase,
+        private val forgotPassUseCase: ForgotPassUseCase
 ) {
 
     private var decorator: LoginUserInterface? = null
 
     private val delegate = object : LoginUserInterface.Delegate {
 
-        override fun onLogin(email: String, pass: String) {
-            repository.login(email, pass, REQUEST_LOGIN)
-        }
+        override fun onLogin(email: String, pass: String) = loginUseCase.execute(email, pass, REQUEST_LOGIN)
 
-        override fun onForgotPassword(email: String) {
-            repository.setUser(email)
-            navigator.navigateToChangePassword()
-        }
+        override fun onForgotPassword(email: String) = forgotPassUseCase.execute(email)
 
-        override fun onLoggedIn(): Boolean {
-            val loggedIn = repository.isLoggedIn()
-            if (loggedIn) navigator.navigateToMain()
-            return loggedIn
-        }
+        override fun onLoggedIn() = navigator.navigateToMain()
     }
 
-    fun initialize(decorator: LoginUserInterface, resultViewModel: ResultViewModel) {
+    fun initialize(decorator: LoginUserInterface, userViewModel: UserViewModel, resultViewModel: ResultViewModel) {
         this.decorator = decorator
-        this.decorator?.initialize(delegate, resultViewModel)
+        this.decorator?.initialize(delegate, userViewModel, resultViewModel)
     }
 
     fun dispose() {

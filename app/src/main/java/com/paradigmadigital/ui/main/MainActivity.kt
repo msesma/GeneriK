@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.paradigmadigital.R
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.viewmodels.UserViewModel
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -13,15 +14,13 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var presenter: MainPresenter
 
-    lateinit var viewModel: MainViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         setContentView(R.layout.activity_main)
         activityComponent.inject(this)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
         decorator.bind(getRootView())
         presenter.initialize(decorator, viewModel)

@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui.register
 
-import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
 
 interface RegisterUserInterface {
 

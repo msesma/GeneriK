@@ -1,11 +1,12 @@
 package com.paradigmadigital.ui.login
 
-import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.UserViewModel
 
 
 interface LoginUserInterface {
 
-    fun initialize(delegate: Delegate, resultViewModel: ResultViewModel)
+    fun initialize(delegate: Delegate, userViewModel: UserViewModel, resultViewModel: ResultViewModel)
 
     interface Delegate {
 
@@ -13,7 +14,7 @@ interface LoginUserInterface {
 
         fun onForgotPassword(email: String)
 
-        fun onLoggedIn(): Boolean
+        fun onLoggedIn()
 
     }
 }

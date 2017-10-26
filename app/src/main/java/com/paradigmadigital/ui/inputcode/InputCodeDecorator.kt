@@ -16,7 +16,7 @@ import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
-import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import javax.inject.Inject
 
 
@@ -28,7 +28,7 @@ class InputCodeDecorator
 
     companion object {
         val REQUEST_CODE = INPUT_CODE + 0
-        val REQUEST_SET_PASS = INPUT_CODE + 101
+        val REQUEST_SET_PASS = INPUT_CODE + 1
         private val CODE_LEN = 6
     }
 
