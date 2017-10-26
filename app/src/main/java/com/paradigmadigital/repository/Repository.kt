@@ -24,7 +24,6 @@ import javax.inject.Inject
 class Repository
 @Inject
 constructor(
-        private val preferences: Preferences,
         private val networkResultLiveData: NetworkResultLiveData,
         private val userDao: UserDao,
         private val securePreferences: SecurePreferences,
@@ -34,21 +33,23 @@ constructor(
 ) {
 
     companion object {
-        val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
+        private val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
+        private val TRUE = 1
     }
 
     val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
-    fun isLoggedIn() = preferences.isloggedIn
+    fun isLoggedIn(): Boolean {
+        val user: User? = userDao.getUser()
+        return user?.loggedIn == TRUE
+    }
 
-    fun setLoggedIn(logged: Boolean) {
-        preferences.isloggedIn = logged
-        if (!isLoggedIn()) launch(CommonPool) {
-            executeCall {
-                loginRegisterService.logout(userDao.getUser().email)
-            }
+    fun logout() {
+        executeCall {
+            userDao.logout()
+            loginRegisterService.logout(userDao.getUser().email)
         }
     }
 
@@ -102,8 +103,7 @@ constructor(
         executeCall(id) {
             val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
             if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
-            setLoggedIn(true)
-            userDao.insert(loginMapper.map(response.body() as Login))
+            userDao.insert(loginMapper.map(response.body() as Login).copy(loggedIn = TRUE))
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }

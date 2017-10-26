@@ -46,7 +46,7 @@ constructor(
                 primaryItem(R.string.logout) {
                     selectable = false
                     onClick { _ ->
-                        repository.setLoggedIn(false)
+                        repository.logout()
                         navigator.navigateToLoginRegister()
                         false
                     }

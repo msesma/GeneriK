@@ -15,5 +15,6 @@ data class User(
         var phone: String = "",
         var email: String = "",
         var code: String = "",
-        var codeDate: Date = Date(0)
+        var codeDate: Date = Date(0),
+        var loggedIn: Int = 0
 )

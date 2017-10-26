@@ -7,7 +7,6 @@ import com.paradigmadigital.domain.db.Database
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResultLiveData
-import com.paradigmadigital.repository.Preferences
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.repository.SecurePreferences
 import dagger.Module
@@ -30,15 +29,13 @@ class DomainModule() {
 
     @Singleton
     @Provides
-    fun provideRepository(preferences: Preferences,
-                          networkResultLiveData: NetworkResultLiveData,
+    fun provideRepository(networkResultLiveData: NetworkResultLiveData,
                           userDao: UserDao,
                           securePreferences: SecurePreferences,
                           retrofit: Retrofit,
                           loginMapper: LoginMapper,
                           userMapper: UserMapper) =
             Repository(
-                    preferences,
                     networkResultLiveData,
                     userDao,
                     securePreferences,

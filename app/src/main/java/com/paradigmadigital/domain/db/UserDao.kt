@@ -23,4 +23,7 @@ abstract class UserDao {
 
     @Query("UPDATE user SET code = :code, codeDate = :date WHERE email = :email")
     abstract fun setCode(code: String, date: Date, email: String): Int
+
+    @Query("UPDATE user SET loggedIn = 0")
+    abstract fun logout(): Int
 }
