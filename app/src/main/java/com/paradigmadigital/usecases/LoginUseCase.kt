@@ -15,7 +15,7 @@ class LoginUseCase
 
     fun execute(email: String, pass: String, id: Int) {
         with(repository) {
-            executeInteractor {
+            executeInteractor(id) {
                 val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
                 val login = response.body() as Login

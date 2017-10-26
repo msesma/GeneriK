@@ -14,7 +14,7 @@ class RequestCodeUseCase
 
     fun execute(id: Int) {
         with(repository) {
-            executeInteractor {
+            executeInteractor(id) {
                 val response = loginRegisterService.requestCode(userDao.getUser().email).execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
                 val code = response.body() as Code

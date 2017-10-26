@@ -15,7 +15,7 @@ class RegisterUserUseCase
 
     fun execute(user: User, pass: String, id: Int) {
         with(repository) {
-            executeInteractor {
+            executeInteractor(id) {
                 val login = userMapper.map(user)
                 val response = loginRegisterService.register(login).execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())

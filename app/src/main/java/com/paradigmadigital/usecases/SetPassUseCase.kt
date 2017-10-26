@@ -20,7 +20,7 @@ class SetPassUseCase
                 return
             }
 
-            executeInteractor {
+            executeInteractor(id) {
                 val response = loginRegisterService
                         .setPass(Credentials.basic(user.email, securePreferences.password))
                         .execute()
