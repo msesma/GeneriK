@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.R
+import com.paradigmadigital.platform.Constants.REGISTER
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.ui.AlertDialog
@@ -32,6 +33,7 @@ class RegisterDecorator
 ) : BaseDecorator(dialog), RegisterUserInterface {
 
     companion object {
+        val REQUEST_REGISTER = REGISTER + 0
         val RESOLVE_HINT = 100
     }
 
@@ -92,6 +94,8 @@ class RegisterDecorator
     }
 
     override fun handleResult(result: NetworkResult?) {
+        if (result?.requestId !in REGISTER..REGISTER + 99) return
+
         if (result?.result == NetworkResultCode.SUCCESS) {
             delegate?.onRegistered()
             stopWaitingMode()
@@ -164,4 +168,6 @@ class RegisterDecorator
         actionBar?.setDisplayShowTitleEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+
 }

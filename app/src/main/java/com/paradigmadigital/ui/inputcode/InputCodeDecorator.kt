@@ -9,6 +9,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.paradigmadigital.R
+import com.paradigmadigital.platform.Constants.INPUT_CODE
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode.FAIL
 import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
@@ -26,8 +27,8 @@ class InputCodeDecorator
 ) : BaseDecorator(dialog), InputCodeUserInterface {
 
     companion object {
-        val REQUEST_CODE = 0
-        val REQUEST_SET_PASS = 1
+        val REQUEST_CODE = INPUT_CODE + 0
+        val REQUEST_SET_PASS = INPUT_CODE + 101
         private val CODE_LEN = 6
     }
 
@@ -107,6 +108,8 @@ class InputCodeDecorator
     }
 
     override fun handleResult(result: NetworkResult?) {
+        if (result?.requestId !in INPUT_CODE..INPUT_CODE + 99) return
+
         stopWaitingMode()
         if (result == null) return
         when {

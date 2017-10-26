@@ -56,14 +56,14 @@ constructor(
         return userDao.get()
     }
 
-    fun register(user: User, pass: String) {
-        executeCall {
+    fun register(user: User, pass: String, id: Int) {
+        executeCall(id) {
             val login = userMapper.map(user)
             val response = loginRegisterService.register(login).execute()
             if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
             userDao.insert(user.copy(uid = (response.body() as Login).uid))
             securePreferences.password = pass
-            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
 
@@ -98,13 +98,13 @@ constructor(
         }
     }
 
-    fun login(email: String, pass: String) {
-        executeCall {
+    fun login(email: String, pass: String, id: Int) {
+        executeCall(id) {
             val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
             if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
             setLoggedIn(true)
             userDao.insert(loginMapper.map(response.body() as Login))
-            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, 0))
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         }
     }
 

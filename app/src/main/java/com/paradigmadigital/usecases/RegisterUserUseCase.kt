@@ -8,9 +8,9 @@ import javax.inject.Inject
 class RegisterUserUseCase
 @Inject constructor(
         private val repository: Repository
-){
+) {
 
-    fun execute(user: User, pass: String){
-        repository.register(user, pass)
+    fun execute(user: User, pass: String, id: Int) {
+        repository.register(user, pass, id)
     }
 }

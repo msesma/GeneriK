@@ -3,6 +3,7 @@ package com.paradigmadigital.ui.login
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
 import javax.inject.Inject
 
 
@@ -18,7 +19,7 @@ constructor(
     private val delegate = object : LoginUserInterface.Delegate {
 
         override fun onLogin(email: String, pass: String) {
-            repository.login(email, pass)
+            repository.login(email, pass, REQUEST_LOGIN)
         }
 
         override fun onForgotPassword(email: String) {

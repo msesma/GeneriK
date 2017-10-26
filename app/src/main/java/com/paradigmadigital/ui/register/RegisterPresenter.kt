@@ -3,6 +3,7 @@ package com.paradigmadigital.ui.register
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.ResultViewModel
+import com.paradigmadigital.ui.register.RegisterDecorator.Companion.REQUEST_REGISTER
 import com.paradigmadigital.usecases.RegisterUserUseCase
 import java.util.*
 import javax.inject.Inject
@@ -20,7 +21,7 @@ constructor(
 
         override fun onRegister(name: String, tel: String, email: String, pass: String) {
             val user = User(name = name, phone = tel, email = email, registerDate = Date())
-            useCase.execute(user, pass)
+            useCase.execute(user, pass, REQUEST_REGISTER)
         }
 
         override fun onRegistered() {

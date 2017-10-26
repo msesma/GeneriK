@@ -10,6 +10,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnFocusChange
 import com.paradigmadigital.R
+import com.paradigmadigital.platform.Constants.LOGIN
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode.SUCCESS
 import com.paradigmadigital.ui.AlertDialog
@@ -24,6 +25,10 @@ class LoginDecorator
         private val activity: BaseActivity,
         private val dialog: AlertDialog
 ) : BaseDecorator(dialog), LoginUserInterface {
+
+    companion object {
+        val REQUEST_LOGIN = LOGIN + 0
+    }
 
     @BindView(R.id.et_email)
     lateinit var email: EditText
@@ -82,6 +87,8 @@ class LoginDecorator
     fun onForgotClick() = dialog.show(R.string.confirm_pass_change, R.string.empty, false) { delegate?.onForgotPassword(email.text.toString()) }
 
     override fun handleResult(result: NetworkResult?) {
+        if (result?.requestId !in LOGIN..LOGIN + 99) return
+
         stopWaitingMode()
         if (result?.result != SUCCESS) {
             super.handleResult(result)
