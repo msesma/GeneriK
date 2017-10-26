@@ -1,12 +1,15 @@
 package com.paradigmadigital.api
 
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import okhttp3.*
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 
 class DummyInterceptor
@@ -16,6 +19,7 @@ class DummyInterceptor
     companion object {
         private val TAG = DummyInterceptor::class.java.simpleName
         private val FILE_EXTENSION = ".json"
+        private val NETWORK_DELAY_EMULATE = TimeUnit.MILLISECONDS.toMillis(1000)
     }
 
     private var contentType = "application/json"
@@ -27,6 +31,7 @@ class DummyInterceptor
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response? {
+        SystemClock.sleep(NETWORK_DELAY_EMULATE)
         val method = chain.request().method().toLowerCase()
 
         var response: Response?

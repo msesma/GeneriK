@@ -1,7 +1,6 @@
 package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
-import android.os.SystemClock
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
@@ -60,7 +59,6 @@ constructor(
 
     suspend private fun suspendExecute(id: Int = 0, call: () -> Unit) {
         try {
-            SystemClock.sleep(1000) //TODO: remove, only to emulate network delay
             call()
         } catch (e: Throwable) {
             manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
