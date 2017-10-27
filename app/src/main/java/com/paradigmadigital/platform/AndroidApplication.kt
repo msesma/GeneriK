@@ -3,8 +3,10 @@ package com.paradigmadigital.platform
 import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ProcessLifecycleOwner
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.support.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.paradigmadigital.injection.ApplicationComponent
@@ -34,6 +36,11 @@ class AndroidApplication : Application() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
         Stetho.initializeWithDefaults(this);
         initializeEncryptedPreferences()
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
     private fun initializeEncryptedPreferences() {
