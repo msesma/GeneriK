@@ -40,7 +40,7 @@ class RepositoryShould {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        `when`(retrofit.create<LoginRegisterService>(any())).thenReturn(loginRegisterService)
+        whenever(retrofit.create<LoginRegisterService>(any())).thenReturn(loginRegisterService)
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         repository = Repository(networkResultLiveData, userDao, securePreferences, loginMapper, userMapper, retrofit)
     }
@@ -101,7 +101,7 @@ class RepositoryShould {
     }
 
     @Test
-    fun sendDisconnectedOnUnknownHostExceptiobn() {
+    fun sendDisconnectedOnUnknownHostException() {
 
         repository.executeInteractor {
             throw UnknownHostException()
@@ -123,7 +123,7 @@ class RepositoryShould {
     }
 
     @Test
-    fun sendUnknownOnUnknownExceptiobn() {
+    fun sendUnknownOnUnknownException() {
 
         repository.executeInteractor {
             throw RuntimeException()
@@ -133,6 +133,16 @@ class RepositoryShould {
         assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.UNKNOWN)
     }
 
+    @Test
+    fun sendForbiddenOnForbidden403() {
+
+        repository.executeInteractor {
+            throw RuntimeException("403")
+        }
+
+        TimeUnit.MILLISECONDS.sleep(200);
+        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FORBIDDEN)
+    }
 
     @Test
     fun sendSuccessOnNoError() {
