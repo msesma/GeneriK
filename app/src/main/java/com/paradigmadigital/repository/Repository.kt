@@ -66,8 +66,6 @@ constructor(
     }
 
     private fun manageExceptions(e: Throwable, id: Int, callback: CallbackFun<NetworkResult>) {
-        println("Exception: " +e.message )
-        e.printStackTrace()
         when {
             e is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
             e.message == HTTP_NOT_FOUND -> callback(NetworkResult(BAD_URL, id))

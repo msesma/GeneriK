@@ -46,6 +46,7 @@ open class BaseRepositoryUseCase {
         doReturn(Login()).whenever(userMapper).map(any())
         doReturn(loginRegisterService).whenever(retrofit).create<LoginRegisterService>(any())
         doReturn(User()).whenever(userDao).getUser()
+        doReturn("1234").whenever(securePreferences).password
         repository = Repository(networkResultLiveData, userDao, securePreferences, loginMapper, userMapper, retrofit)
     }
 }
