@@ -15,7 +15,7 @@ interface InputCodeUserInterface {
 
         fun onSendNew()
 
-        fun onCodeSent(sucess: Boolean)
+        fun onCodeSent()
 
     }
 }

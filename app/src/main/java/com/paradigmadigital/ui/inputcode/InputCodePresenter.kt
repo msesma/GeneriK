@@ -23,7 +23,7 @@ constructor(
 
         override fun onSendNew() = requestCodeUseCase.execute(InputCodeDecorator.REQUEST_CODE)
 
-        override fun onCodeSent(sucess: Boolean) = navigator.navigateToLoginRegister()
+        override fun onCodeSent() = navigator.navigateToLoginRegister()
     }
 
     fun initialize(decorator: InputCodeUserInterface, resultViewModel: ResultViewModel) {

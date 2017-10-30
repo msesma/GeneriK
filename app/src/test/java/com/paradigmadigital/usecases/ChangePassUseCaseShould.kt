@@ -1,5 +1,6 @@
 package com.paradigmadigital.usecases
 
+import com.nhaarman.mockito_kotlin.verify
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import org.junit.Before
@@ -23,7 +24,12 @@ class ChangePassUseCaseShould {
     }
 
     @Test
-    fun returnFunWhenExecuted() {
+    fun setPassClosesAndNavigateToInputCodeExecuted() {
 
+        usecase.execute("1234")
+
+        verify(repository).updatePass("1234")
+        verify(navigator).closeActivity()
+        verify(navigator).navigateToInputCode()
     }
 }

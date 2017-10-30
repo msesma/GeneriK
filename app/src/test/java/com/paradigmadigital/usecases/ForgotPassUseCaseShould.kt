@@ -1,5 +1,6 @@
 package com.paradigmadigital.usecases
 
+import com.nhaarman.mockito_kotlin.verify
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import org.junit.Before
@@ -23,7 +24,11 @@ class ForgotPassUseCaseShould {
     }
 
     @Test
-    fun returnFunWhenExecuted() {
+    fun setuserAndNavigateToChangePasswordWhenExecuted() {
 
+        usecase.execute("bob@acme.com")
+
+        verify(repository).setUser("bob@acme.com")
+        verify(navigator).navigateToChangePassword()
     }
 }
