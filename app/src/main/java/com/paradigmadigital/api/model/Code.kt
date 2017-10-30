@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 class Code {
     @SerializedName("email")
-    val email: String = ""
+    var email: String = ""
 
     @SerializedName("code")
-    val code: String = ""
+    var code: String = ""
 }

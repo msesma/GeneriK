@@ -19,31 +19,33 @@ import retrofit2.Retrofit
 open class BaseRepositoryUseCase {
 
     @Mock
-    private lateinit var networkResultLiveData: NetworkResultLiveData
+    lateinit var networkResultLiveData: NetworkResultLiveData
     @Mock
-    private lateinit var userDao: UserDao
+    lateinit var userDao: UserDao
     @Mock
-    private lateinit var securePreferences: SecurePreferences
+    lateinit var securePreferences: SecurePreferences
     @Mock
-    private lateinit var loginMapper: LoginMapper
+    lateinit var loginMapper: LoginMapper
     @Mock
-    private lateinit var userMapper: UserMapper
+    lateinit var userMapper: UserMapper
     @Mock
-    private lateinit var retrofit: Retrofit
+    lateinit var retrofit: Retrofit
     @Mock
-    private lateinit var loginRegisterService: LoginRegisterService
+    lateinit var loginRegisterService: LoginRegisterService
     @Mock
-    private lateinit var call: Call<Login>
+    lateinit var call: Call<Login>
 
-    private val resultCaptor = argumentCaptor<NetworkResult>()
-    private val loginCaptor = argumentCaptor<Login>()
-    private lateinit var repository: Repository
+    val resultCaptor = argumentCaptor<NetworkResult>()
+    val loginCaptor = argumentCaptor<Login>()
+    lateinit var repository: Repository
 
-    fun setUp() {
+    open fun setUp() {
         MockitoAnnotations.initMocks(this)
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         doReturn(User()).whenever(loginMapper).map(loginCaptor.capture())
+        doReturn(Login()).whenever(userMapper).map(any())
         doReturn(loginRegisterService).whenever(retrofit).create<LoginRegisterService>(any())
+        doReturn(User()).whenever(userDao).getUser()
         repository = Repository(networkResultLiveData, userDao, securePreferences, loginMapper, userMapper, retrofit)
     }
 }
