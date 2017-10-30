@@ -21,5 +21,9 @@ class LogoutUseCaseShould {
     @Test
     fun returnFunWhenExecuted() {
 
+        usecase.execute()
+
+//        verify(repository).setUser("bob@acme.com")
+//        verify(navigator).navigateToChangePassword()
     }
 }
