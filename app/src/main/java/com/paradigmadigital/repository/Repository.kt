@@ -60,6 +60,7 @@ constructor(
     suspend private fun suspendExecute(id: Int = 0, call: () -> Unit) {
         try {
             call()
+            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         } catch (e: Throwable) {
             manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
         }

@@ -1,8 +1,7 @@
 package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
@@ -15,6 +14,8 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
+import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 
 
 class RepositoryShould {
@@ -33,12 +34,14 @@ class RepositoryShould {
     @Mock
     private lateinit var loginRegisterService: LoginRegisterService
 
+    private val resultCaptor = argumentCaptor<NetworkResult>()
     private lateinit var repository: Repository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         `when`(retrofit.create<LoginRegisterService>(any())).thenReturn(loginRegisterService)
+        doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         repository = Repository(networkResultLiveData, userDao, securePreferences, loginMapper, userMapper, retrofit)
     }
 
@@ -95,5 +98,49 @@ class RepositoryShould {
         repository.updatePass("password")
 
         verify(securePreferences).password = "password"
+    }
+
+    @Test
+    fun sendDisconnectedOnUnknownHostExceptiobn() {
+
+        repository.executeInteractor {
+            throw UnknownHostException()
+        }
+
+        TimeUnit.MILLISECONDS.sleep(200);
+        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.DISCONNECTED)
+    }
+
+    @Test
+    fun sendBadUrlOn404() {
+
+        repository.executeInteractor {
+            throw RuntimeException("404")
+        }
+
+        TimeUnit.MILLISECONDS.sleep(200);
+        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
+    }
+
+    @Test
+    fun sendUnknownOnUnknownExceptiobn() {
+
+        repository.executeInteractor {
+            throw RuntimeException()
+        }
+
+        TimeUnit.MILLISECONDS.sleep(200);
+        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.UNKNOWN)
+    }
+
+
+    @Test
+    fun sendSuccessOnNoError() {
+
+        repository.executeInteractor {
+        }
+
+        TimeUnit.MILLISECONDS.sleep(200);
+        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
     }
 }

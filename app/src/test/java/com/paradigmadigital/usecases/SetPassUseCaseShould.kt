@@ -59,6 +59,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCase() {
 
         usecase.execute("1234", 5)
 
+        TimeUnit.MILLISECONDS.sleep(200);
         verify(loginRegisterService).setPass(any())
     }
 

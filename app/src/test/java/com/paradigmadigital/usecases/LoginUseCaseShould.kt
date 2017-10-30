@@ -34,6 +34,7 @@ class LoginUseCaseShould : BaseRepositoryUseCase() {
 
         usecase.execute("bob@acme.com", "1234", 5)
 
+        TimeUnit.MILLISECONDS.sleep(200);
         val credentials = Credentials.basic("bob@acme.com", "1234")
         verify(loginRegisterService).login(credentials)
     }

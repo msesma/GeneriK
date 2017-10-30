@@ -21,12 +21,10 @@ class SetPassUseCase
             }
 
             executeInteractor(id) {
-                println(user.email + " " + securePreferences.password)
-                val response = loginRegisterService
+               val response = loginRegisterService
                         .setPass(Credentials.basic(user.email, securePreferences.password))
                         .execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
-                networkResultLiveData.setNetworkResult(NetworkResult(NetworkResultCode.SUCCESS, id))
             }
         }
     }
