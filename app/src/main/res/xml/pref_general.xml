@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="@string/require_login"
+        android:title="@string/pref_title_require_login"
+        android:summary="@string/pref_description_require_login"
+        android:defaultValue="false" />
+    <SwitchPreference
+        android:key="@string/allow_fingerprint"
+        android:dependency="@string/require_login"
+        android:title="@string/pref_title_allow_fingerprint"
+        android:summary="@string/pref_description_allow_fingerprint"
+        android:defaultValue="false" />
+</PreferenceScreen>

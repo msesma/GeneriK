@@ -43,6 +43,14 @@ constructor(
             }
 
             footer {
+                primaryItem(R.string.settings) {
+                    selectable = false
+                    onClick { _ ->
+                        navigator.navigateToSettings()
+                        false
+                    }
+                }
+
                 primaryItem(R.string.logout) {
                     selectable = false
                     onClick { _ ->

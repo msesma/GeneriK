@@ -1,10 +1,10 @@
 package com.paradigmadigital.ui.login
 
 import android.arch.lifecycle.Observer
+import android.support.design.widget.TextInputEditText
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -34,9 +34,9 @@ class LoginDecorator
     }
 
     @BindView(R.id.et_email)
-    lateinit var email: EditText
+    lateinit var email: TextInputEditText
     @BindView(R.id.et_pass)
-    lateinit var pass: EditText
+    lateinit var pass: TextInputEditText
     @BindView(R.id.bt_forgot)
     lateinit var forgot: Button
 

@@ -10,11 +10,18 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+
     <style name="AppDrawerTheme"
         parent="MaterialDrawerTheme.Light.DarkToolbar">
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
+    <style name="SettingsTheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="LoginTheme"
         parent="Theme.AppCompat.Light.DarkActionBar">

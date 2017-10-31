@@ -1,8 +1,8 @@
 package com.paradigmadigital.ui.changepass
 
+import android.support.design.widget.TextInputEditText
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -16,9 +16,9 @@ class ChangePassDecorator
 ) : ChangePassUserInterface {
 
     @BindView(R.id.et_pass1)
-    lateinit var pass1: EditText
+    lateinit var pass1: TextInputEditText
     @BindView(R.id.et_pass2)
-    lateinit var pass2: EditText
+    lateinit var pass2: TextInputEditText
 
     private var delegate: ChangePassUserInterface.Delegate? = null
 

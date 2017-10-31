@@ -31,7 +31,7 @@
         android:layout_marginTop="4dp"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/et_pass1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:passwordToggleEnabled="true"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/et_pass2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

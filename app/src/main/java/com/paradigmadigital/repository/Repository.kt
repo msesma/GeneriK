@@ -36,11 +36,19 @@ constructor(
 
     val loginRegisterService: LoginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
+    val isFingerPrintAuthdataAvailable: Boolean
+        get() = !securePreferences.password.isEmpty() && !getEmail().isEmpty()
+
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
     fun isLoggedIn(): Boolean {
         val user: User? = userDao.getUser()
         return !user?.token.isNullOrEmpty()
+    }
+
+    fun getEmail(): String {
+        val user: User? = userDao.getUser()
+        return user?.email ?: ""
     }
 
     fun getUser(): LiveData<User> {

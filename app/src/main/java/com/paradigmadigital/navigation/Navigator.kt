@@ -1,6 +1,7 @@
 package com.paradigmadigital.navigation
 
 import android.content.Intent
+import com.paradigmadigital.repository.settings.SettingsActivity
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.changepass.ChangePassActivity
 import com.paradigmadigital.ui.inputcode.InputCodeActivity
@@ -20,6 +21,10 @@ constructor(
 ) {
     companion object {
         private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
+    }
+
+    fun closeActivity() {
+        activity.finish()
     }
 
     fun navigateToLoginRegister() {
@@ -58,8 +63,9 @@ constructor(
         activity.startActivity(intent)
     }
 
-    fun closeActivity() {
-        activity.finish()
+    fun navigateToSettings() {
+        val intent = Intent(activity, SettingsActivity::class.java)
+        activity.startActivity(intent)
     }
 
 }

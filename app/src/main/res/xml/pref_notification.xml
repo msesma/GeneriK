@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="@string/email_notification"
+        android:title="@string/pref_title_email_notification"
+        android:defaultValue="false" />
+
+    <SwitchPreference
+        android:key="@string/sms_notification"
+        android:title="@string/pref_title_sms_notification"
+        android:defaultValue="false" />
+
+</PreferenceScreen>

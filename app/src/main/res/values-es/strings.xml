@@ -42,4 +42,14 @@
     <string name="incorrect_code">Código incorrecto</string>
     <string name="wait">Esperando respuesta del servidor</string>
     <string name="back">borrar</string>
+
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_notifications">Notificaciones</string>
+    <string name="pref_title_email_notification">Notificar eventos por email</string>
+    <string name="pref_title_sms_notification">Notificar evemtos por SMS</string>
+    <string name="pref_title_require_login">Solicitar login al volver a la app</string>
+    <string name="pref_description_require_login">Después de un tiempo, la app requerirá login para entrar</string>
+    <string name="pref_title_allow_fingerprint">Permitir login con huella dactilar</string>
+    <string name="pref_description_allow_fingerprint">Permitir entrar con huella dactilar si ala app está bloqueada por tiempo</string>
+    <string name="settings">Preferencias</string>
 </resources>

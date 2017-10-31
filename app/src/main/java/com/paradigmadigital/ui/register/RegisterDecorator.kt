@@ -2,11 +2,11 @@ package com.paradigmadigital.ui.register
 
 import android.arch.lifecycle.Observer
 import android.os.Build
+import android.support.design.widget.TextInputEditText
 import android.support.v4.app.ActivityCompat.startIntentSenderForResult
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
-import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -38,17 +38,17 @@ class RegisterDecorator
     }
 
     @BindView(R.id.et_name)
-    lateinit var name: EditText
+    lateinit var name: TextInputEditText
     @BindView(R.id.et_tel)
-    lateinit var tel: EditText
+    lateinit var tel: TextInputEditText
     @BindView(R.id.et_email1)
-    lateinit var email1: EditText
+    lateinit var email1: TextInputEditText
     @BindView(R.id.et_email2)
-    lateinit var email2: EditText
+    lateinit var email2: TextInputEditText
     @BindView(R.id.et_pass1)
-    lateinit var pass1: EditText
+    lateinit var pass1: TextInputEditText
     @BindView(R.id.et_pass2)
-    lateinit var pass2: EditText
+    lateinit var pass2: TextInputEditText
 
     private var delegate: RegisterUserInterface.Delegate? = null
 

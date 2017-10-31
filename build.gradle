@@ -45,17 +45,13 @@ ext {
 
     easy_permissions = '0.3.0'
     qlassified = '0.1.1'
+    fingerprint = '1.0.1'
     materialdrawerkt = '1.0.6'
     butterknife = '8.6.0'
     dagger = '2.5'
-    picasso = '2.5.2'
 
     retrofit = '2.3.0'
     okhttp = '3.6.0'
-
-    oltu_version = "1.0.1"
-    swagger_annotations_version = "1.5.15"
-    jodatime_version = "2.9.9"
 
     estetho = '1.5.0'
 

@@ -1,7 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Paradigma</string>
-    <string name="empty" translatable="false"/>
-
     <string name="refresh">Refresh</string>
     <string name="location_permission_request">This app needs access to location services</string>
     <string name="connection_error">Connection error</string>
@@ -45,4 +42,14 @@
     <string name="incorrect_code">Incorrect code</string>
     <string name="wait">Waiting for server response</string>
     <string name="back">back</string>
+
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_title_email_notification">Notify events by email</string>
+    <string name="pref_title_sms_notification">Notify events by sms</string>
+    <string name="pref_title_require_login">Require login when returning to app</string>
+    <string name="pref_description_require_login">After some minutes the app will require login.</string>
+    <string name="pref_title_allow_fingerprint">Allow login with fingerprint</string>
+    <string name="pref_description_allow_fingerprint">Allow login with fingerprint if app has timed out</string>
+    <string name="settings">Settings</string>
 </resources>
