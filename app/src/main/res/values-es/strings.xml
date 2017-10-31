@@ -40,4 +40,6 @@
     <string name="login_error">Usuario o contraseña incorrectos</string>
     <string name="ok">OK</string>
     <string name="incorrect_code">Código incorrecto</string>
+    <string name="wait">Esperando respuesta del servidor</string>
+    <string name="back">borrar</string>
 </resources>

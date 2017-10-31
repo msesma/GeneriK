@@ -38,6 +38,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:hint="@string/pass_hint"
+            android:contentDescription="@string/pass_hint"
             android:autofillHints="password"
             />
     </android.support.design.widget.TextInputLayout>
@@ -60,6 +61,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:hint="@string/pass_confirm_hint"
+            android:contentDescription="@string/pass_confirm_hint"
             android:autofillHints="password"
             />
     </android.support.design.widget.TextInputLayout>

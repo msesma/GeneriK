@@ -43,4 +43,6 @@
     <string name="login_error">Incorrect user or password</string>
     <string name="ok">OK</string>
     <string name="incorrect_code">Incorrect code</string>
+    <string name="wait">Waiting for server response</string>
+    <string name="back">back</string>
 </resources>
