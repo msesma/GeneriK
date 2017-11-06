@@ -1,6 +1,7 @@
 package com.paradigmadigital.platform
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.preference.PreferenceManager
 import dagger.Module
@@ -18,7 +19,9 @@ class ApplicationModule(private val application: AndroidApplication) {
 
     @Provides
     @Singleton
-    internal fun provideSharedPreferences() = PreferenceManager.getDefaultSharedPreferences(application)
+    internal fun provideSharedPreferences(): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application)
+    }
 
     @Provides
     @Singleton

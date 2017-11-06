@@ -20,6 +20,7 @@ class SplashActivity : BaseActivity() {
     @Inject
     lateinit var repository: Repository
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -29,7 +30,11 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun navigate() {
-        if (repository.isLoggedIn()) navigator.navigateToMain() else navigator.navigateToLoginRegister()
+        if (repository.isLoggedIn()) navigateToMain() else navigator.navigateToLoginRegister()
         finish()
+    }
+
+    private fun navigateToMain() {
+        if (repository.requireLogin) navigator.navigateToLogin() else navigator.navigateToMain()
     }
 }

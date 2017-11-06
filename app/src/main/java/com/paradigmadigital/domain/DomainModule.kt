@@ -8,7 +8,8 @@ import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.Repository
-import com.paradigmadigital.repository.SecurePreferences
+import com.paradigmadigital.repository.preferences.Preferences
+import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -33,12 +34,14 @@ class DomainModule() {
                           userDao: UserDao,
                           securePreferences: SecurePreferences,
                           retrofit: Retrofit,
+                          preferences: Preferences,
                           loginMapper: LoginMapper,
                           userMapper: UserMapper) =
             Repository(
                     networkResultLiveData,
                     userDao,
                     securePreferences,
+                    preferences,
                     loginMapper,
                     userMapper,
                     retrofit)

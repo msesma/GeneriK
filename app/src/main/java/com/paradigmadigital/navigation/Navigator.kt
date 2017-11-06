@@ -1,7 +1,7 @@
 package com.paradigmadigital.navigation
 
 import android.content.Intent
-import com.paradigmadigital.repository.settings.SettingsActivity
+import com.paradigmadigital.repository.preferences.SettingsActivity
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.changepass.ChangePassActivity
 import com.paradigmadigital.ui.inputcode.InputCodeActivity

@@ -12,18 +12,13 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class LoginPresenterShould {
-    @Mock
-    private lateinit var loginUseCase: LoginUseCase
-    @Mock
-    private lateinit var forgotPassUseCase: ForgotPassUseCase
-    @Mock
-    private lateinit var navigator: Navigator
-    @Mock
-    private lateinit var decorator: LoginUserInterface
-    @Mock
-    private lateinit var resultViewModel: ResultViewModel
-    @Mock
-    private lateinit var userViewModel: UserViewModel
+    @Mock private lateinit var loginUseCase: LoginUseCase
+    @Mock private lateinit var forgotPassUseCase: ForgotPassUseCase
+    @Mock private lateinit var navigator: Navigator
+    @Mock private lateinit var decorator: LoginUserInterface
+    @Mock private lateinit var resultViewModel: ResultViewModel
+    @Mock private lateinit var userViewModel: UserViewModel
+    @Mock private lateinit var fingerprintManager: FingerprintManager
 
     private val delegateCaptor = argumentCaptor<LoginUserInterface.Delegate>()
     private lateinit var presenter: LoginPresenter
@@ -31,7 +26,7 @@ class LoginPresenterShould {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = LoginPresenter(navigator, loginUseCase, forgotPassUseCase)
+        presenter = LoginPresenter(navigator, loginUseCase, forgotPassUseCase, fingerprintManager)
         doNothing().whenever(decorator).initialize(delegateCaptor.capture(), any(), any())
     }
 
@@ -47,9 +42,9 @@ class LoginPresenterShould {
     fun callUseCaseOnLogin() {
         presenter.initialize(decorator, userViewModel, resultViewModel)
 
-        delegateCaptor.firstValue.onLogin("bob@acme.com","123456")
+        delegateCaptor.firstValue.onLogin("bob@acme.com", "123456")
 
-        verify(loginUseCase).execute("bob@acme.com","123456", LoginDecorator.REQUEST_LOGIN)
+        verify(loginUseCase).execute("bob@acme.com", "123456", LoginDecorator.REQUEST_LOGIN)
     }
 
     @Test

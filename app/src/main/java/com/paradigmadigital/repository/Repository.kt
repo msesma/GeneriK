@@ -8,6 +8,8 @@ import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
+import com.paradigmadigital.repository.preferences.Preferences
+import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import retrofit2.Retrofit
@@ -23,6 +25,7 @@ constructor(
         val networkResultLiveData: NetworkResultLiveData,
         val userDao: UserDao,
         val securePreferences: SecurePreferences,
+        val preferences: Preferences,
         val loginMapper: LoginMapper,
         val userMapper: UserMapper,
         retrofit: Retrofit
@@ -36,8 +39,11 @@ constructor(
 
     val loginRegisterService: LoginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
-    val isFingerPrintAuthdataAvailable: Boolean
+    val isFingerPrintAuthdataAvailable
         get() = !securePreferences.password.isEmpty() && !getEmail().isEmpty()
+
+    val requireLogin
+        get() = preferences.requireLogin && preferences.timeout
 
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
@@ -51,6 +57,8 @@ constructor(
         return user?.email ?: ""
     }
 
+    fun getPass() = securePreferences.password
+
     fun getUser(): LiveData<User> {
         return userDao.get()
     }
@@ -61,6 +69,10 @@ constructor(
 
     fun updatePass(pass: String) {
         securePreferences.password = pass
+    }
+
+    fun timeoutRequireLoginCheck() {
+        if (requireLogin) userDao.logout()
     }
 
     fun executeInteractor(id: Int = 0, call: () -> Unit) = launch(CommonPool) { suspendExecute(id, call) }

@@ -2,6 +2,7 @@ package com.paradigmadigital.ui.login
 
 import android.util.Log
 import com.paradigmadigital.navigation.Navigator
+import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import com.paradigmadigital.ui.viewmodels.UserViewModel
@@ -16,7 +17,8 @@ constructor(
         private val navigator: Navigator,
         private val loginUseCase: LoginUseCase,
         private val forgotPassUseCase: ForgotPassUseCase,
-        private val fingerprintManager: FingerprintManager
+        private val fingerprintManager: FingerprintManager,
+        private val repository: Repository
 ) {
     private val TAG = LoginPresenter::class.simpleName
     private var decorator: LoginUserInterface? = null
@@ -27,17 +29,21 @@ constructor(
 
         override fun onForgotPassword(email: String) = forgotPassUseCase.execute(email)
 
-        override fun onLoggedIn() = navigator.navigateToMain()
+        override fun onLoggedIn() {
+            navigator.navigateToMain()
+        }
     }
 
     fun initialize(decorator: LoginUserInterface, userViewModel: UserViewModel, resultViewModel: ResultViewModel) {
         this.decorator = decorator
+        repository.timeoutRequireLoginCheck()
         this.decorator?.initialize(delegate, userViewModel, resultViewModel)
         fingerprintManager.startAuth { onFingerprintAuth(it) }
     }
 
     private fun onFingerprintAuth(result: Boolean) {
         Log.d(TAG, "onFingerprintAuth: " + result)
+        loginUseCase.execute(repository.getEmail(), repository.getPass(), REQUEST_LOGIN)
     }
 
     fun dispose() {

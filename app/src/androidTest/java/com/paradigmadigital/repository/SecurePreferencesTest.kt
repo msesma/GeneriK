@@ -1,6 +1,7 @@
 package com.paradigmadigital.repository
 
 import android.support.test.runner.AndroidJUnit4
+import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith

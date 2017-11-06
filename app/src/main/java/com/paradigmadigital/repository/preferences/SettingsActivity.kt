@@ -1,4 +1,4 @@
-package com.paradigmadigital.repository.settings
+package com.paradigmadigital.repository.preferences
 
 import android.content.res.Configuration
 import android.os.Bundle

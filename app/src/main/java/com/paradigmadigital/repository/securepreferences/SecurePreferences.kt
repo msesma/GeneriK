@@ -1,4 +1,4 @@
-package com.paradigmadigital.repository
+package com.paradigmadigital.repository.securepreferences
 
 import com.q42.qlassified.Qlassified
 import javax.inject.Inject

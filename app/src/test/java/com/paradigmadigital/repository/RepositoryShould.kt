@@ -7,6 +7,8 @@ import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
+import com.paradigmadigital.repository.preferences.Preferences
+import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -26,6 +28,8 @@ class RepositoryShould {
     @Mock
     private lateinit var securePreferences: SecurePreferences
     @Mock
+    private lateinit var preferences: Preferences
+    @Mock
     private lateinit var loginMapper: LoginMapper
     @Mock
     private lateinit var userMapper: UserMapper
@@ -42,7 +46,14 @@ class RepositoryShould {
         MockitoAnnotations.initMocks(this)
         whenever(retrofit.create<LoginRegisterService>(any())).thenReturn(loginRegisterService)
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
-        repository = Repository(networkResultLiveData, userDao, securePreferences, loginMapper, userMapper, retrofit)
+        repository = Repository(
+                networkResultLiveData,
+                userDao,
+                securePreferences,
+                preferences,
+                loginMapper,
+                userMapper,
+                retrofit)
     }
 
     @Test

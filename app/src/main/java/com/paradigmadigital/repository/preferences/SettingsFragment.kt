@@ -1,4 +1,4 @@
-package com.paradigmadigital.repository.settings
+package com.paradigmadigital.repository.preferences
 
 import android.content.Intent
 import android.preference.ListPreference
