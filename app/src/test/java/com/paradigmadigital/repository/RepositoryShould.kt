@@ -13,7 +13,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 import java.net.UnknownHostException
@@ -65,8 +64,89 @@ class RepositoryShould {
     }
 
     @Test
+    fun returnTrueIsFingerPrintAuthdataAvailableWhenEmailAndPass() {
+        whenever (userDao.getUser()).thenReturn(User(email = "bob@acme.com"))
+        whenever (securePreferences.password).thenReturn("1234")
+
+        val dataAvailable = repository.isFingerPrintAuthdataAvailable
+
+        verify(userDao).getUser()
+        assertThat(dataAvailable).isTrue()
+    }
+
+    @Test
+    fun returnFalseIsFingerPrintAuthdataAvailableWhenNoEmail() {
+        whenever (userDao.getUser()).thenReturn(User(email = ""))
+        whenever (securePreferences.password).thenReturn("1234")
+
+        val dataAvailable = repository.isFingerPrintAuthdataAvailable
+
+        assertThat(dataAvailable).isFalse()
+    }
+
+    @Test
+    fun returnFalseIsFingerPrintAuthdataAvailableWhenNoPass() {
+        whenever (userDao.getUser()).thenReturn(User(email = "bob@acme.com"))
+        whenever (securePreferences.password).thenReturn("")
+
+        val dataAvailable = repository.isFingerPrintAuthdataAvailable
+
+        assertThat(dataAvailable).isFalse()
+    }
+
+    @Test
+    fun returnTrueRequireLoginWhenSelectedAndTimedOut() {
+        whenever (preferences.timeout).thenReturn(true)
+        whenever (preferences.requireLogin).thenReturn(true)
+
+        val dataAvailable = repository.requireLogin
+
+        assertThat(dataAvailable).isTrue()
+    }
+
+    @Test
+    fun returnFalseRequireLoginWhenNotSelected() {
+        whenever (preferences.timeout).thenReturn(false)
+        whenever (preferences.requireLogin).thenReturn(true)
+
+        val dataAvailable = repository.requireLogin
+
+        assertThat(dataAvailable).isFalse()
+    }
+
+    @Test
+    fun returnFalseRequireLoginWhenNotTimedOut() {
+        whenever (preferences.timeout).thenReturn(true)
+        whenever (preferences.requireLogin).thenReturn(false)
+
+        val dataAvailable = repository.requireLogin
+
+        assertThat(dataAvailable).isFalse()
+    }
+
+    @Test
+    fun LogoutOnTimeoutCheckifTimedOut() {
+        whenever (preferences.timeout).thenReturn(true)
+        whenever (preferences.requireLogin).thenReturn(true)
+
+        repository.timeoutRequireLoginCheck()
+
+        verify(userDao).logout()
+    }
+
+    @Test
+    fun notLogoutOnTimeoutCheckifTimedOut() {
+        whenever (preferences.timeout).thenReturn(false)
+        whenever (preferences.requireLogin).thenReturn(true)
+
+        repository.timeoutRequireLoginCheck()
+
+        verifyZeroInteractions(userDao)
+    }
+
+    @Test
     fun returnFalseOnIsLoggedInWhenTokenNotExist() {
-        `when`(userDao.getUser()).thenReturn(User(token = ""))
+        whenever (userDao.getUser()).thenReturn(User(token = ""))
 
         val logged = repository.isLoggedIn()
 
@@ -76,7 +156,7 @@ class RepositoryShould {
 
     @Test
     fun returnTrueOnIsLoggedInWhenTokenExist() {
-        `when`(userDao.getUser()).thenReturn(User(token = "vkhgfkhgf"))
+        whenever (userDao.getUser()).thenReturn(User(token = "vkhgfkhgf"))
 
         val logged = repository.isLoggedIn()
 
@@ -87,7 +167,7 @@ class RepositoryShould {
     @Test
     fun getUserliveDataOnGetUser() {
         val liveData = object : LiveData<User>() {}
-        `when`(userDao.get()).thenReturn(liveData)
+        whenever (userDao.get()).thenReturn(liveData)
 
         val userliveData = repository.getUser()
 
