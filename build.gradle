@@ -12,9 +12,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//        classpath 'com.google.gms:google-services:3.1.0'
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.google.gms:google-services:3.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
@@ -28,7 +28,6 @@ allprojects {
         maven { url 'https://jitpack.io' }
         jcenter()
         mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
     }
 }
 
@@ -67,6 +66,7 @@ ext {
     okhttp = '3.6.0'
 
     estetho = '1.5.0'
+    firebase = '11.4.2'
 
     junit = '4.12'
     robolectric = '3.3'

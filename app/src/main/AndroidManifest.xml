@@ -65,9 +65,6 @@
         <activity android:name=".repository.preferences.SettingsActivity"
             android:theme="@style/SettingsTheme" />
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="f852becfbbe47cd294b50f934b8c89322f2a3ee4" />
     </application>
 
 </manifest>
