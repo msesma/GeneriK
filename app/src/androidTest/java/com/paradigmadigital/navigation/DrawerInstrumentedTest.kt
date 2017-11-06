@@ -46,7 +46,8 @@ class DrawerInstrumentedTest {
     fun startTermsWebViewOnTermsClick() {
         activityTestRule.activity
         Intents.init()
-        Intents.intending(Matchers.not(IntentMatchers.isInternal())).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
+        Intents.intending(Matchers.not(IntentMatchers.isInternal()))
+                .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
 
         Espresso.onView(ViewMatchers.withContentDescription("Open"))
                 .perform(ViewActions.click())
@@ -63,7 +64,8 @@ class DrawerInstrumentedTest {
     fun startLoginRegisterWebViewOnLogoutClick() {
         activityTestRule.activity
         Intents.init()
-        Intents.intending(Matchers.not(IntentMatchers.isInternal())).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
+        Intents.intending(Matchers.not(IntentMatchers.isInternal()))
+                .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
 
         Espresso.onView(ViewMatchers.withContentDescription("Open"))
                 .perform(ViewActions.click())

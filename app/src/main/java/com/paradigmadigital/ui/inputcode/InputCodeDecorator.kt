@@ -67,7 +67,8 @@ class InputCodeDecorator
         actionBar?.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp)
     }
 
-    @OnClick(R.id.bt_0, R.id.bt_1, R.id.bt_2, R.id.bt_3, R.id.bt_4, R.id.bt_5, R.id.bt_6, R.id.bt_7, R.id.bt_8, R.id.bt_9)
+    @OnClick(R.id.bt_0, R.id.bt_1, R.id.bt_2, R.id.bt_3, R.id.bt_4,
+            R.id.bt_5, R.id.bt_6, R.id.bt_7, R.id.bt_8, R.id.bt_9)
     fun onNumberClick(button: Button) {
         if (codeText.length >= CODE_LEN * 2) return
         when (button.id) {

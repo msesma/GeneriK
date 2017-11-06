@@ -10,8 +10,8 @@ import android.view.MenuItem
 open class SettingsFragment : PreferenceFragment() {
 
     protected fun bindPreferenceSummaryToValue(preference: Preference) {
-        preference.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { _, value -> this.bindPreferenceSummaryToValue(preference, value) }
+        preference.onPreferenceChangeListener = Preference
+                .OnPreferenceChangeListener { _, value -> this.bindPreferenceSummaryToValue(preference, value) }
         bindPreferenceSummaryToValue(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.context)

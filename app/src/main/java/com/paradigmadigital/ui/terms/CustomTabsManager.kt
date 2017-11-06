@@ -26,7 +26,8 @@ constructor(
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
             builder.setShowTitle(true)
-            builder.setCloseButtonIcon(BitmapFactory.decodeResource(activity.resources, R.drawable.ic_arrow_back_white_24dp))
+            builder.setCloseButtonIcon(BitmapFactory
+                    .decodeResource(activity.resources, R.drawable.ic_arrow_back_white_24dp))
             builder.setExitAnimations(activity, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             return builder.build()
         }

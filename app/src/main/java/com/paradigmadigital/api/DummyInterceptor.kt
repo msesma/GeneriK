@@ -58,7 +58,8 @@ class DummyInterceptor
                     .message(responseStringBuilder.toString())
                     .request(chain.request())
                     .protocol(Protocol.HTTP_1_0)
-                    .body(ResponseBody.create(MediaType.parse(contentType), responseStringBuilder.toString().toByteArray()))
+                    .body(ResponseBody
+                            .create(MediaType.parse(contentType), responseStringBuilder.toString().toByteArray()))
                     .addHeader("content-type", contentType)
                     .build()
         } catch (e: Exception) {

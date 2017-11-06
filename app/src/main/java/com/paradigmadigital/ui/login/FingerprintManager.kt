@@ -32,7 +32,8 @@ constructor(
         override fun onNoFingerPrintRegistered() {
             Log.d(TAG, "onNoFingerPrintRegistered")
             stopAuth()
-//          TODO: Show dialog to the user offering them to enroll fingerprints:  FingerPrintUtils.openSecuritySettings(context);
+//          TODO: Show dialog to the user offering them to enroll fingerprints:
+//                FingerPrintUtils.openSecuritySettings(context);
         }
 
         override fun onBelowMarshmallow() {

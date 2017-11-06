@@ -22,7 +22,8 @@ constructor(
         private val BETA_PACKAGE = "com.chrome.beta"
         private val DEV_PACKAGE = "com.chrome.dev"
         private val LOCAL_PACKAGE = "com.google.android.apps.chrome"
-        private val ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService"
+        private val ACTION_CUSTOM_TABS_CONNECTION =
+                "android.support.customtabs.action.CustomTabsService"
     }
 
     private var packageNameToUse: String? = null
@@ -30,12 +31,14 @@ constructor(
     fun getPackageNameToUse(): String? {
         if (packageNameToUse != null) return packageNameToUse
 
-        val activityIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.paradigmadigital.com"))
+        val activityIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("http://www.paradigmadigital.com"))
         val defaultViewHandlerInfo = packageManager.resolveActivity(activityIntent, 0)
         var defaultViewHandlerPackageName: String? = null
         defaultViewHandlerInfo?.let { defaultViewHandlerPackageName = it.activityInfo.packageName }
 
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) PackageManager.MATCH_ALL else 0
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            PackageManager.MATCH_ALL else 0
         val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, flags)
         val packagesSupportingCustomTabs = ArrayList<String>()
         for (info in resolvedActivityList) {
@@ -49,10 +52,12 @@ constructor(
 
         when {
             packagesSupportingCustomTabs.isEmpty() -> packageNameToUse = null
-            packagesSupportingCustomTabs.size == 1 -> packageNameToUse = packagesSupportingCustomTabs[0]
+            packagesSupportingCustomTabs.size == 1 -> packageNameToUse =
+                    packagesSupportingCustomTabs[0]
             !TextUtils.isEmpty(defaultViewHandlerPackageName)
                     && !hasSpecializedHandlerIntents(context, activityIntent)
-                    && packagesSupportingCustomTabs.contains(defaultViewHandlerPackageName) -> packageNameToUse = defaultViewHandlerPackageName
+                    && packagesSupportingCustomTabs
+                    .contains(defaultViewHandlerPackageName) -> packageNameToUse = defaultViewHandlerPackageName
             packagesSupportingCustomTabs.contains(STABLE_PACKAGE) -> packageNameToUse = STABLE_PACKAGE
             packagesSupportingCustomTabs.contains(BETA_PACKAGE) -> packageNameToUse = BETA_PACKAGE
             packagesSupportingCustomTabs.contains(DEV_PACKAGE) -> packageNameToUse = DEV_PACKAGE
