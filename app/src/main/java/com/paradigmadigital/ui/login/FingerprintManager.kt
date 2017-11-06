@@ -5,7 +5,6 @@ import android.hardware.fingerprint.FingerprintManager
 import android.util.Log
 import com.multidots.fingerprintauth.FingerPrintAuthCallback
 import com.multidots.fingerprintauth.FingerPrintAuthHelper
-import com.multidots.fingerprintauth.FingerPrintUtils
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.Repository
 import javax.inject.Inject
@@ -33,7 +32,7 @@ constructor(
         override fun onNoFingerPrintRegistered() {
             Log.d(TAG, "onNoFingerPrintRegistered")
             stopAuth()
-            FingerPrintUtils.openSecuritySettings(context);
+//          TODO: Show dialog to the user offering them to enroll fingerprints:  FingerPrintUtils.openSecuritySettings(context);
         }
 
         override fun onBelowMarshmallow() {
@@ -42,7 +41,7 @@ constructor(
         }
 
         override fun onAuthSuccess(cryptoObject: FingerprintManager.CryptoObject?) {
-            Log.d(TAG, "onAuthSuccess: "+ cryptoObject.toString())
+            Log.d(TAG, "onAuthSuccess: " + cryptoObject.toString())
             callback?.invoke(true)
             stopAuth()
         }
