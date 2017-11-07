@@ -50,7 +50,7 @@ ext {
     support = '27.0.0'
     constraint = '1.0.2'
     crashlver = '2.7.0'
-    archcomponentsver = '1.0.0-rc1'
+    archcomponentsver = '1.0.0'
     playservices = '11.4.2'
 
     coroutines = '0.18'
