@@ -28,15 +28,15 @@ constructor(
         override fun onForgotPassword(email: String) = forgotPassUseCase.execute(email)
 
         override fun onLoggedIn() {
-            navigator.navigateToMain()
+            if (repository.isLoggedIn()) navigator.navigateToMain()
         }
     }
 
     fun initialize(decorator: LoginUserInterface, userViewModel: UserViewModel, resultViewModel: ResultViewModel) {
         this.decorator = decorator
-        repository.timeoutRequireLoginCheck()
+//        repository.timeoutRequireLoginCheck()
         this.decorator?.initialize(delegate, userViewModel, resultViewModel)
-        fingerprintManager.startAuth { onFingerprintAuth(it) }
+//        fingerprintManager.startAuth { onFingerprintAuth(it) }
     }
 
     private fun onFingerprintAuth(result: Boolean) {

@@ -51,7 +51,7 @@ ext {
     constraint = '1.0.2'
     crashlver = '2.7.0'
     archcomponentsver = '1.0.0'
-    playservices = '11.4.2'
+    playservices = '11.6.0'
 
     coroutines = '0.18'
 
@@ -66,7 +66,7 @@ ext {
     okhttp = '3.6.0'
 
     estetho = '1.5.0'
-    firebase = '11.4.2'
+    firebase = '11.6.0'
 
     junit = '4.12'
     robolectric = '3.3'

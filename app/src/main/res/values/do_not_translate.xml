@@ -13,5 +13,6 @@
         translatable="false">email_notification</string>
     <string name="sms_notification"
         translatable="false">sms_notification</string>
+    <string name="account_type">com.paradigmadigital</string>
 
 </resources>

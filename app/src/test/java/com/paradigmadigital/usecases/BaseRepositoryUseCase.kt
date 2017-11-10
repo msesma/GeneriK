@@ -1,6 +1,7 @@
 package com.paradigmadigital.usecases
 
 import com.nhaarman.mockito_kotlin.*
+import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
@@ -24,6 +25,7 @@ open class BaseRepositoryUseCase {
     @Mock lateinit var securePreferences: SecurePreferences
     @Mock lateinit var loginMapper: LoginMapper
     @Mock lateinit var userMapper: UserMapper
+    @Mock lateinit var accountManager: OauthAccountManager
     @Mock lateinit var retrofit: Retrofit
     @Mock lateinit var loginRegisterService: LoginRegisterService
     @Mock lateinit var call: Call<Login>
@@ -48,6 +50,7 @@ open class BaseRepositoryUseCase {
                 preferences,
                 loginMapper,
                 userMapper,
+                accountManager,
                 retrofit)
     }
 }

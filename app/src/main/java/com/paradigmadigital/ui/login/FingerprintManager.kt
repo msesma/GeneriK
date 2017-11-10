@@ -52,10 +52,10 @@ constructor(
 
 
     fun startAuth(callback: CallbackFun<Boolean>) {
-        if (!repository.isFingerPrintAuthdataAvailable) {
-            Log.d(TAG, "Email or Password not stored")
-            return
-        }
+//        if (!repository.isFingerPrintAuthdataAvailable) {
+//            Log.d(TAG, "Email or Password not stored")
+//            return
+//        }
         this.callback = callback
         fingerprintAuthHelper.startAuth()
     }

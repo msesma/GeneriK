@@ -1,6 +1,7 @@
 package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
+import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
@@ -28,6 +29,7 @@ constructor(
         val preferences: Preferences,
         val loginMapper: LoginMapper,
         val userMapper: UserMapper,
+        val accountManager: OauthAccountManager,
         retrofit: Retrofit
 ) {
 
@@ -39,17 +41,18 @@ constructor(
 
     val loginRegisterService: LoginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
-    val isFingerPrintAuthdataAvailable
-        get() = !securePreferences.password.isEmpty() && !getEmail().isEmpty()
-
-    val requireLogin
-        get() = preferences.requireLogin && preferences.timeout
+//    val isFingerPrintAuthdataAvailable
+//        get() = !securePreferences.password.isEmpty() && !getEmail().isEmpty()
+//
+//    val requireLogin
+//        get() = preferences.requireLogin && preferences.timeout
 
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
     fun isLoggedIn(): Boolean {
-        val user: User? = userDao.getUser()
-        return !user?.token.isNullOrEmpty()
+        return accountManager.isLoggedIn()
+//        val user: User? = userDao.getUser()
+//        return !user?.token.isNullOrEmpty()
     }
 
     fun getEmail(): String {
@@ -71,9 +74,9 @@ constructor(
         securePreferences.password = pass
     }
 
-    fun timeoutRequireLoginCheck() {
-        if (requireLogin) userDao.logout()
-    }
+//    fun timeoutRequireLoginCheck() {
+//        if (requireLogin) userDao.logout()
+//    }
 
     fun executeInteractor(id: Int = 0, call: () -> Unit) = launch(CommonPool) { suspendExecute(id, call) }
 

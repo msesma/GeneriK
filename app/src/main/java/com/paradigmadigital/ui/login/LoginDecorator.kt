@@ -97,7 +97,8 @@ class LoginDecorator
     }
 
     private fun handleUserChanges(user: User?) {
-        if (!user?.token.isNullOrEmpty()) delegate?.onLoggedIn()
+        delegate?.onLoggedIn()
+//        if (!user?.token.isNullOrEmpty()) delegate?.onLoggedIn()
     }
 
     override fun handleResult(result: NetworkResult?) {

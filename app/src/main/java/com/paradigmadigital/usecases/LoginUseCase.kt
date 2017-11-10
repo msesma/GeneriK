@@ -15,10 +15,12 @@ class LoginUseCase
         with(repository) {
             executeInteractor(id) {
                 val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
-                if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
+                if (!response.isSuccessful) throw Exception(response.raw().code().toString())
                 val login = response.body() as Login
                 if (login.token.isEmpty()) throw RuntimeException(HttpURLConnection.HTTP_FORBIDDEN.toString())
-                userDao.insert(loginMapper.map(login))
+                val user = loginMapper.map(login)
+//                userDao.insert(user)
+                accountManager.addAccount(user)
              }
         }
     }

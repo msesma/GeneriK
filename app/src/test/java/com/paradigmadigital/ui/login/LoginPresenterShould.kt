@@ -48,13 +48,13 @@ class LoginPresenterShould {
         verify(decorator).initialize(any(), any(), any())
     }
 
-    @Test
-    fun checkTimeoutWhenInitialized() {
-
-        presenter.initialize(decorator, userViewModel, resultViewModel)
-
-        verify(repository).timeoutRequireLoginCheck()
-    }
+//    @Test
+//    fun checkTimeoutWhenInitialized() {
+//
+//        presenter.initialize(decorator, userViewModel, resultViewModel)
+//
+//        verify(repository).timeoutRequireLoginCheck()
+//    }
 
     @Test
     fun initializeFingerprintManagerWhenInitialized() {
