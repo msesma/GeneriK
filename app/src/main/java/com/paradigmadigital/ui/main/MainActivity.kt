@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.paradigmadigital.R
 import com.paradigmadigital.ui.LoggedInBaseActivity
-import com.paradigmadigital.ui.viewmodels.UserViewModel
 import javax.inject.Inject
 
 class MainActivity : LoggedInBaseActivity() {
@@ -20,10 +19,9 @@ class MainActivity : LoggedInBaseActivity() {
         setContentView(R.layout.activity_main)
         activityComponent.inject(this)
 
-        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator, viewModel)
+        presenter.initialize(decorator)
     }
 
     override fun onDestroy() {

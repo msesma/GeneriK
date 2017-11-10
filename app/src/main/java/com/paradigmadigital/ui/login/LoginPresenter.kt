@@ -4,7 +4,6 @@ import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.ui.viewmodels.UserViewModel
 import com.paradigmadigital.usecases.ForgotPassUseCase
 import com.paradigmadigital.usecases.LoginUseCase
 import javax.inject.Inject
@@ -16,7 +15,7 @@ constructor(
         private val navigator: Navigator,
         private val loginUseCase: LoginUseCase,
         private val forgotPassUseCase: ForgotPassUseCase,
-        private val fingerprintManager: FingerprintManager,
+//        private val fingerprintManager: FingerprintManager,
         private val repository: Repository
 ) {
     private var decorator: LoginUserInterface? = null
@@ -32,10 +31,10 @@ constructor(
         }
     }
 
-    fun initialize(decorator: LoginUserInterface, userViewModel: UserViewModel, resultViewModel: ResultViewModel) {
+    fun initialize(decorator: LoginUserInterface, resultViewModel: ResultViewModel) {
         this.decorator = decorator
 //        repository.timeoutRequireLoginCheck()
-        this.decorator?.initialize(delegate, userViewModel, resultViewModel)
+        this.decorator?.initialize(delegate, resultViewModel)
 //        fingerprintManager.startAuth { onFingerprintAuth(it) }
     }
 

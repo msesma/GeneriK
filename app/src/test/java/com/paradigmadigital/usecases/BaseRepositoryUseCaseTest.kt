@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations
 import retrofit2.Call
 import retrofit2.Retrofit
 
-open class BaseRepositoryUseCase {
+open class BaseRepositoryUseCaseTest {
 
     @Mock lateinit var networkResultLiveData: NetworkResultLiveData
     @Mock lateinit var userDao: UserDao
@@ -41,11 +41,11 @@ open class BaseRepositoryUseCase {
         doReturn(User()).whenever(loginMapper).map(loginCaptor.capture())
         doReturn(Login()).whenever(userMapper).map(any())
         doReturn(loginRegisterService).whenever(retrofit).create<LoginRegisterService>(any())
-        doReturn(User()).whenever(userDao).getUser()
+//        doReturn(User()).whenever(userDao).getUser()
         doReturn("1234").whenever(securePreferences).password
         repository = Repository(
                 networkResultLiveData,
-                userDao,
+//                userDao,
                 securePreferences,
                 preferences,
                 loginMapper,

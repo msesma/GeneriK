@@ -16,7 +16,7 @@ import retrofit2.Response
 import java.util.concurrent.TimeUnit
 
 
-class RegisterUserUseCaseShould : BaseRepositoryUseCase() {
+class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
 
     private lateinit var usecase: RegisterUserUseCase
 

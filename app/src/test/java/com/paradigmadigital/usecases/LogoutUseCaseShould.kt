@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 
-class LogoutUseCaseShould : BaseRepositoryUseCase() {
+class LogoutUseCaseShould : BaseRepositoryUseCaseTest() {
 
     private lateinit var usecase: LogoutUseCase
 
@@ -16,15 +16,15 @@ class LogoutUseCaseShould : BaseRepositoryUseCase() {
         usecase = LogoutUseCase(repository)
     }
 
-    @Test
-    fun apiLogoutWithUserWhenExecuted() {
-
-        usecase.execute()
-
-        TimeUnit.MILLISECONDS.sleep(200);
-        verify(userDao).getUser()
-        verify(loginRegisterService).logout(any())
-    }
+//    @Test
+//    fun apiLogoutWithUserWhenExecuted() {
+//
+//        usecase.execute()
+//
+//        TimeUnit.MILLISECONDS.sleep(200);
+//        verify(userDao).getUser()
+//        verify(loginRegisterService).logout(any())
+//    }
 
     @Test
     fun dbClearuserDataWhenExecuted() {

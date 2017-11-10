@@ -4,8 +4,6 @@ import android.arch.lifecycle.LiveData
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
-import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
@@ -16,6 +14,7 @@ import kotlinx.coroutines.experimental.launch
 import retrofit2.Retrofit
 import java.net.HttpURLConnection
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -24,7 +23,6 @@ class Repository
 @Inject
 constructor(
         val networkResultLiveData: NetworkResultLiveData,
-        val userDao: UserDao,
         val securePreferences: SecurePreferences,
         val preferences: Preferences,
         val loginMapper: LoginMapper,
@@ -51,24 +49,37 @@ constructor(
 
     fun isLoggedIn(): Boolean {
         return accountManager.isLoggedIn()
-//        val user: User? = userDao.getUser()
-//        return !user?.token.isNullOrEmpty()
     }
 
     fun getEmail(): String {
-        val user: User? = userDao.getUser()
-        return user?.email ?: ""
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun setUser(email: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun setCode(code: String, date: Date, email: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun getCode(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun getCodeDate(): Date {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun getPass() = securePreferences.password
 
-    fun getUser(): LiveData<User> {
-        return userDao.get()
-    }
+//    fun getUser(): LiveData<User> {
+//        return userDao.get()
+//    }
 
-    fun setUser(email: String) {
-        userDao.insert(User(email = email))
-    }
+//    fun setUser(email: String) {
+//        userDao.insert(User(email = email))
+//    }
 
     fun updatePass(pass: String) {
         securePreferences.password = pass
@@ -97,4 +108,6 @@ constructor(
             else -> callback(NetworkResult(UNKNOWN, id))
         }
     }
+
+
 }

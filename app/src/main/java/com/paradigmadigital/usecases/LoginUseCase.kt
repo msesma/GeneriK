@@ -18,9 +18,7 @@ class LoginUseCase
                 if (!response.isSuccessful) throw Exception(response.raw().code().toString())
                 val login = response.body() as Login
                 if (login.token.isEmpty()) throw RuntimeException(HttpURLConnection.HTTP_FORBIDDEN.toString())
-                val user = loginMapper.map(login)
-//                userDao.insert(user)
-                accountManager.addAccount(user)
+                accountManager.addAccount(login)
              }
         }
     }

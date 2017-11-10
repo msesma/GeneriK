@@ -9,7 +9,6 @@ import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.platform.ApplicationModule
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.ui.viewmodels.UserViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,8 +21,6 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(into: ResultViewModel)
-
-    fun inject(into: UserViewModel)
 
     //Exposed to sub-graphs
     fun provideContext(): Context

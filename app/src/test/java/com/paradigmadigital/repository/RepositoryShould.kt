@@ -1,6 +1,5 @@
 package com.paradigmadigital.repository
 
-import android.arch.lifecycle.LiveData
 import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
@@ -50,7 +49,7 @@ class RepositoryShould {
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         repository = Repository(
                 networkResultLiveData,
-                userDao,
+//                userDao,
                 securePreferences,
                 preferences,
                 loginMapper,
@@ -148,36 +147,36 @@ class RepositoryShould {
 //        verifyZeroInteractions(userDao)
 //    }
 
-    @Test
-    fun returnFalseOnIsLoggedInWhenTokenNotExist() {
-        whenever (userDao.getUser()).thenReturn(User(token = ""))
+//    @Test
+//    fun returnFalseOnIsLoggedInWhenTokenNotExist() {
+//        whenever (userDao.getUser()).thenReturn(User(token = ""))
+//
+//        val logged = repository.isLoggedIn()
+//
+//        verify(userDao).getUser()
+//        assertThat(logged).isFalse()
+//    }
+//
+//    @Test
+//    fun returnTrueOnIsLoggedInWhenTokenExist() {
+//        whenever (userDao.getUser()).thenReturn(User(token = "vkhgfkhgf"))
+//
+//        val logged = repository.isLoggedIn()
+//
+//        verify(userDao).getUser()
+//        assertThat(logged).isTrue()
+//    }
 
-        val logged = repository.isLoggedIn()
-
-        verify(userDao).getUser()
-        assertThat(logged).isFalse()
-    }
-
-    @Test
-    fun returnTrueOnIsLoggedInWhenTokenExist() {
-        whenever (userDao.getUser()).thenReturn(User(token = "vkhgfkhgf"))
-
-        val logged = repository.isLoggedIn()
-
-        verify(userDao).getUser()
-        assertThat(logged).isTrue()
-    }
-
-    @Test
-    fun getUserliveDataOnGetUser() {
-        val liveData = object : LiveData<User>() {}
-        whenever (userDao.get()).thenReturn(liveData)
-
-        val userliveData = repository.getUser()
-
-        verify(userDao).get()
-        assertThat(userliveData).isEqualTo(liveData)
-    }
+//    @Test
+//    fun getUserliveDataOnGetUser() {
+//        val liveData = object : LiveData<User>() {}
+//        whenever (userDao.get()).thenReturn(liveData)
+//
+//        val userliveData = repository.getUser()
+//
+//        verify(userDao).get()
+//        assertThat(userliveData).isEqualTo(liveData)
+//    }
 
     @Test
     fun setUserOnSetUser() {

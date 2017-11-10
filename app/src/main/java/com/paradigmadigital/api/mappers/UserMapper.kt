@@ -11,7 +11,6 @@ class UserMapper @Inject constructor() : Mapper<Login, User> {
         val login = Login()
         login.uid = input.uid
         login.name = input.name
-        login.registerDate = input.registerDate.time
         login.phone = input.phone
         login.email = input.email
         return login

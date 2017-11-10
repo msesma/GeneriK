@@ -3,7 +3,7 @@ package com.paradigmadigital.account
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Context
-import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.api.model.Login
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class OauthAccountManager
     }
 
 
-    fun addAccount(user: User) {
+    fun addAccount(user: Login) {
         //Account name will be package and we will use the password field for the user email
         val account = Account(
                 AccountAuthenticator.ARG_ACCOUNT_TYPE,

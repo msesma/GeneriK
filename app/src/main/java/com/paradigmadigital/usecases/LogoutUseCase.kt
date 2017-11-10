@@ -11,9 +11,8 @@ class LogoutUseCase
     fun execute() {
         with(repository) {
             executeInteractor {
-                loginRegisterService.logout(userDao.getUser().email)
+                loginRegisterService.logout(getEmail())
                 accountManager.logout()
-//                userDao.insert(User())
             }
         }
     }

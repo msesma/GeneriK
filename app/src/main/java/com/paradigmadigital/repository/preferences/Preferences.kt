@@ -11,8 +11,10 @@ class Preferences @Inject constructor(
         private val context: Context
 ) {
     companion object {
-        val TIMEOUT_KEY = "key_timeout"
-        val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
+        private val TIMEOUT_KEY = "key_timeout"
+        private val CODE_KEY = "key_code"
+        private val CODE_TIME_KEY = "key_code_time"
+        private val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
     }
 
     val requireLogin: Boolean

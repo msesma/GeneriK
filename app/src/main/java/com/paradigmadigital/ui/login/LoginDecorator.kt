@@ -10,7 +10,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnFocusChange
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.platform.Constants.LOGIN
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode.FORBIDDEN
@@ -19,7 +18,6 @@ import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.ui.viewmodels.UserViewModel
 import javax.inject.Inject
 
 
@@ -53,11 +51,9 @@ class LoginDecorator
 
     override fun initialize(
             delegate: LoginUserInterface.Delegate,
-            userViewModel: UserViewModel,
             resultViewModel: ResultViewModel) {
         this.delegate = delegate
 
-        userViewModel.userLiveData.observe(activity, Observer<User> { handleUserChanges(it) })
         resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
     }
 
@@ -96,19 +92,13 @@ class LoginDecorator
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun handleUserChanges(user: User?) {
-        delegate?.onLoggedIn()
-//        if (!user?.token.isNullOrEmpty()) delegate?.onLoggedIn()
-    }
-
     override fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in LOGIN..LOGIN + 99) return
 
         stopWaitingMode()
         when (result?.result) {
             FORBIDDEN -> dialog.show(R.string.login_error, R.string.empty, true) { }
-            SUCCESS -> {
-            }
+            SUCCESS -> delegate?.onLoggedIn()
             else -> super.handleResult(result)
         }
     }

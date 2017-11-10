@@ -5,7 +5,6 @@ import android.content.Context
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.domain.db.Database
-import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.Repository
@@ -32,7 +31,6 @@ class DomainModule() {
     @Singleton
     @Provides
     fun provideRepository(networkResultLiveData: NetworkResultLiveData,
-                          userDao: UserDao,
                           securePreferences: SecurePreferences,
                           retrofit: Retrofit,
                           preferences: Preferences,
@@ -41,7 +39,6 @@ class DomainModule() {
                           userMapper: UserMapper) =
             Repository(
                     networkResultLiveData,
-                    userDao,
                     securePreferences,
                     preferences,
                     loginMapper,

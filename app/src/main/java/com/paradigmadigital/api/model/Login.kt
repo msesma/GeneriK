@@ -12,9 +12,6 @@ class Login {
     @SerializedName("name")
     var name: String = ""
 
-    @SerializedName("registerDate")
-    var registerDate: Long = 0
-
     @SerializedName("phone")
     var phone: String = ""
 
