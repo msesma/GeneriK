@@ -87,7 +87,6 @@ dependencies {
 
     implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
     implementation "pub.devrel:easypermissions:$easy_permissions"
-    implementation "com.q42:qlassified:$qlassified"
     implementation "com.multidots:fingerprint-auth:$fingerprint"
 
     implementation "android.arch.lifecycle:extensions:$archcomponentsver"

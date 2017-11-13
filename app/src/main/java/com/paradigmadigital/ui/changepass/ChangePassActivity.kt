@@ -2,6 +2,7 @@ package com.paradigmadigital.ui.changepass
 
 import android.os.Bundle
 import com.paradigmadigital.R
+import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class ChangePassActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator)
+        presenter.initialize(decorator, intent.extras.getString(Navigator.EXTRA_EMAIL))
     }
 
 

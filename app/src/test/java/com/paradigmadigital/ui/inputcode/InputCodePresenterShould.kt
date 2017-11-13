@@ -37,23 +37,28 @@ class InputCodePresenterShould {
     @Test
     fun initializeDecoratorWhenInitialized() {
 
-        presenter.initialize(decorator, resultViewModel)
+        presenter.initialize(decorator, resultViewModel, "bob@acme.com", "password")
 
         verify(decorator).initialize(any(), any())
     }
 
     @Test
     fun callUseCaseOnCode() {
-        presenter.initialize(decorator, resultViewModel)
+        presenter.initialize(decorator, resultViewModel, "bob@acme.com", "password")
 
         delegateCaptor.firstValue.onCode("123456")
 
-        verify(setPassUseCase).execute(eq("123456"), eq(InputCodeDecorator.REQUEST_SET_PASS))
+        verify(setPassUseCase).execute(
+                eq("123456"),
+                eq("bob@acme.com"),
+                eq("password"),
+                eq(InputCodeDecorator.REQUEST_SET_PASS)
+        )
     }
 
     @Test
     fun callUseCaseOnSendNew() {
-        presenter.initialize(decorator, resultViewModel)
+        presenter.initialize(decorator, resultViewModel, "bob@acme.com", "password")
 
         delegateCaptor.firstValue.onSendNew()
 
@@ -62,7 +67,7 @@ class InputCodePresenterShould {
 
     @Test
     fun navigateToLoginRegisterOnCodeSent() {
-        presenter.initialize(decorator, resultViewModel)
+        presenter.initialize(decorator, resultViewModel, "bob@acme.com", "password")
 
         delegateCaptor.firstValue.onCodeSent()
 

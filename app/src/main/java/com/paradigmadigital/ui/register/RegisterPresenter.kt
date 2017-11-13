@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui.register
 
-import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.register.RegisterDecorator.Companion.REQUEST_REGISTER
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
@@ -18,12 +18,13 @@ constructor(
 
     private val delegate = object : RegisterUserInterface.Delegate {
 
-        override fun onRegister(name: String, tel: String, email: String, pass: String) {
-            val user = User(name = name, phone = tel, email = email)
-            useCase.execute(user, pass, REQUEST_REGISTER)
+        override fun onRegister(name: String, tel: String, email: String) {
+            val user = Login(name = name, phone = tel, email = email)
+            useCase.execute(user, REQUEST_REGISTER)
         }
 
-        override fun onRegistered() = navigator.navigateToInputCode()
+        override fun onRegistered(email: String, pass: String) =
+                navigator.navigateToInputCode(email, pass)
     }
 
     fun initialize(decorator: RegisterUserInterface, resultViewModel: ResultViewModel) {

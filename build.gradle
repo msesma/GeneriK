@@ -56,7 +56,6 @@ ext {
     coroutines = '0.18'
 
     easy_permissions = '0.3.0'
-    qlassified = '0.1.1'
     fingerprint = '1.0.1'
     materialdrawerkt = '1.0.6'
     butterknife = '8.6.0'

@@ -4,7 +4,6 @@ import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.usecases.ForgotPassUseCase
 import com.paradigmadigital.usecases.LoginUseCase
 import javax.inject.Inject
 
@@ -14,7 +13,6 @@ class LoginPresenter
 constructor(
         private val navigator: Navigator,
         private val loginUseCase: LoginUseCase,
-        private val forgotPassUseCase: ForgotPassUseCase,
 //        private val fingerprintManager: FingerprintManager,
         private val repository: Repository
 ) {
@@ -24,7 +22,7 @@ constructor(
 
         override fun onLogin(email: String, pass: String) = loginUseCase.execute(email, pass, REQUEST_LOGIN)
 
-        override fun onForgotPassword(email: String) = forgotPassUseCase.execute(email)
+        override fun onForgotPassword(email: String) = navigator.navigateToChangePassword(email)
 
         override fun onLoggedIn() {
             if (repository.isLoggedIn()) navigator.navigateToMain()
@@ -38,9 +36,9 @@ constructor(
 //        fingerprintManager.startAuth { onFingerprintAuth(it) }
     }
 
-    private fun onFingerprintAuth(result: Boolean) {
-        if (result) loginUseCase.execute(repository.getEmail(), repository.getPass(), REQUEST_LOGIN)
-    }
+//    private fun onFingerprintAuth(result: Boolean) {
+//        if (result) loginUseCase.execute(repository.getEmail(), repository.getPass(), REQUEST_LOGIN)
+//    }
 
     fun dispose() {
         this.decorator = null

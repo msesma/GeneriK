@@ -7,7 +7,6 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.usecases.ForgotPassUseCase
 import com.paradigmadigital.usecases.LoginUseCase
 import org.junit.Before
 import org.mockito.Mock
@@ -15,7 +14,6 @@ import org.mockito.MockitoAnnotations
 
 class LoginPresenterShould {
     @Mock private lateinit var loginUseCase: LoginUseCase
-    @Mock private lateinit var forgotPassUseCase: ForgotPassUseCase
     @Mock private lateinit var navigator: Navigator
     @Mock private lateinit var decorator: LoginUserInterface
     @Mock private lateinit var resultViewModel: ResultViewModel
@@ -33,8 +31,6 @@ class LoginPresenterShould {
         presenter = LoginPresenter(
                 navigator,
                 loginUseCase,
-                forgotPassUseCase,
-//                fingerprintManager,
                 repository)
         doNothing().whenever(decorator).initialize(delegateCaptor.capture(), any())
         doNothing().whenever(fingerprintManager).startAuth(callbackCaptor.capture())

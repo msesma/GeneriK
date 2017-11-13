@@ -14,8 +14,8 @@ interface LoginRegisterService {
     @GET("login")
     fun login(@Header("Authorization") credentials: String): Call<Login>
 
-    @GET("update")
-    fun setPass(@Header("Authorization") credentials: String): Call<Login>
+    @POST("update")
+    fun setPass(@Header("Authorization") credentials: String, @Body code: String): Call<Void>
 
     @GET("logout")
     fun logout(@Query("email") email: String): Call<Void>

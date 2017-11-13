@@ -11,8 +11,6 @@ import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
-import com.q42.qlassified.Qlassified
-import com.q42.qlassified.Storage.QlassifiedSharedPreferencesService
 import io.fabric.sdk.android.Fabric
 
 
@@ -34,18 +32,12 @@ class AndroidApplication : Application() {
         Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
-        Stetho.initializeWithDefaults(this);
-        initializeEncryptedPreferences()
+        Stetho.initializeWithDefaults(this)
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
-    }
-
-    private fun initializeEncryptedPreferences() {
-        Qlassified.Service.start(this)
-        Qlassified.Service.setStorageService(QlassifiedSharedPreferencesService(this, SECURE_PREFERENCES))
     }
 
     protected fun createComponent(): ApplicationComponent {

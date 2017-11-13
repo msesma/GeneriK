@@ -28,17 +28,17 @@ class ChangePassPresenterShould {
     @Test
     fun initializeDecoratorWhenInitialized() {
 
-        presenter.initialize(decorator)
+        presenter.initialize(decorator, "bob@acme.com")
 
         verify(decorator).initialize(any())
     }
 
     @Test
     fun callUseCaseOnNewPass() {
-        presenter.initialize(decorator)
+        presenter.initialize(decorator, "bob@acme.com")
 
         delegateCaptor.firstValue.onNewPass("password")
 
-        verify(changePassUseCase).execute("password")
+        verify(changePassUseCase).execute("bob@acme.com", "password")
     }
 }

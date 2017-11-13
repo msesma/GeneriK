@@ -21,6 +21,8 @@ constructor(
 ) {
     companion object {
         private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
+        val EXTRA_EMAIL = "extra_email"
+        val EXTRA_PASS = "extra_pass"
     }
 
     fun closeActivity() {
@@ -49,8 +51,10 @@ constructor(
         activity.startActivity(intent)
     }
 
-    fun navigateToInputCode() {
+    fun navigateToInputCode(email: String, pass: String) {
         val intent = Intent(activity, InputCodeActivity::class.java)
+        intent.putExtra(EXTRA_EMAIL, email)
+        intent.putExtra(EXTRA_PASS, pass)
         activity.startActivity(intent)
     }
 
@@ -58,8 +62,9 @@ constructor(
         browser.showContent(TERMS_URL)
     }
 
-    fun navigateToChangePassword() {
+    fun navigateToChangePassword(email: String) {
         val intent = Intent(activity, ChangePassActivity::class.java)
+        intent.putExtra(EXTRA_EMAIL, email)
         activity.startActivity(intent)
     }
 

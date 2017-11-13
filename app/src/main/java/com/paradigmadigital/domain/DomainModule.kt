@@ -3,13 +3,10 @@ package com.paradigmadigital.domain
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.paradigmadigital.account.OauthAccountManager
-import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.domain.db.Database
-import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.repository.preferences.Preferences
-import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -31,19 +28,14 @@ class DomainModule() {
     @Singleton
     @Provides
     fun provideRepository(networkResultLiveData: NetworkResultLiveData,
-                          securePreferences: SecurePreferences,
                           retrofit: Retrofit,
                           preferences: Preferences,
-                          loginMapper: LoginMapper,
-                          accountManager: OauthAccountManager,
-                          userMapper: UserMapper) =
+                          accountManager: OauthAccountManager) =
             Repository(
                     networkResultLiveData,
-                    securePreferences,
                     preferences,
-                    loginMapper,
-                    userMapper,
                     accountManager,
-                    retrofit)
+                    retrofit
+            )
 
 }

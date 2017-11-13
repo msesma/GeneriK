@@ -2,19 +2,14 @@ package com.paradigmadigital.api.model
 
 import com.google.gson.annotations.SerializedName
 
-class Login {
-    @SerializedName("token")
-    var token: String = ""
+data class Login(
+        @SerializedName("token") val token: String = "",
 
-    @SerializedName("uid")
-    var uid: String = ""
+        @SerializedName("uid") val uid: String = "",
 
-    @SerializedName("name")
-    var name: String = ""
+        @SerializedName("name") val name: String = "",
 
-    @SerializedName("phone")
-    var phone: String = ""
+        @SerializedName("phone") val phone: String = "",
 
-    @SerializedName("email")
-    var email: String = ""
-}
+        @SerializedName("email") val email: String = ""
+)

@@ -5,7 +5,6 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.api.model.Login
-import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.repository.NetworkResultCode
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -27,21 +26,12 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
     }
 
     @Test
-    fun apiRegisterWhenExecuted() {
-
-        usecase.execute(User(), "1234", 5)
-
-        verify(userMapper).map(any())
-        verify(loginRegisterService).register(any())
-    }
-
-    @Test
     fun callbackErrorWhenErrorInRegister() {
         val response = getResponse(404, true)
         doReturn(response).whenever(call).execute()
         doReturn(call).whenever(loginRegisterService).register(any())
 
-        usecase.execute(User(), "1234", 5)
+        usecase.execute(Login(), 5)
 
         TimeUnit.MILLISECONDS.sleep(200);
         verify(networkResultLiveData).setNetworkResult(any())
@@ -54,12 +44,11 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
         doReturn(response).whenever(call).execute()
         doReturn(call).whenever(loginRegisterService).register(any())
 
-        usecase.execute(User(), "1234", 5)
+        usecase.execute(Login(), 5)
 
         TimeUnit.MILLISECONDS.sleep(200);
         verify(userDao).insert(any())
         Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
-        verify(securePreferences).password = "1234"
     }
 
 

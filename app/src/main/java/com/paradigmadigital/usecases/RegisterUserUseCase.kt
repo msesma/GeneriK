@@ -1,6 +1,6 @@
 package com.paradigmadigital.usecases
 
-import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.repository.Repository
 import javax.inject.Inject
 
@@ -10,11 +10,10 @@ class RegisterUserUseCase
         private val repository: Repository
 ) {
 
-    fun execute(user: User, pass: String, id: Int) {
+    fun execute(user: Login, id: Int) {
         with(repository) {
             executeInteractor(id) {
-                val login = userMapper.map(user)
-                val response = loginRegisterService.register(login).execute()
+                val response = loginRegisterService.register(user).execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
             }
         }

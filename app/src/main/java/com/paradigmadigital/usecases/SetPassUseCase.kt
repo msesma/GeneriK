@@ -3,9 +3,7 @@ package com.paradigmadigital.usecases
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.repository.Repository
-import com.paradigmadigital.repository.Repository.Companion.TIMEOUT
 import okhttp3.Credentials
-import java.util.*
 import javax.inject.Inject
 
 class SetPassUseCase
@@ -13,16 +11,16 @@ class SetPassUseCase
         private val repository: Repository
 ) {
 
-    fun execute(code: String, id: Int) {
+    fun execute(code: String, email: String, pass: String, id: Int) {
         with(repository) {
-            if (getCode() != code || Date().time - getCodeDate().time > TIMEOUT) {
+            if (getCode(email) == "") {
                 networkResultLiveData.setNetworkResult(NetworkResult(NetworkResultCode.FAIL, id))
                 return
             }
 
             executeInteractor(id) {
                 val response = loginRegisterService
-                        .setPass(Credentials.basic(getEmail(), securePreferences.password))
+                        .setPass(Credentials.basic(email, pass), code)
                         .execute()
                 if (!response.isSuccessful) throw RuntimeException(response.raw().code().toString())
             }

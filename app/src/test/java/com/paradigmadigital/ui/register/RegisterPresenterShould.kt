@@ -1,7 +1,7 @@
 package com.paradigmadigital.ui.register
 
 import com.nhaarman.mockito_kotlin.*
-import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import com.paradigmadigital.usecases.RegisterUserUseCase
@@ -41,13 +41,13 @@ class RegisterPresenterShould {
 
     @Test
     fun callUseCaseOnRegister() {
-        val userCaptor = argumentCaptor<User>()
-        doNothing().whenever(registerUserUseCase).execute(userCaptor.capture(), any(), any())
+        val userCaptor = argumentCaptor<Login>()
+        doNothing().whenever(registerUserUseCase).execute(userCaptor.capture(), any())
         presenter.initialize(decorator, resultViewModel)
 
-        delegateCaptor.firstValue.onRegister("Bob", "123456789", "bob@acme.com", "1234")
+        delegateCaptor.firstValue.onRegister("Bob", "123456789", "bob@acme.com")
 
-        verify(registerUserUseCase).execute(any(),eq("1234"), eq(RegisterDecorator.REQUEST_REGISTER))
+        verify(registerUserUseCase).execute(any(), eq(RegisterDecorator.REQUEST_REGISTER))
         assertThat(userCaptor.firstValue.name).isEqualTo("Bob")
         assertThat(userCaptor.firstValue.phone).isEqualTo("123456789")
         assertThat(userCaptor.firstValue.email).isEqualTo("bob@acme.com")
@@ -57,8 +57,8 @@ class RegisterPresenterShould {
     fun navigateToInputCodeOnRegistered() {
         presenter.initialize(decorator, resultViewModel)
 
-        delegateCaptor.firstValue.onRegistered()
+        delegateCaptor.firstValue.onRegistered("bob@acme.com", "1234")
 
-        verify(navigator).navigateToInputCode()
+        verify(navigator).navigateToInputCode("bob@acme.com", "1234")
     }
 }

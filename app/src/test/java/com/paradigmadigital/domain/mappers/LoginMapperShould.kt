@@ -16,12 +16,13 @@ class LoginMapperShould {
 
     @Test
     fun mapInputInOutputOnMap() {
-        val login = Login()
-        login.uid = "123"
-        login.name = "Bob"
-        login.phone = "12345678"
-        login.email = "bon@acme.com"
-        login.token = "hlfhslgrtlg5uypa8eghñe8gñae8ygñehgañfldg"
+        val login = Login(
+                uid = "123",
+                name = "Bob",
+                phone = "12345678",
+                email = "bon@acme.com",
+                token = "hlfhslgrtlg5uypa8eghñe8gñae8ygñehgañfldg"
+        )
 
         val user = mapper.map(login)
 

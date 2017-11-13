@@ -80,8 +80,7 @@ class RegisterDecorator
             delegate?.onRegister(
                     name = name.text.toString(),
                     email = email1.text.toString(),
-                    tel = tel.text.toString(),
-                    pass = pass1.text.toString()
+                    tel = tel.text.toString()
             )
             startWaitingMode()
         }
@@ -97,7 +96,7 @@ class RegisterDecorator
         if (result?.requestId !in REGISTER..REGISTER + 99) return
 
         if (result?.result == NetworkResultCode.SUCCESS) {
-            delegate?.onRegistered()
+            delegate?.onRegistered(email = email1.text.toString(), pass = pass1.text.toString())
             stopWaitingMode()
             return
         }

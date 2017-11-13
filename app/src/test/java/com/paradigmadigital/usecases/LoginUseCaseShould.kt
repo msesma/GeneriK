@@ -85,8 +85,7 @@ class LoginUseCaseShould : BaseRepositoryUseCaseTest() {
             val responseBody = ResponseBody.create(MediaType.parse("application/json"), "{}")
             return Response.error<Login>(code, responseBody)
         }
-        val login = Login()
-        if (loggedIn) login.token = "token"
-        return Response.success(login)
+
+        return Response.success(if (loggedIn) Login(token = "token") else Login())
     }
 }

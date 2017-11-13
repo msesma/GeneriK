@@ -10,9 +10,8 @@ class ChangePassUseCase
         private val navigator: Navigator
 ){
 
-    fun execute(pass: String){
-        repository.updatePass(pass)
+    fun execute(email: String, pass: String){
         navigator.closeActivity()
-        navigator.navigateToInputCode()
+        navigator.navigateToInputCode(email, pass)
     }
 }

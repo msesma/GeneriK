@@ -8,11 +8,12 @@ import javax.inject.Inject
 
 class UserMapper @Inject constructor() : Mapper<Login, User> {
     override fun map(input: User): Login {
-        val login = Login()
-        login.uid = input.uid
-        login.name = input.name
-        login.phone = input.phone
-        login.email = input.email
+        val login = Login(
+                uid = input.uid,
+                name = input.name,
+                phone = input.phone,
+                email = input.email
+        )
         return login
     }
 }

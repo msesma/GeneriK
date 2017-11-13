@@ -1,14 +1,15 @@
 package com.paradigmadigital.repository
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.argumentCaptor
+import com.nhaarman.mockito_kotlin.doNothing
+import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.preferences.Preferences
-import com.paradigmadigital.repository.securepreferences.SecurePreferences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -24,8 +25,6 @@ class RepositoryShould {
     private lateinit var networkResultLiveData: NetworkResultLiveData
     @Mock
     private lateinit var userDao: UserDao
-    @Mock
-    private lateinit var securePreferences: SecurePreferences
     @Mock
     private lateinit var preferences: Preferences
     @Mock
@@ -49,11 +48,7 @@ class RepositoryShould {
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         repository = Repository(
                 networkResultLiveData,
-//                userDao,
-                securePreferences,
                 preferences,
-                loginMapper,
-                userMapper,
                 accountManager,
                 retrofit)
     }
@@ -178,21 +173,21 @@ class RepositoryShould {
 //        assertThat(userliveData).isEqualTo(liveData)
 //    }
 
-    @Test
-    fun setUserOnSetUser() {
-
-        repository.setUser(email = "bob@acme.com")
-
-        verify(userDao).insert(User(email = "bob@acme.com"))
-    }
-
-    @Test
-    fun updatePassOnUpdatePass() {
-
-        repository.updatePass("password")
-
-        verify(securePreferences).password = "password"
-    }
+//    @Test
+//    fun setUserOnSetUser() {
+//
+//        repository.setUser(email = "bob@acme.com")
+//
+//        verify(userDao).insert(User(email = "bob@acme.com"))
+//    }
+//
+//    @Test
+//    fun updatePassOnUpdatePass() {
+//
+//        repository.updatePass("password")
+//
+//        verify(securePreferences).password = "password"
+//    }
 
     @Test
     fun sendDisconnectedOnUnknownHostException() {

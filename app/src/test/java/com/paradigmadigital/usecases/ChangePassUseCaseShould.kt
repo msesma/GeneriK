@@ -26,10 +26,10 @@ class ChangePassUseCaseShould {
     @Test
     fun setPassClosesAndNavigateToInputCodeExecuted() {
 
-        usecase.execute("1234")
+        usecase.execute("bob@acme.com", "1234")
 
-        verify(repository).updatePass("1234")
+        verify(repository).updatePass("bob@acme.com","1234")
         verify(navigator).closeActivity()
-        verify(navigator).navigateToInputCode()
+        verify(navigator).navigateToInputCode("bob@acme.com","1234")
     }
 }

@@ -19,7 +19,9 @@ class InputCodeActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator, resultViewModel)
+        val email = intent.extras.getString(Navigator.EXTRA_EMAIL)
+        val pass = intent.extras.getString(Navigator.EXTRA_PASS)
+        presenter.initialize(decorator, resultViewModel, email, pass)
     }
 
 

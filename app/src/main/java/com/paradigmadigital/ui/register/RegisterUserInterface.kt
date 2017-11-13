@@ -10,9 +10,9 @@ interface RegisterUserInterface {
 
     interface Delegate {
 
-        fun onRegister(name: String, tel: String, email: String, pass: String)
+        fun onRegister(name: String, tel: String, email: String)
 
-        fun onRegistered()
+        fun onRegistered(email: String, pass: String)
 
     }
 }
