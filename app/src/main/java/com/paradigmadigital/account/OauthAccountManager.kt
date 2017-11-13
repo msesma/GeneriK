@@ -2,16 +2,22 @@ package com.paradigmadigital.account
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.accounts.AccountManagerFuture
 import android.content.Context
 import android.os.Bundle
 import com.paradigmadigital.api.model.Login
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
+
+
 class OauthAccountManager
 @Inject constructor(
-        context: Context
+        val context: Context
 ) {
 
     companion object {
@@ -27,11 +33,12 @@ class OauthAccountManager
     fun isLoggedIn(): Boolean {
         if (accounts.isEmpty()) return false
 
-        return getToken(accounts.get(0)) != null
+        val token = getToken(accounts.get(0))
+        return !token.isNullOrEmpty()
     }
 
     fun addAccount(user: Login) {
-        //Account name will be package and we will use the password field for the user email
+        //The account name will be the app package, we will use the password field for the user email
         val account = Account(
                 AccountAuthenticator.ARG_ACCOUNT_TYPE,
                 AccountAuthenticator.ARG_ACCOUNT_TYPE)
@@ -76,14 +83,27 @@ class OauthAccountManager
     private fun getToken(account: Account): String? {
         val future = accountManager.getAuthToken(
                 account,
-                AccountAuthenticator.ARG_ACCOUNT_TYPE,
+                AccountAuthenticator.ARG_AUTH_TYPE,
                 null,
                 false,
                 null,
                 null)
 
-        val token = future.getResult(500, TimeUnit.MILLISECONDS).getString(AccountManager.KEY_AUTHTOKEN)
+        var token: String? = null
+        val deferred = launch(CommonPool) { token = suspendExecute(future) }
+        launch(UI) { deferred.join() }
         return token
     }
+
+    suspend private fun suspendExecute(future: AccountManagerFuture<Bundle>): String? {
+        try {
+            val result = future.getResult(500, TimeUnit.MILLISECONDS)
+            return result.getString(AccountManager.KEY_AUTHTOKEN)
+        } catch (e: Exception ){
+            return ""
+        }
+    }
+
+
 
 }

@@ -52,10 +52,6 @@ constructor(
         return preferences.code
     }
 
-    fun updatePass(email: String, pass: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     fun timeoutRequireLoginCheck() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

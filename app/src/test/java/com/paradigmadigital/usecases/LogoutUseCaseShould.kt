@@ -1,7 +1,5 @@
 package com.paradigmadigital.usecases
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.TimeUnit
@@ -27,11 +25,11 @@ class LogoutUseCaseShould : BaseRepositoryUseCaseTest() {
 //    }
 
     @Test
-    fun dbClearuserDataWhenExecuted() {
+    fun accountClearUserDataWhenExecuted() {
 
         usecase.execute()
 
         TimeUnit.MILLISECONDS.sleep(200);
-        verify(userDao).insert(any())
+        //TODO verify clearinbg
     }
 }

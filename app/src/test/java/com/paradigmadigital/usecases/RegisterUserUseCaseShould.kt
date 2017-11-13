@@ -39,7 +39,7 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
     }
 
     @Test
-    fun insertUserOnDbOnSucessfulRegister() {
+    fun createUserAccountOnDbOnSucessfulRegister() {
         val response = getResponse(200, false)
         doReturn(response).whenever(call).execute()
         doReturn(call).whenever(loginRegisterService).register(any())
@@ -47,7 +47,7 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(Login(), 5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-        verify(userDao).insert(any())
+        //TODO verify insert user data into account
         Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
     }
 

@@ -28,7 +28,6 @@ class ChangePassUseCaseShould {
 
         usecase.execute("bob@acme.com", "1234")
 
-        verify(repository).updatePass("bob@acme.com","1234")
         verify(navigator).closeActivity()
         verify(navigator).navigateToInputCode("bob@acme.com","1234")
     }
