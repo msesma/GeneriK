@@ -12,6 +12,7 @@ import com.paradigmadigital.repository.preferences.Preferences
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -30,7 +31,7 @@ class DomainModule() {
     @Singleton
     @Provides
     fun provideRepository(networkResultLiveData: NetworkResultLiveData,
-                          retrofit: Retrofit,
+                          @Named("non-authenticated") retrofit: Retrofit,
                           userDao: UserDao,
                           preferences: Preferences,
                           loginMapper: LoginMapper,

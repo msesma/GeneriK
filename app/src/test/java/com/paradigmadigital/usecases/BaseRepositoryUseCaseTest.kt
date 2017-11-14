@@ -4,6 +4,8 @@ import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
+import com.paradigmadigital.domain.db.UserDao
+import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.Repository
@@ -21,6 +23,8 @@ open class BaseRepositoryUseCaseTest {
     @Mock lateinit var loginRegisterService: LoginRegisterService
     @Mock lateinit var call: Call<Login>
     @Mock lateinit var preferences: Preferences
+    @Mock lateinit var userDao: UserDao
+    @Mock lateinit var loginMapper: LoginMapper
 
     val resultCaptor = argumentCaptor<NetworkResult>()
     lateinit var repository: Repository
@@ -33,8 +37,10 @@ open class BaseRepositoryUseCaseTest {
 
         repository = Repository(
                 networkResultLiveData,
+                userDao,
                 preferences,
                 accountManager,
+                loginMapper,
                 retrofit)
     }
 }

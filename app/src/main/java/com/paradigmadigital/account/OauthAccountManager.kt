@@ -62,6 +62,19 @@ class OauthAccountManager
         return accountManager.getPassword(accounts.get(0))
     }
 
+    fun getAuthToken(): String {
+        if (accounts.isEmpty()) return ""
+
+        val token = getToken(accounts.get(0))
+        return token ?: ""
+    }
+
+    fun refreshToken(newToken: String) {
+        if (accounts.isEmpty()) return
+
+        accountManager.setAuthToken(accounts.get(0), AccountAuthenticator.ARG_AUTH_TYPE, newToken)
+    }
+
     private fun getToken(account: Account): String? {
         val future = accountManager.getAuthToken(
                 account,
@@ -82,7 +95,7 @@ class OauthAccountManager
         try {
             val result = future.getResult(100, TimeUnit.MILLISECONDS)
             return result.getString(AccountManager.KEY_AUTHTOKEN)
-        } catch (e: Exception ){
+        } catch (e: Exception) {
             return ""
         }
     }

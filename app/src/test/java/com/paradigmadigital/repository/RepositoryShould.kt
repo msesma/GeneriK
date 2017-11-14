@@ -5,7 +5,6 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.account.OauthAccountManager
-import com.paradigmadigital.api.mappers.UserMapper
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
@@ -29,8 +28,8 @@ class RepositoryShould {
     private lateinit var preferences: Preferences
     @Mock
     private lateinit var loginMapper: LoginMapper
-    @Mock
-    private lateinit var userMapper: UserMapper
+//    @Mock
+//    private lateinit var userMapper: UserMapper
     @Mock
     private lateinit var accountManager: OauthAccountManager
     @Mock
@@ -48,8 +47,10 @@ class RepositoryShould {
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
         repository = Repository(
                 networkResultLiveData,
+                userDao,
                 preferences,
                 accountManager,
+                loginMapper,
                 retrofit)
     }
 
