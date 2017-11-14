@@ -2,7 +2,11 @@ package com.paradigmadigital.repository
 
 import android.arch.lifecycle.LiveData
 import com.paradigmadigital.account.OauthAccountManager
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
+import com.paradigmadigital.domain.db.UserDao
+import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
 import com.paradigmadigital.repository.preferences.Preferences
@@ -20,8 +24,10 @@ class Repository
 @Inject
 constructor(
         val networkResultLiveData: NetworkResultLiveData,
+        val userDao: UserDao,
         val preferences: Preferences,
         val accountManager: OauthAccountManager,
+        val loginMapper: LoginMapper,
         retrofit: Retrofit
 ) {
 
@@ -40,6 +46,14 @@ constructor(
     }
 
     fun getEmail(): String = accountManager.getEmail()
+
+    fun getUser(): LiveData<User> {
+        return userDao.get()
+    }
+
+    fun setUser(login: Login) {
+        userDao.insert(loginMapper.map(login))
+    }
 
     fun setCode(code: String, date: Date, email: String) {
         preferences.setCode(code, date, email)

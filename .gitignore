@@ -36,4 +36,4 @@ gradle-app.setting
 
 # Ignore version.txt file
 app/version.txt
-/gradle/
+

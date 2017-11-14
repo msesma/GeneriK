@@ -19,6 +19,7 @@ class LoginUseCase
                 val login = response.body() as Login
                 if (login.token.isEmpty()) throw RuntimeException(HttpURLConnection.HTTP_FORBIDDEN.toString())
                 accountManager.addAccount(login)
+                setUser(login)
              }
         }
     }
