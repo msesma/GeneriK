@@ -17,7 +17,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 
-abstract class OkHttpClientBase
+abstract class OkHttpClientFactoryBase
 constructor(
         context: Context,
         val dummyInterceptor: DummyInterceptor
@@ -52,7 +52,9 @@ constructor(
     abstract fun getClient(): OkHttpClient
 
     protected fun getBuilder(): Builder {
-        if (BuildConfig.DEBUG && Constants.DUMMY_ENABLED) builder.addInterceptor(dummyInterceptor)
+        if (BuildConfig.DEBUG && Constants.DUMMY_ENABLED) {
+            builder.addInterceptor(dummyInterceptor)
+        }
         return builder
     }
 

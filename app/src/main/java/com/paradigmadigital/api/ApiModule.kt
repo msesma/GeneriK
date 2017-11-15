@@ -1,7 +1,7 @@
 package com.paradigmadigital.api
 
-import com.paradigmadigital.api.clients.AuthHttpClient
-import com.paradigmadigital.api.clients.NonAuthHttpClient
+import com.paradigmadigital.api.clients.AuthHttpClientFactory
+import com.paradigmadigital.api.clients.NonAuthHttpClientFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -19,9 +19,9 @@ class ApiModule() {
 
     @Provides
     @Named("non-authenticated")
-    fun ProvideNonAuthRetrofit(client: NonAuthHttpClient): Retrofit {
+    fun ProvideNonAuthRetrofit(clientFactory: NonAuthHttpClientFactory): Retrofit {
         return retrofit2.Retrofit.Builder()
-                .client(client)
+                .client(clientFactory.getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(ENDPOINT)
                 .build()
@@ -29,9 +29,9 @@ class ApiModule() {
 
     @Provides
     @Named("authenticated")
-    fun ProvideAuthRetrofit(client: AuthHttpClient): Retrofit {
+    fun ProvideAuthRetrofit(clientFactory: AuthHttpClientFactory): Retrofit {
         return retrofit2.Retrofit.Builder()
-                .client(client)
+                .client(clientFactory.getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(ENDPOINT)
                 .build()

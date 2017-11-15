@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,8 +22,23 @@ class MainActivityInstrumentedTest {
     @get:Rule
     var activityTestRule = ActivityTestRule(MainActivity::class.java)
 
+    //    companion object {
+//        private lateinit var userDao: UserDao
+//        @JvmStatic
+//        @BeforeClass
+//        fun ClassSetUp() {
+//            val context = InstrumentationRegistry.getTargetContext()
+//            val db = Room.databaseBuilder(context, Database::class.java, "data.db")
+//                    .allowMainThreadQueries()
+//                    .build()
+//            userDao = db.userDao()
+//            userDao.insert(User(email = "bob@acme.com"))
+//        }
+//    }
+
 
     @Test
+    @Ignore
     fun greetUser() {
         activityTestRule.activity
 

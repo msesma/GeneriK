@@ -1,7 +1,7 @@
 package com.paradigmadigital.ui.inputcode
 
 
-import android.arch.persistence.room.Room
+import android.content.Intent
 import android.os.SystemClock
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
@@ -13,11 +13,9 @@ import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.db.Database
-import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import org.hamcrest.Matchers
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,26 +23,34 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class InputCodeActivityInstrumentedTest {
 
-    @get:Rule
-    var activityTestRule = ActivityTestRule(InputCodeActivity::class.java)
-
-    companion object {
-        @JvmStatic
-        @BeforeClass
-        fun ClassSetUp() {
-            val context = InstrumentationRegistry.getTargetContext()
-            val db = Room.databaseBuilder(context, Database::class.java, "data.db")
-                    .allowMainThreadQueries()
-                    .build()
-            val userDao = db.userDao()
-            userDao.insert(User(email = "bob@acme.com"))
+    @get: Rule
+    val activityTestRule = object : ActivityTestRule<InputCodeActivity>(InputCodeActivity::class.java) {
+        override fun getActivityIntent(): Intent {
+            val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
+            return Intent(targetContext, InputCodeActivity::class.java)
+                    .putExtra(Navigator.EXTRA_EMAIL, "bob@acme.com")
+                    .putExtra(Navigator.EXTRA_PASS, "1234")
         }
     }
+
+//    companion object {
+//        @JvmStatic
+//        @BeforeClass
+//        fun ClassSetUp() {
+//            val context = InstrumentationRegistry.getTargetContext()
+//            val db = Room.databaseBuilder(context, Database::class.java, "data.db")
+//                    .allowMainThreadQueries()
+//                    .build()
+//            val userDao = db.userDao()
+//            userDao.insert(User(email = "bob@acme.com"))
+//        }
+//    }
 
 
     @Test
     fun check0to4Buttons() {
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_0))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -68,6 +74,7 @@ class InputCodeActivityInstrumentedTest {
     @Test
     fun check5to9Buttons() {
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_5))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -91,6 +98,7 @@ class InputCodeActivityInstrumentedTest {
     @Test
     fun checkBackButton() {
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_back))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())
@@ -121,6 +129,7 @@ class InputCodeActivityInstrumentedTest {
     fun goLoginregisterOn6DigitsClickWithCorrectData() {
         Intents.init()
 
+        SystemClock.sleep(100)
         Espresso.onView(ViewMatchers.withId(R.id.bt_6))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
                 .perform(ViewActions.click())

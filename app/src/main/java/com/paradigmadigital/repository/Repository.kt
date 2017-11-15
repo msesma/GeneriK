@@ -18,7 +18,6 @@ import java.net.UnknownHostException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import javax.inject.Named
 
 
 class Repository
@@ -78,6 +77,7 @@ constructor(
             call()
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         } catch (e: Throwable) {
+            println(e.message + " " + e.hashCode())
             manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
         }
     }

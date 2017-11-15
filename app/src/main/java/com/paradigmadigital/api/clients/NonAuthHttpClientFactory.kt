@@ -5,11 +5,11 @@ import com.paradigmadigital.api.DummyInterceptor
 import javax.inject.Inject
 
 
-class NonAuthHttpClient
+class NonAuthHttpClientFactory
 @Inject constructor(
         context: Context,
         dummyInterceptor: DummyInterceptor
-) : OkHttpClientBase(context, dummyInterceptor) {
+) : OkHttpClientFactoryBase(context, dummyInterceptor) {
 
     override fun getClient() = getBuilder().build()
 

@@ -10,13 +10,13 @@ import javax.inject.Inject
 import javax.inject.Named
 
 
-class AuthHttpClient
+class AuthHttpClientFactory
 @Inject constructor(
         context: Context,
         dummyInterceptor: DummyInterceptor,
         val accountManager: OauthAccountManager,
         @Named("non-authenticated") val retrofit: Retrofit
-) : OkHttpClientBase(context, dummyInterceptor) {
+) : OkHttpClientFactoryBase(context, dummyInterceptor) {
 
     val authInterceptor
         get() = Interceptor {
