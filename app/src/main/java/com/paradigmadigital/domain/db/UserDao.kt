@@ -16,4 +16,7 @@ abstract class UserDao {
 
     @Query("SELECT * FROM user")
     abstract fun get(): LiveData<User>
+
+    @Query("SELECT * FROM user")
+    abstract fun getUser(): User
 }

@@ -26,7 +26,7 @@ class DomainModule() {
                     .build()
 
     @Provides
-    fun provideChannelsDao(db: Database) = db.userDao()
+    fun provideUserDao(db: Database) = db.userDao()
 
     @Singleton
     @Provides

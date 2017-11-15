@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.paradigmadigital.api.ApiModule
 import com.paradigmadigital.domain.DomainModule
+import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.platform.ApplicationModule
 import com.paradigmadigital.repository.Repository
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
@@ -29,5 +30,7 @@ interface ApplicationComponent {
     fun providePackageManager(): PackageManager
 
     fun provideRepository(): Repository
+
+    fun provideUserDao(): UserDao
 
 }

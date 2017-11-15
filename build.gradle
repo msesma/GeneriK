@@ -47,7 +47,7 @@ detekt {
 ext {
     multidex = '1.0.2'
 
-    support = '27.0.0'
+    support = '27.0.1'
     constraint = '1.0.2'
     crashlver = '2.7.0'
     archcomponentsver = '1.0.0'

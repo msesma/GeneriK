@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_account_header_height"
+    android:clickable="true"
+    >
+
+    <ImageView
+        android:id="@+id/material_drawer_account_header_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_drawer"
+        />
+
+    <TextView
+        android:id="@+id/material_drawer_header_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:lines="1"
+        android:maxLines="1"
+        android:textSize="@dimen/material_drawer_account_header_text"
+        tools:text="Bob Marley"
+        />
+
+    <TextView
+        android:id="@+id/material_drawer_header_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material_drawer_header_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="sans-serif"
+        android:lines="1"
+        android:maxLines="1"
+        android:textSize="@dimen/material_drawer_account_header_text"
+        tools:text="bob@acme.com"
+        />
+
+    <android.support.constraint.Guideline android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_left"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintGuide_begin="80dp"
+        />
+
+    <android.support.constraint.Guideline android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_top"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>
+
