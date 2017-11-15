@@ -4,6 +4,8 @@ import com.paradigmadigital.api.model.Login
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Before
+import org.junit.Ignore
+import org.junit.Test
 import retrofit2.Response
 
 
@@ -17,8 +19,9 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase = SetPassUseCase(repository)
     }
 
-//    @Test
-//    fun apiRequestCodeWhenExecutedWithIncorrectCode() {
+    @Test
+    @Ignore
+    fun apiRequestCodeWhenExecutedWithIncorrectCode() {
 //        val user = User(code = "4321", codeDate = Date())
 //        doReturn(user).whenever(userDao).getUser()
 //
@@ -26,10 +29,11 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 //
 //        verify(networkResultLiveData).setNetworkResult(any())
 //        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FAIL)
-//    }
-//
-//    @Test
-//    fun apiRequestCodeWhenExecutedWithCodeDateTooOld() {
+    }
+
+    @Test
+    @Ignore
+    fun apiRequestCodeWhenExecutedWithCodeDateTooOld() {
 //        val user = User(code = "1234", codeDate = Date(0))
 //        doReturn(user).whenever(userDao).getUser()
 //
@@ -37,10 +41,11 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 //
 //        verify(networkResultLiveData).setNetworkResult(any())
 //        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FAIL)
-//    }
-//
-//    @Test
-//    fun apiRequestCodeWhenExecutedWithCodeANdDAteOK() {
+    }
+
+    @Test
+    @Ignore
+    fun apiRequestCodeWhenExecutedWithCodeANdDAteOK() {
 //        val user = User(code = "1234", codeDate = Date(), email = "bob@acme.com")
 //        doReturn(user).whenever(userDao).getUser()
 //        val response = getResponse(200, false)
@@ -51,10 +56,11 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 //
 //        TimeUnit.MILLISECONDS.sleep(200);
 //        verify(loginRegisterService).setPass(any())
-//    }
-//
-//    @Test
-//    fun callbackErrorWhenErrorInSetPass() {
+    }
+
+    @Test
+    @Ignore
+    fun callbackErrorWhenErrorInSetPass() {
 //        val user = User(code = "1234", codeDate = Date())
 //        doReturn(user).whenever(userDao).getUser()
 //        val response = getResponse(404, true)
@@ -66,10 +72,11 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 //        TimeUnit.MILLISECONDS.sleep(200);
 //        verify(networkResultLiveData).setNetworkResult(any())
 //        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
-//    }
-//
-//    @Test
-//    fun insertUserOnDbOnSucessfulSetPass() {
+    }
+
+    @Test
+    @Ignore
+    fun insertUserOnDbOnSucessfulSetPass() {
 //        val user = User(code = "1234", codeDate = Date())
 //        doReturn(user).whenever(userDao).getUser()
 //        val response = getResponse(200, false)
@@ -80,7 +87,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 //
 //        TimeUnit.MILLISECONDS.sleep(200);
 //        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
-//    }
+    }
 
 
     private fun getResponse(code: Int, error: Boolean): Response<Login> {

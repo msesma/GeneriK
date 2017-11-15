@@ -1,21 +1,23 @@
 package com.paradigmadigital.repository
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.argumentCaptor
-import com.nhaarman.mockito_kotlin.doNothing
-import com.nhaarman.mockito_kotlin.whenever
+import android.arch.lifecycle.LiveData
+import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.account.OauthAccountManager
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
+import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.preferences.Preferences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -28,8 +30,6 @@ class RepositoryShould {
     private lateinit var preferences: Preferences
     @Mock
     private lateinit var loginMapper: LoginMapper
-//    @Mock
-//    private lateinit var userMapper: UserMapper
     @Mock
     private lateinit var accountManager: OauthAccountManager
     @Mock
@@ -62,133 +62,128 @@ class RepositoryShould {
         assertThat(errorLiveData).isEqualTo(networkResultLiveData)
     }
 
-//    @Test
-//    fun returnTrueIsFingerPrintAuthdataAvailableWhenEmailAndPass() {
-//        whenever (userDao.getUser()).thenReturn(User(email = "bob@acme.com"))
-//        whenever (securePreferences.password).thenReturn("1234")
-//
-//        val dataAvailable = repository.isFingerPrintAuthdataAvailable
-//
-//        verify(userDao).getUser()
-//        assertThat(dataAvailable).isTrue()
-//    }
-//
-//    @Test
-//    fun returnFalseIsFingerPrintAuthdataAvailableWhenNoEmail() {
-//        whenever (userDao.getUser()).thenReturn(User(email = ""))
-//        whenever (securePreferences.password).thenReturn("1234")
-//
-//        val dataAvailable = repository.isFingerPrintAuthdataAvailable
-//
-//        assertThat(dataAvailable).isFalse()
-//    }
-//
-//    @Test
-//    fun returnFalseIsFingerPrintAuthdataAvailableWhenNoPass() {
-//        whenever (userDao.getUser()).thenReturn(User(email = "bob@acme.com"))
-//        whenever (securePreferences.password).thenReturn("")
-//
-//        val dataAvailable = repository.isFingerPrintAuthdataAvailable
-//
-//        assertThat(dataAvailable).isFalse()
-//    }
-//
-//    @Test
-//    fun returnTrueRequireLoginWhenSelectedAndTimedOut() {
-//        whenever (preferences.timeout).thenReturn(true)
-//        whenever (preferences.requireLogin).thenReturn(true)
-//
-//        val dataAvailable = repository.requireLogin
-//
-//        assertThat(dataAvailable).isTrue()
-//    }
-//
-//    @Test
-//    fun returnFalseRequireLoginWhenNotSelected() {
-//        whenever (preferences.timeout).thenReturn(false)
-//        whenever (preferences.requireLogin).thenReturn(true)
-//
-//        val dataAvailable = repository.requireLogin
-//
-//        assertThat(dataAvailable).isFalse()
-//    }
-//
-//    @Test
-//    fun returnFalseRequireLoginWhenNotTimedOut() {
-//        whenever (preferences.timeout).thenReturn(true)
-//        whenever (preferences.requireLogin).thenReturn(false)
-//
-//        val dataAvailable = repository.requireLogin
-//
-//        assertThat(dataAvailable).isFalse()
-//    }
-//
-//    @Test
-//    fun LogoutOnTimeoutCheckifTimedOut() {
-//        whenever (preferences.timeout).thenReturn(true)
-//        whenever (preferences.requireLogin).thenReturn(true)
-//
-//        repository.timeoutRequireLoginCheck()
-//
+
+    @Test
+    @Ignore
+    fun LogoutOnTimeoutCheckifTimedOut() {
+        whenever(preferences.timeout).thenReturn(true)
+        whenever(preferences.requireLogin).thenReturn(true)
+
+        repository.timeoutRequireLoginCheck()
+
 //        verify(userDao).logout()
-//    }
-//
-//    @Test
-//    fun notLogoutOnTimeoutCheckifTimedOut() {
-//        whenever (preferences.timeout).thenReturn(false)
-//        whenever (preferences.requireLogin).thenReturn(true)
-//
-//        repository.timeoutRequireLoginCheck()
-//
-//        verifyZeroInteractions(userDao)
-//    }
+    }
 
-//    @Test
-//    fun returnFalseOnIsLoggedInWhenTokenNotExist() {
-//        whenever (userDao.getUser()).thenReturn(User(token = ""))
-//
-//        val logged = repository.isLoggedIn()
-//
-//        verify(userDao).getUser()
-//        assertThat(logged).isFalse()
-//    }
-//
-//    @Test
-//    fun returnTrueOnIsLoggedInWhenTokenExist() {
-//        whenever (userDao.getUser()).thenReturn(User(token = "vkhgfkhgf"))
-//
-//        val logged = repository.isLoggedIn()
-//
-//        verify(userDao).getUser()
-//        assertThat(logged).isTrue()
-//    }
+    @Test
+    @Ignore
+    fun notLogoutOnTimeoutCheckifTimedOut() {
+        whenever(preferences.timeout).thenReturn(false)
+        whenever(preferences.requireLogin).thenReturn(true)
 
-//    @Test
-//    fun getUserliveDataOnGetUser() {
-//        val liveData = object : LiveData<User>() {}
-//        whenever (userDao.get()).thenReturn(liveData)
-//
-//        val userliveData = repository.getUser()
-//
-//        verify(userDao).get()
-//        assertThat(userliveData).isEqualTo(liveData)
-//    }
+        repository.timeoutRequireLoginCheck()
 
-//    @Test
-//    fun setUserOnSetUser() {
-//
-//        repository.setUser(email = "bob@acme.com")
-//
-//        verify(userDao).insert(User(email = "bob@acme.com"))
-//    }
-//
-//    @Test
-//    fun updatePassOnUpdatePass() {
-//
-//        repository.updatePass("password")
-//
-//        verify(securePreferences).password = "password"
-//    }
+        verifyZeroInteractions(userDao)
+    }
+
+    @Test
+    fun returnFalseOnIsLoggedInWhenTokenNotExist() {
+        whenever(accountManager.isLoggedIn()).thenReturn(false)
+
+        val logged = repository.isLoggedIn()
+
+        verify(accountManager).isLoggedIn()
+        assertThat(logged).isFalse()
+    }
+
+    @Test
+    fun returnTrueOnIsLoggedInWhenTokenExist() {
+        whenever(accountManager.isLoggedIn()).thenReturn(true)
+
+        val logged = repository.isLoggedIn()
+
+        verify(accountManager).isLoggedIn()
+        assertThat(logged).isTrue()
+    }
+
+
+    @Test
+    fun getEmailfromAccountManagerOnGetEmail() {
+        whenever(accountManager.getEmail()).thenReturn("bob@acme.com")
+
+        val email = repository.getEmail()
+
+        assertThat(email).isEqualTo("bob@acme.com")
+    }
+
+
+    @Test
+    fun getUserliveDataOnGetUser() {
+        val liveData = object : LiveData<User>() {}
+        whenever(userDao.get()).thenReturn(liveData)
+
+        val userliveData = repository.getUser()
+
+        verify(userDao).get()
+        assertThat(userliveData).isEqualTo(liveData)
+    }
+
+    @Test
+    fun setUserOnSetUser() {
+        val loginCaptor = argumentCaptor<Login>()
+        doReturn(User(email = "bob@acme.com")).whenever(loginMapper).map(loginCaptor.capture())
+
+        repository.setUser(Login(email = "bob@acme.com"))
+
+        verify(loginMapper).map(any())
+        verify(userDao).insert(any())
+        assertThat(loginCaptor.firstValue.email).isEqualTo("bob@acme.com")
+    }
+
+    @Test
+    fun setCodeOnSetCode() {
+        val date = Date()
+
+        repository.setCode("123456", date, "bob@acme.com")
+
+        verify(preferences).setCode("123456", date, "bob@acme.com")
+    }
+
+
+    @Test
+    fun getCodeOngetCodeOnTimeForCorrectUser() {
+        whenever(preferences.codeTime).thenReturn(Date())
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("123456")
+
+        val code = repository.getCode("bob@acme.com")
+
+        assertThat(code).isEqualTo("123456")
+    }
+
+
+    @Test
+    fun doNotGetCodeOngetCodeOffTimeForCorrectUser() {
+        whenever(preferences.codeTime).thenReturn(Date(0))
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("123456")
+
+        val code = repository.getCode("bob@acme.com")
+
+        assertThat(code).isEqualTo("")
+    }
+
+
+    @Test
+    fun doNotGetCodeOngetCodeOonTimeForIncorrectUser() {
+        whenever(preferences.codeTime).thenReturn(Date())
+        whenever(preferences.codeEmail).thenReturn("ann@acme.com")
+        whenever(preferences.code).thenReturn("123456")
+
+        val code = repository.getCode("bob@acme.com")
+
+        assertThat(code).isEqualTo("")
+    }
+
 
     @Test
     fun sendDisconnectedOnUnknownHostException() {

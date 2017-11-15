@@ -60,7 +60,7 @@ constructor(
     }
 
     fun getCode(email: String): String {
-        if (preferences.codeEmail != email || preferences.codeTime.time - Date().time > TIMEOUT ) {
+        if (preferences.codeEmail != email || Date().time - preferences.codeTime.time > TIMEOUT ) {
             return ""
         }
         return preferences.code

@@ -25,15 +25,15 @@ class RequestCodeUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase = RequestCodeUseCase(repository)
     }
 
-//    @Test
-//    fun apiRequestCodeWhenExecuted() {
-//
-//        usecase.execute(5)
-//
-//        TimeUnit.MILLISECONDS.sleep(200);
+    @Test
+    fun apiRequestCodeWhenExecuted() {
+
+        usecase.execute(5)
+
+        TimeUnit.MILLISECONDS.sleep(200);
 //        verify(userDao).getUser()
-//        verify(loginRegisterService).requestCode(any())
-//    }
+        verify(loginRegisterService).requestCode(any())
+    }
 
     @Test
     fun callbackErrorWhenErrorInRequestCode() {
@@ -48,18 +48,18 @@ class RequestCodeUseCaseShould : BaseRepositoryUseCaseTest() {
         Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
     }
 
-//    @Test
-//    fun insertUserOnDbOnSucessfulrequestCode() {
-//        val response = getResponse(200, false)
-//        doReturn(response).whenever(call).execute()
-//        doReturn(call).whenever(loginRegisterService).requestCode(any())
-//
-//        usecase.execute(5)
-//
-//        TimeUnit.MILLISECONDS.sleep(200);
+    @Test
+    fun insertUserOnDbOnSucessfulrequestCode() {
+        val response = getResponse(200, false)
+        doReturn(response).whenever(call).execute()
+        doReturn(call).whenever(loginRegisterService).requestCode(any())
+
+        usecase.execute(5)
+
+        TimeUnit.MILLISECONDS.sleep(200);
 //        verify(userDao).setCode(eq("1234"), any(), eq("bob@acme.com"))
-//        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
-//    }
+        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
+    }
 
 
     private fun getResponse(returnCode: Int, error: Boolean): Response<Code> {
