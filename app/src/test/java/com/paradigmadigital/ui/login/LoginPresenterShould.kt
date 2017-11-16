@@ -5,7 +5,7 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import com.paradigmadigital.usecases.LoginUseCase
 import org.junit.Before
@@ -19,7 +19,7 @@ class LoginPresenterShould {
     @Mock private lateinit var resultViewModel: ResultViewModel
 //    @Mock private lateinit var userViewModel: UserViewModel
     @Mock private lateinit var fingerprintManager: FingerprintManager
-    @Mock private lateinit var repository: Repository
+    @Mock private lateinit var repository: LoginRepository
 
     private val delegateCaptor = argumentCaptor<LoginUserInterface.Delegate>()
     private val callbackCaptor = argumentCaptor<(Boolean) -> Unit>()

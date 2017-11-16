@@ -5,7 +5,7 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import com.paradigmadigital.platform.AndroidApplication
 import com.paradigmadigital.repository.NetworkResult
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import javax.inject.Inject
 
 data class ResultViewModel
@@ -13,7 +13,7 @@ constructor(
         private val app: Application
 ) : AndroidViewModel(app) {
 
-    @Inject lateinit var repository: Repository
+    @Inject lateinit var repository: LoginRepository
 
     val result: LiveData<NetworkResult>
 

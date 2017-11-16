@@ -7,7 +7,7 @@ import com.paradigmadigital.domain.db.Database
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResultLiveData
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.preferences.Preferences
 import dagger.Module
 import dagger.Provides
@@ -36,7 +36,7 @@ class DomainModule() {
                           preferences: Preferences,
                           loginMapper: LoginMapper,
                           accountManager: OauthAccountManager) =
-            Repository(
+            LoginRepository(
                     networkResultLiveData,
                     userDao,
                     preferences,

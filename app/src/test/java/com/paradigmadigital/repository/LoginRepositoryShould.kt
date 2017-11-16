@@ -21,7 +21,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class RepositoryShould {
+class LoginRepositoryShould {
     @Mock
     private lateinit var networkResultLiveData: NetworkResultLiveData
     @Mock
@@ -38,14 +38,14 @@ class RepositoryShould {
     private lateinit var loginRegisterService: LoginRegisterService
 
     private val resultCaptor = argumentCaptor<NetworkResult>()
-    private lateinit var repository: Repository
+    private lateinit var repository: LoginRepository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         whenever(retrofit.create<LoginRegisterService>(any())).thenReturn(loginRegisterService)
         doNothing().whenever(networkResultLiveData).setNetworkResult(resultCaptor.capture())
-        repository = Repository(
+        repository = LoginRepository(
                 networkResultLiveData,
                 userDao,
                 preferences,

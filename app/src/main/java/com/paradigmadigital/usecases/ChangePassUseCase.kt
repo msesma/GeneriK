@@ -1,12 +1,12 @@
 package com.paradigmadigital.usecases
 
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import javax.inject.Inject
 
 class ChangePassUseCase
 @Inject constructor(
-        private val repository: Repository,
+        private val repository: LoginRepository,
         private val navigator: Navigator
 ){
 

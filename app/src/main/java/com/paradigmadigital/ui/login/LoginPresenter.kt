@@ -1,7 +1,7 @@
 package com.paradigmadigital.ui.login
 
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.ui.login.LoginDecorator.Companion.REQUEST_LOGIN
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import com.paradigmadigital.usecases.LoginUseCase
@@ -14,7 +14,7 @@ constructor(
         private val navigator: Navigator,
         private val loginUseCase: LoginUseCase,
 //        private val fingerprintManager: FingerprintManager,
-        private val repository: Repository
+        private val repository: LoginRepository
 ) {
     private var decorator: LoginUserInterface? = null
 

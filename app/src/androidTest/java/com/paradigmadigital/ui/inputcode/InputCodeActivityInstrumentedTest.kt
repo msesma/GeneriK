@@ -33,20 +33,6 @@ class InputCodeActivityInstrumentedTest {
         }
     }
 
-//    companion object {
-//        @JvmStatic
-//        @BeforeClass
-//        fun ClassSetUp() {
-//            val context = InstrumentationRegistry.getTargetContext()
-//            val db = Room.databaseBuilder(context, Database::class.java, "data.db")
-//                    .allowMainThreadQueries()
-//                    .build()
-//            val userDao = db.userDao()
-//            userDao.insert(User(email = "bob@acme.com"))
-//        }
-//    }
-
-
     @Test
     fun check0to4Buttons() {
 

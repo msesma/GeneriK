@@ -1,18 +1,18 @@
 package com.paradigmadigital.usecases
 
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import javax.inject.Inject
 
 class LogoutUseCase
 @Inject constructor(
-        private val repository: Repository
+        private val repository: LoginRepository
 ) {
 
     fun execute() {
         with(repository) {
             executeInteractor {
-                loginRegisterService.logout(getEmail())
-                accountManager.logout()
+                remoteLogout()
+                localLogout()
             }
         }
     }

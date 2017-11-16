@@ -6,7 +6,7 @@ import android.util.Log
 import com.multidots.fingerprintauth.FingerPrintAuthCallback
 import com.multidots.fingerprintauth.FingerPrintAuthHelper
 import com.paradigmadigital.platform.CallbackFun
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import javax.inject.Inject
 
 
@@ -14,7 +14,7 @@ class FingerprintManager
 @Inject
 constructor(
         val context: Context,
-        val repository: Repository
+        val repository: LoginRepository
 ) {
     private val TAG = FingerprintManager::class.simpleName
     val authCallback = object : FingerPrintAuthCallback {

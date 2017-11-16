@@ -8,7 +8,7 @@ import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultLiveData
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.preferences.Preferences
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -27,7 +27,7 @@ open class BaseRepositoryUseCaseTest {
     @Mock lateinit var loginMapper: LoginMapper
 
     val resultCaptor = argumentCaptor<NetworkResult>()
-    lateinit var repository: Repository
+    lateinit var repository: LoginRepository
 
     open fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -35,7 +35,7 @@ open class BaseRepositoryUseCaseTest {
         doReturn(loginRegisterService).whenever(retrofit).create<LoginRegisterService>(any())
         doReturn("bob@acme.com").whenever(accountManager).getEmail()
 
-        repository = Repository(
+        repository = LoginRepository(
                 networkResultLiveData,
                 userDao,
                 preferences,

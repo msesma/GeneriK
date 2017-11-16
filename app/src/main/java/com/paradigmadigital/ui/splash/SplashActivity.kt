@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.paradigmadigital.R
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.ui.BaseActivity
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class SplashActivity : BaseActivity() {
     @Inject
     lateinit var navigator: Navigator
     @Inject
-    lateinit var repository: Repository
+    lateinit var repository: LoginRepository
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

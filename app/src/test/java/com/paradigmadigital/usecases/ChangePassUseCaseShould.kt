@@ -2,7 +2,7 @@ package com.paradigmadigital.usecases
 
 import com.nhaarman.mockito_kotlin.verify
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.repository.Repository
+import com.paradigmadigital.repository.LoginRepository
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations
 
 class ChangePassUseCaseShould {
     @Mock
-    private lateinit var repository: Repository
+    private lateinit var repository: LoginRepository
     @Mock
     private lateinit var navigator: Navigator
 
