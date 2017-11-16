@@ -93,6 +93,8 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$archcomponentsver"
     implementation "android.arch.persistence.room:runtime:$archcomponentsver"
     kapt "android.arch.persistence.room:compiler:$archcomponentsver"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
 
     kapt "com.jakewharton:butterknife-compiler:$butterknife"
     implementation "com.jakewharton:butterknife:$butterknife"
@@ -102,7 +104,9 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.picasso:picasso:$picasso"
 
     implementation("com.crashlytics.sdk.android:crashlytics:$crashlver@aar") {
         transitive = true;

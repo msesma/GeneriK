@@ -1,36 +1,31 @@
-package com.paradigmadigital.ui.main
+package com.paradigmadigital.ui.detail
 
 import android.os.Bundle
 import com.paradigmadigital.R
+import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity() {
+class DetailActivity : BaseActivity() {
 
     @Inject
-    lateinit var decorator: MainDecorator
+    lateinit var decorator: DetailDecorator
     @Inject
-    lateinit var presenter: MainPresenter
+    lateinit var presenter: DetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_detail)
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.resume()
+        presenter.initialize(decorator, intent?.getSerializableExtra(Navigator.EXTRA_ITEM) as Post)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.dispose()
-        decorator.dispose()
     }
 }

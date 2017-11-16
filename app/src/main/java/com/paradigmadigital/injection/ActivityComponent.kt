@@ -3,6 +3,7 @@ package com.paradigmadigital.injection
 import com.paradigmadigital.platform.ActivityModule
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.changepass.ChangePassActivity
+import com.paradigmadigital.ui.detail.DetailActivity
 import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
@@ -24,6 +25,8 @@ interface ActivityComponent {
     fun inject(registerActivity: RegisterActivity)
 
     fun inject(mainActivity: MainActivity)
+
+    fun inject(mainActivity: DetailActivity)
 
     fun inject(inputCodeActivity: InputCodeActivity)
 

@@ -6,4 +6,11 @@
     <dimen name="left_guideline_pos">24dp</dimen>
     <dimen name="right_guideline_pos">48dp</dimen>
     <dimen name="symmetric_guideline_pos">24dp</dimen>
+
+    <dimen name="detail_icon_height">64dp</dimen>
+    <dimen name="detail_icon_width">64dp</dimen>
+    <dimen name="main_icon_height">48dp</dimen>
+    <dimen name="main_icon_width">48dp</dimen>
+
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

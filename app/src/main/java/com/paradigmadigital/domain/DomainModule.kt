@@ -6,8 +6,8 @@ import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.domain.db.Database
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.LoginMapper
-import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.LoginRepository
+import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.preferences.Preferences
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,7 @@ class DomainModule() {
 
     @Singleton
     @Provides
-    fun provideRepository(networkResultLiveData: NetworkResultLiveData,
+    fun provideLoginRepository(networkResultLiveData: NetworkResultLiveData,
                           @Named("non-authenticated") retrofit: Retrofit,
                           userDao: UserDao,
                           preferences: Preferences,

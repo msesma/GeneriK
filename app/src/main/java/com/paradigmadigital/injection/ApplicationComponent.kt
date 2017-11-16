@@ -9,7 +9,10 @@ import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.platform.ApplicationModule
 import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.squareup.picasso.Picasso
 import dagger.Component
+import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
@@ -29,8 +32,13 @@ interface ApplicationComponent {
 
     fun providePackageManager(): PackageManager
 
-    fun provideRepository(): LoginRepository
+    fun provideLoginRepository(): LoginRepository
 
     fun provideUserDao(): UserDao
+
+    fun providePicasso(): Picasso
+
+    @Named("authenticated")
+    fun ProvideAuthRetrofit(): Retrofit
 
 }

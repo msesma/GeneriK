@@ -52,4 +52,10 @@
     <string name="pref_title_allow_fingerprint">Allow login with fingerprint</string>
     <string name="pref_description_allow_fingerprint">Allow login with fingerprint if app has timed out</string>
     <string name="settings">Settings</string>
+
+    <plurals name="num_comments">
+        <item quantity="other">%1$d comments</item>
+        <item quantity="one">%1$d comment</item>
+    </plurals>
+
 </resources>

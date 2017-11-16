@@ -39,7 +39,7 @@ constructor(
         private val HTTP_NOT_FOUND = HttpURLConnection.HTTP_NOT_FOUND.toString()
     }
 
-    val loginRegisterService: LoginRegisterService = retrofit.create(LoginRegisterService::class.java)
+    val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 

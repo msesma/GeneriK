@@ -53,6 +53,8 @@ ext {
     archcomponentsver = '1.0.0'
     playservices = '11.6.0'
 
+    rx_java = '2.0.'
+    rx_android = '2.0.1'
     coroutines = '0.18'
 
     easy_permissions = '0.3.0'
@@ -62,7 +64,9 @@ ext {
     dagger = '2.5'
 
     retrofit = '2.3.0'
+    adapter_rxjava = '2.2.0'
     okhttp = '3.6.0'
+    picasso = '2.5.2'
 
     estetho = '1.5.0'
     firebase = '11.6.0'

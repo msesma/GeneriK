@@ -1,9 +1,11 @@
 package com.paradigmadigital.navigation
 
 import android.content.Intent
+import com.paradigmadigital.domain.entities.Post
 import com.paradigmadigital.repository.preferences.SettingsActivity
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.changepass.ChangePassActivity
+import com.paradigmadigital.ui.detail.DetailActivity
 import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
@@ -23,6 +25,7 @@ constructor(
         private val TERMS_URL = "https://www.paradigmadigital.com/quienes-somos/"
         val EXTRA_EMAIL = "extra_email"
         val EXTRA_PASS = "extra_pass"
+        val EXTRA_ITEM = "extra_item"
     }
 
     fun closeActivity() {
@@ -70,6 +73,12 @@ constructor(
 
     fun navigateToSettings() {
         val intent = Intent(activity, SettingsActivity::class.java)
+        activity.startActivity(intent)
+    }
+
+    fun navigateToDetail(post: Post) {
+        val intent = Intent(activity, DetailActivity::class.java)
+        intent.putExtra(EXTRA_ITEM, post)
         activity.startActivity(intent)
     }
 

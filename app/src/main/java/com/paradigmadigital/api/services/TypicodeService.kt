@@ -1,0 +1,21 @@
+package com.paradigmadigital.api.services
+
+
+import com.paradigmadigital.api.model.CommentData
+import com.paradigmadigital.api.model.PostData
+import com.paradigmadigital.api.model.UserData
+import io.reactivex.Single
+import retrofit2.http.GET
+import retrofit2.http.Path
+
+interface TypicodeService {
+
+    @GET("posts")
+    fun getPosts(): Single<List<PostData>>
+
+    @GET("users")
+    fun getUsers(): Single<List<UserData>>
+
+    @GET("post/{id}/comments")
+    fun getComments(@Path("id") commentId: Int): Single<List<CommentData>>
+}
