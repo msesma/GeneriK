@@ -1,6 +1,6 @@
 package com.paradigmadigital.usecases
 
-import com.paradigmadigital.repository.DataResult
+import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultCode
@@ -21,8 +21,8 @@ class SetPassUseCase
             executeInteractor(id) {
                 val result = setPass(email, pass, code)
                 when (result) {
-                    is DataResult.Success<*> -> Unit
-                    is DataResult.Failure -> throw  RuntimeException(result.data)
+                    is ApiResult.Success<*> -> Unit
+                    is ApiResult.Failure -> throw  RuntimeException(result.data)
                 }
             }
         }

@@ -6,7 +6,6 @@ import com.paradigmadigital.api.model.Code
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.LoginMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
@@ -49,9 +48,9 @@ constructor(
 
     fun getEmail(): String = accountManager.getEmail()
 
-    fun getUser(): LiveData<User> {
-        return userDao.get()
-    }
+    fun getUserLiveData() = userDao.get()
+
+    fun getUser() = userDao.getUser()
 
     fun setUser(login: Login) {
         userDao.insert(loginMapper.map(login))
@@ -76,10 +75,10 @@ constructor(
         accountManager.addAccount(user)
     }
 
-    fun login(email: String, pass: String): DataResult {
+    fun login(email: String, pass: String): ApiResult {
         val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
-        if (!response.isSuccessful) return DataResult.Failure(response.raw().code().toString())
-        return DataResult.Success(response.body() as Login)
+        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        return ApiResult.Success(response.body() as Login)
     }
 
     fun localLogout() {
@@ -90,24 +89,24 @@ constructor(
         loginRegisterService.logout(getEmail())
     }
 
-    fun register(user: Login): DataResult {
+    fun register(user: Login): ApiResult {
         val response = loginRegisterService.register(user).execute()
-        if (!response.isSuccessful) return DataResult.Failure(response.raw().code().toString())
-        return DataResult.Success(response.body() as Login)
+        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        return ApiResult.Success(response.body() as Login)
     }
 
-    fun requestCode(): DataResult {
+    fun requestCode(): ApiResult {
         val response = loginRegisterService.requestCode(getEmail()).execute()
-        if (!response.isSuccessful) return DataResult.Failure(response.raw().code().toString())
-        return DataResult.Success(response.body() as Code)
+        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        return ApiResult.Success(response.body() as Code)
     }
 
-    fun setPass(email: String, pass: String, code: String): DataResult {
+    fun setPass(email: String, pass: String, code: String): ApiResult {
         val response = loginRegisterService
                 .setPass(Credentials.basic(email, pass), code)
                 .execute()
-        if (!response.isSuccessful) return DataResult.Failure(response.raw().code().toString())
-        return DataResult.Success(Unit)
+        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        return ApiResult.Success(Unit)
     }
 
     fun executeInteractor(id: Int = 0, call: () -> Unit) = launch(CommonPool) { suspendExecute(id, call) }

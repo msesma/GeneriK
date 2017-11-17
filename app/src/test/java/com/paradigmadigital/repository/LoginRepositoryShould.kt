@@ -121,7 +121,7 @@ class LoginRepositoryShould {
         val liveData = object : LiveData<User>() {}
         whenever(userDao.get()).thenReturn(liveData)
 
-        val userliveData = repository.getUser()
+        val userliveData = repository.getUserLiveData()
 
         verify(userDao).get()
         assertThat(userliveData).isEqualTo(liveData)

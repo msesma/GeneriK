@@ -2,13 +2,16 @@ package com.paradigmadigital.ui.main
 
 import com.paradigmadigital.domain.entities.Post
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.usecases.PostsUserUseCase
+import com.paradigmadigital.repository.ApiResult
+import com.paradigmadigital.usecases.GetPostsUseCase
+import com.paradigmadigital.usecases.RefreshPostsUseCase
 import javax.inject.Inject
 
 class MainPresenter
 @Inject constructor(
         private val navigator: Navigator,
-        private val postsUserUseCase: PostsUserUseCase
+        private val refreshPostsUseCase: RefreshPostsUseCase,
+        private val getPostsUseCase: GetPostsUseCase
 ) {
 
     private var decorator: MainUserInterface? = null
@@ -22,6 +25,7 @@ class MainPresenter
     fun initialize(decorator: MainUserInterface) {
         this.decorator = decorator
         this.decorator?.initialize(delegate)
+        subscribeToPosts()
         refresh()
     }
 
@@ -31,10 +35,15 @@ class MainPresenter
         this.decorator = null
     }
 
+    private fun subscribeToPosts() {
+        getPostsUseCase.execute().subscribe({ decorator?.showPosts(it) }, { throw it })
+    }
+
     private fun refresh() {
-        postsUserUseCase.execute().subscribe(
-                { decorator?.showPosts(it) },
-                { decorator?.showError(it as Exception) }
-        )
+        refreshPostsUseCase.execute().subscribe({ handleResult(it) }, { throw it })
+    }
+
+    private fun handleResult(result: ApiResult) {
+        if (result is ApiResult.Failure) decorator?.showError(RuntimeException(result.data))
     }
 }

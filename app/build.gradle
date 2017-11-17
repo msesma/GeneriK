@@ -93,6 +93,7 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$archcomponentsver"
     implementation "android.arch.persistence.room:runtime:$archcomponentsver"
     kapt "android.arch.persistence.room:compiler:$archcomponentsver"
+    implementation "android.arch.persistence.room:rxjava2:$archcomponentsver"
     implementation "io.reactivex.rxjava2:rxjava:$rx_java"
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
 
@@ -148,6 +149,7 @@ dependencies {
         exclude module: 'support-annotations'
         exclude module: 'design'
     }
+//    androidTestImplementation "android.arch.core:core-testing:$archcomponentsver"
 }
 
 apply plugin: 'com.google.gms.google-services'

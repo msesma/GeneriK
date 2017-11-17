@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.main
 
+import android.os.SystemClock
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.contrib.RecyclerViewActions
@@ -23,12 +24,14 @@ class MainActivityInstrumentedTest {
     var activityTestRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun startDetailActivityOnForecastClick() {
+    fun startDetailActivityOnItemClick() {
         Intents.init()
 
+        SystemClock.sleep(1500)
         Espresso.onView(ViewMatchers.withId(R.id.main_list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
 
+        SystemClock.sleep(1500)
         Intents.intended(IntentMatchers.hasComponent(DetailActivity::class.java.name))
         Intents.release()
     }

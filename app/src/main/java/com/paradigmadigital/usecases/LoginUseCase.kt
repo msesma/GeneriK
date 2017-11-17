@@ -1,7 +1,7 @@
 package com.paradigmadigital.usecases
 
 import com.paradigmadigital.api.model.Login
-import com.paradigmadigital.repository.DataResult
+import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.repository.LoginRepository
 import java.net.HttpURLConnection
 import javax.inject.Inject
@@ -16,8 +16,8 @@ class LoginUseCase
             executeInteractor(id) {
                 val result = login(email, pass)
                 when (result) {
-                    is DataResult.Success<*> -> handleSuccess(result.data as Login)
-                    is DataResult.Failure -> throw  RuntimeException(result.data)
+                    is ApiResult.Success<*> -> handleSuccess(result.data as Login)
+                    is ApiResult.Failure -> throw  RuntimeException(result.data)
                 }
             }
         }

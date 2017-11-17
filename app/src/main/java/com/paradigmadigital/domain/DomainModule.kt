@@ -28,6 +28,9 @@ class DomainModule() {
     @Provides
     fun provideUserDao(db: Database) = db.userDao()
 
+    @Provides
+    fun providePostDao(db: Database) = db.postDao()
+
     @Singleton
     @Provides
     fun provideLoginRepository(networkResultLiveData: NetworkResultLiveData,

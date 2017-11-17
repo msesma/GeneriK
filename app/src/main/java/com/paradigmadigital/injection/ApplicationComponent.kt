@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.paradigmadigital.api.ApiModule
 import com.paradigmadigital.domain.DomainModule
+import com.paradigmadigital.domain.db.PostDao
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.platform.ApplicationModule
 import com.paradigmadigital.repository.LoginRepository
@@ -35,6 +36,8 @@ interface ApplicationComponent {
     fun provideLoginRepository(): LoginRepository
 
     fun provideUserDao(): UserDao
+
+    fun providePostDao(): PostDao
 
     fun providePicasso(): Picasso
 

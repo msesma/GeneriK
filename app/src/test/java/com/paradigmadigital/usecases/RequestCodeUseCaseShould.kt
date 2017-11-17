@@ -31,7 +31,7 @@ class RequestCodeUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-//        verify(userDao).getUser()
+//        verify(userDao).getUserLiveData()
         verify(loginRegisterService).requestCode(any())
     }
 

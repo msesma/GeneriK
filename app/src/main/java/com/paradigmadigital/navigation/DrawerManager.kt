@@ -10,7 +10,7 @@ import co.zsmb.materialdrawerkt.builders.footer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import com.mikepenz.materialdrawer.Drawer
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.db.UserDao
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.usecases.LogoutUseCase
 import javax.inject.Inject
@@ -21,7 +21,7 @@ constructor(
         private val navigator: Navigator,
         private val logoutUseCase: LogoutUseCase,
         private val activity: BaseActivity,
-        private val userDao: UserDao
+        private val repository: LoginRepository
 ) {
 
     @BindView(R.id.material_drawer_header_name)
@@ -47,9 +47,9 @@ constructor(
             selectedItem = -1
 
             stickyHeader = header
-            val user = userDao.getUser()
-            name.setText(user.name)
-            email.setText(user.email)
+            val user = repository.getUser()
+            name.setText(user?.name)
+            email.setText(user?.email)
 
             primaryItem(R.string.main_menu) {
                 identifier = R.id.main.toLong()

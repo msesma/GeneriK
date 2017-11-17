@@ -1,28 +1,35 @@
 package com.paradigmadigital.usecases
 
+import com.paradigmadigital.domain.db.PostDao
 import com.paradigmadigital.domain.entities.Post
 import com.paradigmadigital.domain.mappers.PostsUserMapper
-import io.reactivex.observers.TestObserver
+import com.paradigmadigital.repository.DataRepository
+import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import retrofit2.HttpException
 
-class PostsUserUseCaseShould : MockWebServerTestBase() {
+class GetPostsUseCaseShould : MockWebServerTestBase() {
 
-    lateinit private var useCase: PostsUserUseCase
+    lateinit private var useCase: GetPostsUseCase
+    @Mock lateinit var postDao: PostDao
 
     @Before
     @Throws(Exception::class)
     override fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        val repository = DataRepository(postDao, retrofit, PostsUserMapper())
         super.setUp()
-        useCase = PostsUserUseCase(retrofit, PostsUserMapper())
+        useCase = GetPostsUseCase(repository)
     }
 
     @Test
     fun getPostsHappyPath() {
         enqueueMockResponse(200, "posts.json")
         enqueueMockResponse(200, "users.json")
-        val testObserver = TestObserver<List<Post>>()
+        val testSubscriber = TestSubscriber<List<Post>>()
         val posts = arrayListOf(Post(
                 id = 1,
                 title = "tittle",
@@ -31,10 +38,10 @@ class PostsUserUseCaseShould : MockWebServerTestBase() {
                 email = "email"
         ))
 
-        useCase.execute().subscribe(testObserver)
-        testObserver.await()
+        useCase.execute().subscribe(testSubscriber)
+        testSubscriber.await()
 
-        testObserver.assertNoErrors()
+        testSubscriber.assertNoErrors()
                 .assertValue(posts)
     }
 
@@ -53,11 +60,11 @@ class PostsUserUseCaseShould : MockWebServerTestBase() {
     fun getPostsManagesHttpError() {
         enqueueMockResponse(500, "posts.json")
         enqueueMockResponse(500, "users.json")
-        val observer = TestObserver<List<Post>>()
+        val subscriber = TestSubscriber<List<Post>>()
 
-        useCase.execute().subscribe(observer)
-        observer.await()
+        useCase.execute().subscribe(subscriber)
+        subscriber.await()
 
-        observer.assertError { it -> (it as HttpException).code() == 500 }
+        subscriber.assertError { it -> (it as HttpException).code() == 500 }
     }
 }

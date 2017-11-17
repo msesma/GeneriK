@@ -23,7 +23,8 @@ open class MockWebServerTestBase {
 
     lateinit private var server: MockWebServer
 
-    private val url = server.url("/").toString()
+    private val url
+        get() = server.url("/").toString()
 
     private val httpClient: OkHttpClient
         get() = OkHttpClient.Builder().build()

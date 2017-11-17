@@ -7,9 +7,9 @@ import java.io.Serializable
 @Entity(tableName = "posts")
 data class Post(
         @PrimaryKey
-        val id: Int = 0,
-        val title: String = "",
-        val body: String = "",
-        val name: String = "",
-        val email: String = ""
+        var id: Int = 0,
+        var title: String = "",
+        var body: String = "",
+        var name: String = "",
+        var email: String = ""
 ) : Serializable
