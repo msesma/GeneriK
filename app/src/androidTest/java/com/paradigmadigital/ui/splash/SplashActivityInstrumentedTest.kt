@@ -1,5 +1,6 @@
 package com.paradigmadigital.ui.splash
 
+import android.arch.persistence.room.Room
 import android.os.SystemClock
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
@@ -12,8 +13,12 @@ import android.support.test.runner.AndroidJUnit4
 import com.paradigmadigital.R
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.model.Login
+import com.paradigmadigital.domain.db.Database
+import com.paradigmadigital.domain.db.UserDao
+import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import com.paradigmadigital.ui.main.MainActivity
+import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +30,20 @@ class SplashActivityInstrumentedTest {
     var activityTestRule = ActivityTestRule(SplashActivity::class.java, true, false)
 
     val accountManager: OauthAccountManager = OauthAccountManager(InstrumentationRegistry.getTargetContext())
+
+    companion object {
+        private lateinit var userDao: UserDao
+        @JvmStatic
+        @BeforeClass
+        fun ClassSetUp() {
+            val context = InstrumentationRegistry.getTargetContext()
+            val db = Room.databaseBuilder(context, Database::class.java, "data.db")
+                    .allowMainThreadQueries()
+                    .build()
+            userDao = db.userDao()
+            userDao.insert(User(email = "bob@acme.com", name = "Bob"))
+        }
+    }
 
     @Test
     fun goToLoginRegisterIfNotLoggedIn() {

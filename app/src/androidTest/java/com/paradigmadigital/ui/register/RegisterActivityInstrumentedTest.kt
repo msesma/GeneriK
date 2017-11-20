@@ -23,7 +23,7 @@ class RegisterActivityInstrumentedTest {
 
 
     @Test
-    fun goToLoginRegisterOnRegisterClickWithCorrectData() {
+    fun goToInputCodeActivityOnRegisterClickWithCorrectData() {
         Intents.init()
 
         SystemClock.sleep(100)

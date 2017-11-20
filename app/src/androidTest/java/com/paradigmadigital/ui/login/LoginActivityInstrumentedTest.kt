@@ -32,22 +32,25 @@ class LoginActivityInstrumentedTest {
     fun goToMainOnLoginClickWithCorrectData() {
         Intents.init()
 
-        SystemClock.sleep(100)
-        Espresso.onView(ViewMatchers.withId(R.id.et_email))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-                .perform(replaceText("test@email.com"))
-        SystemClock.sleep(100)
-        Espresso.onView(ViewMatchers.withId(R.id.et_pass))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-                .perform(replaceText("12345"))
-        SystemClock.sleep(100)
-        Espresso.onView(ViewMatchers.withId(R.id.bt_login))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-                .perform(ViewActions.click())
+        try {
+            SystemClock.sleep(100)
+            Espresso.onView(ViewMatchers.withId(R.id.et_email))
+                    .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                    .perform(replaceText("test@email.com"))
+            SystemClock.sleep(100)
+            Espresso.onView(ViewMatchers.withId(R.id.et_pass))
+                    .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                    .perform(replaceText("12345"))
+            SystemClock.sleep(100)
+            Espresso.onView(ViewMatchers.withId(R.id.bt_login))
+                    .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                    .perform(ViewActions.click())
 
-        SystemClock.sleep(1500)
-        Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
-        Intents.release()
+            SystemClock.sleep(1500)
+            Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
     }
 
     @Test

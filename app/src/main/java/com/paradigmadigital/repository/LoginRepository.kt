@@ -54,6 +54,7 @@ constructor(
 
     fun setUser(login: Login) {
         userDao.insert(userMapper.map(login))
+        val a = 1
     }
 
     fun setCode(code: String, date: Date, email: String) {
