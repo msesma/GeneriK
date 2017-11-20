@@ -42,7 +42,6 @@ class PostViewHolder(
 
     init {
         ButterKnife.bind(this, itemView)
-        avatar.setImageDrawable(ColorDrawable(Color.TRANSPARENT))
         resources = itemView.resources
         context = itemView.context
     }
@@ -54,6 +53,7 @@ class PostViewHolder(
     }
 
     private fun configureView() {
+        avatar.setImageDrawable(ColorDrawable(Color.TRANSPARENT))
         title.text = post.title
         imageRepo.getCurrentIcon("https://api.adorable.io/avatars/256/${post.email}.png", iconTarget)
     }
