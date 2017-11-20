@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui.main
 
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.usecases.GetPostsUseCase
@@ -19,7 +19,7 @@ class MainPresenter
     private val delegate = object : MainUserInterface.Delegate {
         override fun onRefresh() = refresh()
 
-        override fun onClick(post: Post) = navigator.navigateToDetail(post)
+        override fun onClick(post: PostUiModel) = navigator.navigateToDetail(post)
     }
 
     fun initialize(decorator: MainUserInterface) {

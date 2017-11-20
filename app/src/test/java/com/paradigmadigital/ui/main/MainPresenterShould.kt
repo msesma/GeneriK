@@ -2,9 +2,10 @@ package com.paradigmadigital.ui.main
 
 import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.usecases.RefreshPostsUseCase
 import com.paradigmadigital.usecases.GetPostsUseCase
+import com.paradigmadigital.usecases.RefreshPostsUseCase
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -59,7 +60,7 @@ class MainPresenterShould {
     @Test
     fun navigateToDetailOnClick() {
         presenter.initialize(decorator)
-        val post = Post()
+        val post = PostUiModel()
 
         delegateCaptor.firstValue.onClick(post)
 

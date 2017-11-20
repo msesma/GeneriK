@@ -15,7 +15,7 @@ import butterknife.OnClick
 import com.paradigmadigital.R
 import com.paradigmadigital.api.images.ImageRepository
 import com.paradigmadigital.api.images.ImageTarget
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.squareup.picasso.Picasso
 
 class PostViewHolder(
@@ -34,7 +34,7 @@ class PostViewHolder(
         }
     }
 
-    lateinit private var post: Post
+    lateinit private var post: PostUiModel
     private var postClickListener: PostClickListener? = null
 
     private val context: Context
@@ -46,7 +46,7 @@ class PostViewHolder(
         context = itemView.context
     }
 
-    fun bind(post: Post, postClickListener: PostClickListener?) {
+    fun bind(post: PostUiModel, postClickListener: PostClickListener?) {
         this.post = post
         this.postClickListener = postClickListener
         configureView()

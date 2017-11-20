@@ -12,10 +12,9 @@ import butterknife.ButterKnife
 import com.paradigmadigital.R
 import com.paradigmadigital.api.images.ImageRepository
 import com.paradigmadigital.api.images.ImageTarget
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.ui.BaseActivity
 import com.squareup.picasso.Picasso
-
 import javax.inject.Inject
 
 class DetailDecorator
@@ -50,7 +49,7 @@ constructor(
         initToolbar()
     }
 
-    override fun initialize(post: Post) {
+    override fun initialize(post: PostUiModel) {
         toolbar.title = post.title
         title.text = post.title
         body.text = post.body

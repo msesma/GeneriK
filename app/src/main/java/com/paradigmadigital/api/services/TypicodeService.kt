@@ -16,6 +16,9 @@ interface TypicodeService {
     @GET("users")
     fun getUsers(): Single<List<UserData>>
 
+    @GET("users/{id}")
+    fun getUser(@Path("id") userId: Int): Single<UserData>
+
     @GET("post/{id}/comments")
     fun getComments(@Path("id") commentId: Int): Single<List<CommentData>>
 }

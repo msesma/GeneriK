@@ -10,7 +10,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.Toolbar
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -27,7 +27,7 @@ class DetailActivityInstrumentedTest {
         override fun getActivityIntent(): Intent {
             val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
             val result = Intent(targetContext, DetailActivity::class.java)
-            val post = Post(
+            val post = PostUiModel(
                     id = 1,
                     title = "tittle",
                     body = "body",

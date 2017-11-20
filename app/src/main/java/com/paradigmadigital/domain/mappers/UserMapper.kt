@@ -5,7 +5,7 @@ import com.paradigmadigital.domain.entities.User
 import javax.inject.Inject
 
 
-class LoginMapper @Inject constructor() : Mapper<User, Login> {
+class UserMapper @Inject constructor() : Mapper<User, Login> {
     override fun map(input: Login) = User(
             uid = input.uid,
             name = input.name,

@@ -3,6 +3,7 @@ package com.paradigmadigital.ui.detail
 import android.os.Bundle
 import com.paradigmadigital.R
 import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class DetailActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator, intent?.getSerializableExtra(Navigator.EXTRA_ITEM) as Post)
+        presenter.initialize(decorator, intent?.getSerializableExtra(Navigator.EXTRA_ITEM) as PostUiModel)
     }
 
     override fun onDestroy() {

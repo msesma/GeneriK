@@ -1,8 +1,10 @@
 package com.paradigmadigital.usecases
 
+import com.paradigmadigital.domain.db.AuthorDao
 import com.paradigmadigital.domain.db.PostDao
-import com.paradigmadigital.domain.entities.Post
-import com.paradigmadigital.domain.mappers.PostsUserMapper
+import com.paradigmadigital.domain.entities.PostUiModel
+import com.paradigmadigital.domain.mappers.AuthorMapper
+import com.paradigmadigital.domain.mappers.PostMapper
 import com.paradigmadigital.repository.DataRepository
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
@@ -15,12 +17,13 @@ class GetPostsUseCaseShould : MockWebServerTestBase() {
 
     lateinit private var useCase: GetPostsUseCase
     @Mock lateinit var postDao: PostDao
+    @Mock lateinit var authorDao: AuthorDao
 
     @Before
     @Throws(Exception::class)
     override fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val repository = DataRepository(postDao, retrofit, PostsUserMapper())
+        val repository = DataRepository(postDao, authorDao, retrofit, AuthorMapper(), PostMapper())
         super.setUp()
         useCase = GetPostsUseCase(repository)
     }
@@ -29,8 +32,8 @@ class GetPostsUseCaseShould : MockWebServerTestBase() {
     fun getPostsHappyPath() {
         enqueueMockResponse(200, "posts.json")
         enqueueMockResponse(200, "users.json")
-        val testSubscriber = TestSubscriber<List<Post>>()
-        val posts = arrayListOf(Post(
+        val testSubscriber = TestSubscriber<List<PostUiModel>>()
+        val posts = arrayListOf(PostUiModel(
                 id = 1,
                 title = "tittle",
                 body = "body",
@@ -60,7 +63,7 @@ class GetPostsUseCaseShould : MockWebServerTestBase() {
     fun getPostsManagesHttpError() {
         enqueueMockResponse(500, "posts.json")
         enqueueMockResponse(500, "users.json")
-        val subscriber = TestSubscriber<List<Post>>()
+        val subscriber = TestSubscriber<List<PostUiModel>>()
 
         useCase.execute().subscribe(subscriber)
         subscriber.await()

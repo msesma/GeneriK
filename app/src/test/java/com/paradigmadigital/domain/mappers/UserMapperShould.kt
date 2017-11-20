@@ -6,12 +6,12 @@ import org.junit.Before
 import org.junit.Test
 
 
-class LoginMapperShould {
-    private lateinit var mapper: LoginMapper
+class UserMapperShould {
+    private lateinit var mapper: UserMapper
 
     @Before
     fun setUp() {
-        mapper = LoginMapper()
+        mapper = UserMapper()
     }
 
     @Test

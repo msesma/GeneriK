@@ -1,9 +1,12 @@
 package com.paradigmadigital.domain.db
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
 import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 
 @Dao
@@ -16,12 +19,8 @@ abstract class PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(item: Post)
 
-    @Update
-    abstract fun updateItem(item: Post)
-
-    @Query("SELECT * FROM posts")
-    abstract fun getPosts(): Flowable<List<Post>>
-
-    @Query("SELECT * FROM posts WHERE id = :id")
-    abstract fun getPost(id: Int): Single<Post>
+    @Query("SELECT * FROM posts " +
+            "LEFT JOIN (SELECT aid, email, name FROM authors) " +
+            "ON userId = aid")
+    abstract fun getPosts(): Flowable<List<PostUiModel>>
 }

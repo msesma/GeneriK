@@ -5,7 +5,7 @@ import android.content.Context
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.domain.db.Database
 import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.mappers.LoginMapper
+import com.paradigmadigital.domain.mappers.UserMapper
 import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.preferences.Preferences
@@ -31,20 +31,23 @@ class DomainModule() {
     @Provides
     fun providePostDao(db: Database) = db.postDao()
 
+    @Provides
+    fun provideAuthorDao(db: Database) = db.authorDao()
+
     @Singleton
     @Provides
     fun provideLoginRepository(networkResultLiveData: NetworkResultLiveData,
-                          @Named("non-authenticated") retrofit: Retrofit,
-                          userDao: UserDao,
-                          preferences: Preferences,
-                          loginMapper: LoginMapper,
-                          accountManager: OauthAccountManager) =
+                               @Named("non-authenticated") retrofit: Retrofit,
+                               userDao: UserDao,
+                               preferences: Preferences,
+                               userMapper: UserMapper,
+                               accountManager: OauthAccountManager) =
             LoginRepository(
                     networkResultLiveData,
                     userDao,
                     preferences,
                     accountManager,
-                    loginMapper,
+                    userMapper,
                     retrofit
             )
 

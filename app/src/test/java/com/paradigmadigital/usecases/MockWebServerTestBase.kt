@@ -2,11 +2,11 @@ package com.paradigmadigital.usecases
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.schedulers.Schedulers
-import junit.framework.Assert.assertEquals
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.apache.commons.io.FileUtils
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import retrofit2.Retrofit
@@ -65,8 +65,8 @@ open class MockWebServerTestBase {
     @Throws(InterruptedException::class)
     protected fun assertGetRequestSentTo(url: String) {
         val request = server.takeRequest()
-        assertEquals(url, request.path)
-        assertEquals("GET", request.method)
+        assertThat(url).isEqualTo(request.path)
+        assertThat("GET").isEqualTo(request.method)
     }
 
     @Throws(IOException::class)

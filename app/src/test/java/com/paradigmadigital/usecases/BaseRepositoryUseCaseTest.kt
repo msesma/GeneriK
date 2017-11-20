@@ -5,7 +5,7 @@ import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.mappers.LoginMapper
+import com.paradigmadigital.domain.mappers.UserMapper
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultLiveData
 import com.paradigmadigital.repository.LoginRepository
@@ -24,7 +24,7 @@ open class BaseRepositoryUseCaseTest {
     @Mock lateinit var call: Call<Login>
     @Mock lateinit var preferences: Preferences
     @Mock lateinit var userDao: UserDao
-    @Mock lateinit var loginMapper: LoginMapper
+    @Mock lateinit var userMapper: UserMapper
 
     val resultCaptor = argumentCaptor<NetworkResult>()
     lateinit var repository: LoginRepository
@@ -40,7 +40,7 @@ open class BaseRepositoryUseCaseTest {
                 userDao,
                 preferences,
                 accountManager,
-                loginMapper,
+                userMapper,
                 retrofit)
     }
 }

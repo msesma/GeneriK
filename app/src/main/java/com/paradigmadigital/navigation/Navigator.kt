@@ -1,7 +1,7 @@
 package com.paradigmadigital.navigation
 
 import android.content.Intent
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.repository.preferences.SettingsActivity
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.changepass.ChangePassActivity
@@ -76,7 +76,7 @@ constructor(
         activity.startActivity(intent)
     }
 
-    fun navigateToDetail(post: Post) {
+    fun navigateToDetail(post: PostUiModel) {
         val intent = Intent(activity, DetailActivity::class.java)
         intent.putExtra(EXTRA_ITEM, post)
         activity.startActivity(intent)

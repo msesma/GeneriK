@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.usecases.CommentsUseCase
 import io.reactivex.Single
 import org.junit.Before
@@ -20,7 +20,7 @@ class DetailPresenterShould {
 
     private lateinit var presenter: DetailPresenter
     private val single = Single.just(2)
-    private val post = Post(id = 3)
+    private val post = PostUiModel(id = 3)
 
     @Before
     fun setUp() {

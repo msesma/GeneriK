@@ -1,5 +1,6 @@
 package com.paradigmadigital.domain.entities
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import java.io.Serializable
@@ -8,8 +9,20 @@ import java.io.Serializable
 data class Post(
         @PrimaryKey
         var id: Int = 0,
+        var userId: Int = 0,
         var title: String = "",
-        var body: String = "",
-        var name: String = "",
-        var email: String = ""
+        var body: String = ""
+)
+
+data class PostUiModel(
+        @ColumnInfo
+        var id: Int = 0,
+        @ColumnInfo
+        var title: String? = "",
+        @ColumnInfo
+        var body: String? = "",
+        @ColumnInfo
+        var name: String? = "",
+        @ColumnInfo
+        var email: String? = ""
 ) : Serializable

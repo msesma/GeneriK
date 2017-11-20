@@ -1,7 +1,9 @@
 package com.paradigmadigital.usecases
 
+import com.paradigmadigital.domain.db.AuthorDao
 import com.paradigmadigital.domain.db.PostDao
-import com.paradigmadigital.domain.mappers.PostsUserMapper
+import com.paradigmadigital.domain.mappers.AuthorMapper
+import com.paradigmadigital.domain.mappers.PostMapper
 import com.paradigmadigital.repository.DataRepository
 import org.junit.Before
 import org.junit.Test
@@ -12,12 +14,13 @@ class RefreshPostsUseCaseShould : MockWebServerTestBase() {
 
     lateinit private var useCase: RefreshPostsUseCase
     @Mock lateinit var postDao: PostDao
+    @Mock lateinit var authorDao: AuthorDao
 
     @Before
     @Throws(Exception::class)
     override fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val repository = DataRepository(postDao, retrofit, PostsUserMapper())
+        val repository = DataRepository(postDao, authorDao, retrofit, AuthorMapper(), PostMapper())
         super.setUp()
         useCase = RefreshPostsUseCase(repository)
     }

@@ -6,7 +6,7 @@ import com.paradigmadigital.api.model.Code
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
-import com.paradigmadigital.domain.mappers.LoginMapper
+import com.paradigmadigital.domain.mappers.UserMapper
 import com.paradigmadigital.platform.CallbackFun
 import com.paradigmadigital.repository.NetworkResultCode.*
 import com.paradigmadigital.repository.preferences.Preferences
@@ -28,7 +28,7 @@ constructor(
         val userDao: UserDao,
         val preferences: Preferences,
         val accountManager: OauthAccountManager,
-        val loginMapper: LoginMapper,
+        val userMapper: UserMapper,
         retrofit: Retrofit
 ) {
 
@@ -53,7 +53,7 @@ constructor(
     fun getUser() = userDao.getUser()
 
     fun setUser(login: Login) {
-        userDao.insert(loginMapper.map(login))
+        userDao.insert(userMapper.map(login))
     }
 
     fun setCode(code: String, date: Date, email: String) {

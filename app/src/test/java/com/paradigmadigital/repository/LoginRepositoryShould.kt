@@ -7,7 +7,7 @@ import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
-import com.paradigmadigital.domain.mappers.LoginMapper
+import com.paradigmadigital.domain.mappers.UserMapper
 import com.paradigmadigital.repository.preferences.Preferences
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -29,7 +29,7 @@ class LoginRepositoryShould {
     @Mock
     private lateinit var preferences: Preferences
     @Mock
-    private lateinit var loginMapper: LoginMapper
+    private lateinit var userMapper: UserMapper
     @Mock
     private lateinit var accountManager: OauthAccountManager
     @Mock
@@ -50,7 +50,7 @@ class LoginRepositoryShould {
                 userDao,
                 preferences,
                 accountManager,
-                loginMapper,
+                userMapper,
                 retrofit)
     }
 
@@ -130,11 +130,11 @@ class LoginRepositoryShould {
     @Test
     fun setUserOnSetUser() {
         val loginCaptor = argumentCaptor<Login>()
-        doReturn(User(email = "bob@acme.com")).whenever(loginMapper).map(loginCaptor.capture())
+        doReturn(User(email = "bob@acme.com")).whenever(userMapper).map(loginCaptor.capture())
 
         repository.setUser(Login(email = "bob@acme.com"))
 
-        verify(loginMapper).map(any())
+        verify(userMapper).map(any())
         verify(userDao).insert(any())
         assertThat(loginCaptor.firstValue.email).isEqualTo("bob@acme.com")
     }

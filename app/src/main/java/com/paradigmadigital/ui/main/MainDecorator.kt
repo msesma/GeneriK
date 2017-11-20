@@ -13,7 +13,7 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.DrawerManager
 import com.paradigmadigital.ui.BaseActivity
 import javax.inject.Inject
@@ -72,7 +72,7 @@ constructor(
         showToast(R.string.server_error)
     }
 
-    override fun showPosts(posts: List<Post>) {
+    override fun showPosts(posts: List<PostUiModel>) {
         setWaitingMode(false)
         list.visibility = if (posts.isEmpty()) INVISIBLE else VISIBLE
         adapter.swap(posts)

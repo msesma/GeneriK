@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.paradigmadigital.R
 import com.paradigmadigital.api.images.ImageRepository
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import javax.inject.Inject
 
 class PostAdapter
@@ -13,7 +13,7 @@ class PostAdapter
         val imageRepo: ImageRepository
 ) : RecyclerView.Adapter<PostViewHolder>() {
 
-    private var posts: List<Post> = listOf()
+    private var posts: List<PostUiModel> = listOf()
     private var postClickListener: PostClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -27,7 +27,7 @@ class PostAdapter
 
     override fun getItemCount() = posts.size
 
-    fun swap(posts: List<Post>) {
+    fun swap(posts: List<PostUiModel>) {
         this.posts = posts
         notifyDataSetChanged()
     }
@@ -36,7 +36,7 @@ class PostAdapter
         this.postClickListener = postClickListener
     }
 
-    fun getItemAtPosition(position: Int): Post {
+    fun getItemAtPosition(position: Int): PostUiModel {
         return posts[position]
     }
 }

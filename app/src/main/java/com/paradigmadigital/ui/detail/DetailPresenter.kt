@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui.detail
 
-import com.paradigmadigital.domain.entities.Post
+import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.usecases.CommentsUseCase
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ constructor(
     private var decorator: DetailUserInterface? = null
 
 
-    fun initialize(decorator: DetailUserInterface, post: Post) {
+    fun initialize(decorator: DetailUserInterface, post: PostUiModel) {
         this.decorator = decorator
         this.decorator?.initialize(post)
         getNumberOfComments(post.id)
