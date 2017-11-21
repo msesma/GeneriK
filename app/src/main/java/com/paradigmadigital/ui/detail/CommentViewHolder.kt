@@ -24,7 +24,7 @@ class CommentViewHolder(
 
     @BindView(R.id.comenter)
     lateinit var comenter: TextView
-    @BindView(R.id.body)
+    @BindView(R.id.comment)
     lateinit var commentBody: TextView
     @BindView(R.id.comenter_avatar)
     lateinit var avatar: ImageView
@@ -54,7 +54,7 @@ class CommentViewHolder(
     private fun configureView() {
         avatar.setImageDrawable(ColorDrawable(Color.TRANSPARENT))
         with(comment) {
-            comenter.text = "$name, $email"
+            comenter.text = email
             commentBody.text = body
             imageRepo.getCurrentIcon("https://api.adorable.io/avatars/256/$email.png", iconTarget)
         }

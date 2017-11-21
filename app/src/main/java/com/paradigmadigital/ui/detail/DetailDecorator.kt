@@ -41,7 +41,7 @@ constructor(
     lateinit var body: TextView
     @BindView(R.id.author)
     lateinit var author: TextView
-    @BindView(R.id.main_list)
+    @BindView(R.id.comments_list)
     lateinit var list: RecyclerView
     @BindView(R.id.swipeRefreshLayout)
     lateinit var swipeRefresh: SwipeRefreshLayout
