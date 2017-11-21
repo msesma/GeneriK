@@ -106,6 +106,7 @@ constructor(
         val response = loginRegisterService
                 .setPass(Credentials.basic(email, pass), code)
                 .execute()
+
         if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
         return ApiResult.Success(Unit)
     }
@@ -118,6 +119,7 @@ constructor(
             networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         } catch (e: Throwable) {
             println(e.message + " " + e.hashCode())
+            e.printStackTrace()
             manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
         }
     }

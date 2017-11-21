@@ -22,7 +22,7 @@ class LogoutUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute()
 
         TimeUnit.MILLISECONDS.sleep(200);
-//        verify(userDao).getUserLiveData()
+        verify(accountManager).logout()
         verify(loginRegisterService).logout(any())
     }
 

@@ -1,12 +1,20 @@
 package com.paradigmadigital.usecases
 
+
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.paradigmadigital.api.model.Login
+import com.paradigmadigital.repository.NetworkResultCode
+import junit.framework.Assert.assertEquals
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import retrofit2.Response
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
@@ -20,73 +28,74 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
     }
 
     @Test
-    @Ignore
     fun apiRequestCodeWhenExecutedWithIncorrectCode() {
-//        val user = User(code = "4321", codeDate = Date())
-//        doReturn(user).whenever(userDao).getUser()
-//
-//        usecase.execute("1234", 5)
-//
-//        verify(networkResultLiveData).setNetworkResult(any())
-//        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FAIL)
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("4321")
+        whenever(preferences.codeTime).thenReturn(Date())
+
+        usecase.execute("1234", "bob@acme.com", "654321", 5)
+
+        TimeUnit.MILLISECONDS.sleep(200)
+        verify(networkResultLiveData).setNetworkResult(any())
+        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.result)
     }
 
     @Test
-    @Ignore
     fun apiRequestCodeWhenExecutedWithCodeDateTooOld() {
-//        val user = User(code = "1234", codeDate = Date(0))
-//        doReturn(user).whenever(userDao).getUser()
-//
-//        usecase.execute("1234", 5)
-//
-//        verify(networkResultLiveData).setNetworkResult(any())
-//        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FAIL)
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("1234")
+        whenever(preferences.codeTime).thenReturn(Date(0))
+        usecase.execute("1234", "bob@acme.com", "654321", 5)
+
+        TimeUnit.MILLISECONDS.sleep(200)
+        verify(networkResultLiveData).setNetworkResult(any())
+        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.result)
     }
 
     @Test
-    @Ignore
-    fun apiRequestCodeWhenExecutedWithCodeANdDAteOK() {
-//        val user = User(code = "1234", codeDate = Date(), email = "bob@acme.com")
-//        doReturn(user).whenever(userDao).getUser()
-//        val response = getResponse(200, false)
-//        doReturn(response).whenever(call).execute()
-//        doReturn(call).whenever(loginRegisterService).setPass(any())
-//
-//        usecase.execute("1234", 5)
-//
-//        TimeUnit.MILLISECONDS.sleep(200);
-//        verify(loginRegisterService).setPass(any())
+    fun apiRequestCodeWhenEmailOk() {
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("1234")
+        whenever(preferences.codeTime).thenReturn(Date())
+        val response = getResponse(200, false)
+        doReturn(response).whenever(call).execute()
+        doReturn(call).whenever(loginRegisterService).setPass(any(), any())
+
+        usecase.execute("1234", "bob@acme.com", "654321", 5)
+
+        TimeUnit.MILLISECONDS.sleep(200)
+        verify(loginRegisterService).setPass(any(), any())
     }
 
     @Test
-    @Ignore
     fun callbackErrorWhenErrorInSetPass() {
-//        val user = User(code = "1234", codeDate = Date())
-//        doReturn(user).whenever(userDao).getUser()
-//        val response = getResponse(404, true)
-//        doReturn(response).whenever(call).execute()
-//        doReturn(call).whenever(loginRegisterService).setPass(any())
-//
-//        usecase.execute("1234", 5)
-//
-//        TimeUnit.MILLISECONDS.sleep(200);
-//        verify(networkResultLiveData).setNetworkResult(any())
-//        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("1234")
+        whenever(preferences.codeTime).thenReturn(Date())
+        val response = getResponse(404, true)
+        doReturn(response).whenever(call).execute()
+        doReturn(call).whenever(loginRegisterService).setPass(any(), any())
+
+        usecase.execute("1234", "bob@acme.com", "654321", 5)
+
+        TimeUnit.MILLISECONDS.sleep(200)
+        verify(networkResultLiveData).setNetworkResult(any())
+        assertEquals(NetworkResultCode.BAD_URL, resultCaptor.firstValue.result)
     }
 
     @Test
-    @Ignore
     fun insertUserOnDbOnSucessfulSetPass() {
-//        val user = User(code = "1234", codeDate = Date())
-//        doReturn(user).whenever(userDao).getUser()
-//        val response = getResponse(200, false)
-//        doReturn(response).whenever(call).execute()
-//        doReturn(call).whenever(loginRegisterService).setPass(any())
-//
-//        usecase.execute("1234", 5)
-//
-//        TimeUnit.MILLISECONDS.sleep(200);
-//        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
+        whenever(preferences.codeEmail).thenReturn("bob@acme.com")
+        whenever(preferences.code).thenReturn("1234")
+        whenever(preferences.codeTime).thenReturn(Date())
+        val response = getResponse(200, false)
+        doReturn(response).whenever(call).execute()
+        doReturn(call).whenever(loginRegisterService).setPass(any(), any())
+
+        usecase.execute("1234", "bob@acme.com", "654321", 5)
+
+        TimeUnit.MILLISECONDS.sleep(200)
+        assertEquals(NetworkResultCode.SUCCESS, resultCaptor.firstValue.result)
     }
 
 

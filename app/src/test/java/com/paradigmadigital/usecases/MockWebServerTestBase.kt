@@ -3,6 +3,7 @@ package com.paradigmadigital.usecases
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
+import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.apache.commons.io.FileUtils
@@ -62,6 +63,18 @@ open class MockWebServerTestBase {
         server.enqueue(mockResponse)
     }
 
+    @Throws(IOException::class)
+    @JvmOverloads protected fun getResponse(code: Int = 200, fileName: String? = null): MockResponse {
+        val fileContent = getContentFromFile(fileName)
+        return MockResponse()
+                .setResponseCode(200)
+                .setBody(fileContent)
+    }
+
+    protected fun setDispatcher(dispatcher: Dispatcher) {
+        server.setDispatcher(dispatcher)
+    }
+
     @Throws(InterruptedException::class)
     protected fun assertGetRequestSentTo(url: String) {
         val request = server.takeRequest()
@@ -79,6 +92,7 @@ open class MockWebServerTestBase {
         val stringBuilder = StringBuilder()
         for (line in lines) {
             stringBuilder.append(line)
+            println(line)
         }
         return stringBuilder.toString()
     }

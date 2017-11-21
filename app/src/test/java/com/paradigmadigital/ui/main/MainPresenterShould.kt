@@ -6,6 +6,7 @@ import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.usecases.GetPostsUseCase
 import com.paradigmadigital.usecases.RefreshPostsUseCase
+import io.reactivex.Flowable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -19,6 +20,7 @@ class MainPresenterShould {
     @Mock private lateinit var refreshPostsUseCase: RefreshPostsUseCase
     @Mock private lateinit var getPostsUseCase: GetPostsUseCase
     @Mock private lateinit var decorator: MainUserInterface
+    @Mock private lateinit var flowable: Flowable<List<PostUiModel>>
 
     private val delegateCaptor = argumentCaptor<MainUserInterface.Delegate>()
     private lateinit var presenter: MainPresenter
@@ -30,6 +32,8 @@ class MainPresenterShould {
         presenter = MainPresenter(navigator, refreshPostsUseCase, getPostsUseCase)
         doNothing().whenever(decorator).initialize(delegateCaptor.capture())
         doReturn(single).whenever(refreshPostsUseCase).execute()
+
+        whenever(getPostsUseCase.execute()).thenReturn(flowable)
     }
 
     @Test

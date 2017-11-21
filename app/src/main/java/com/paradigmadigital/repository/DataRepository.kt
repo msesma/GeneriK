@@ -31,7 +31,6 @@ constructor(
 
     fun getPosts(): Flowable<List<PostUiModel>> {
         return postDao.getPosts()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -41,7 +40,7 @@ constructor(
                 .toObservable()
                 .flatMap { Observable.fromIterable(it) }
                 .map { postData: PostData ->
-                     authorDao.getAuthor(postData.userId ?: 0)
+                    authorDao.getAuthor(postData.userId ?: 0)
                             .subscribe({}, {
                                 service.getUser(postData.userId ?: 0)
                                         .subscribe({

@@ -149,7 +149,8 @@ dependencies {
         exclude module: 'support-annotations'
         exclude module: 'design'
     }
-//    androidTestImplementation "android.arch.core:core-testing:$archcomponentsver"
+    testImplementation "android.arch.core:core-testing:$archcomponentsver"
+    testImplementation "org.robolectric:robolectric:$robolectric"
 }
 
 apply plugin: 'com.google.gms.google-services'

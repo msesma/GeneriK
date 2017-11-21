@@ -13,7 +13,8 @@ class SetPassUseCase
 
     fun execute(code: String, email: String, pass: String, id: Int) {
         with(repository) {
-            if (getCode(email) == "") {
+            val storedCode = getCode(email)
+            if (storedCode.isEmpty() || storedCode != code) {
                 networkResultLiveData.setNetworkResult(NetworkResult(NetworkResultCode.FAIL, id))
                 return
             }

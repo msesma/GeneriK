@@ -1,14 +1,15 @@
 package com.paradigmadigital.usecases
 
+
 import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.account.OauthAccountManager
 import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.UserMapper
+import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.NetworkResult
 import com.paradigmadigital.repository.NetworkResultLiveData
-import com.paradigmadigital.repository.LoginRepository
 import com.paradigmadigital.repository.preferences.Preferences
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations

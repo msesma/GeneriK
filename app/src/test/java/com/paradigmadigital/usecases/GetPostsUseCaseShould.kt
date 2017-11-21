@@ -1,73 +1,77 @@
 package com.paradigmadigital.usecases
 
-import com.paradigmadigital.domain.db.AuthorDao
-import com.paradigmadigital.domain.db.PostDao
+import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.arch.persistence.room.Room
+import com.paradigmadigital.domain.db.Database
+import com.paradigmadigital.domain.entities.Author
+import com.paradigmadigital.domain.entities.Post
 import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.domain.mappers.AuthorMapper
 import com.paradigmadigital.domain.mappers.PostMapper
 import com.paradigmadigital.repository.DataRepository
-import io.reactivex.subscribers.TestSubscriber
+import io.reactivex.android.plugins.RxAndroidPlugins
+import io.reactivex.schedulers.Schedulers
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import retrofit2.HttpException
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
+import retrofit2.Retrofit
 
-class GetPostsUseCaseShould : MockWebServerTestBase() {
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE)
+class GetPostsUseCaseShould {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     lateinit private var useCase: GetPostsUseCase
-    @Mock lateinit var postDao: PostDao
-    @Mock lateinit var authorDao: AuthorDao
+    @Mock lateinit var retrofit: Retrofit
+
+    private lateinit var database: Database
 
     @Before
-    @Throws(Exception::class)
-    override fun setUp() {
+    fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val repository = DataRepository(postDao, authorDao, retrofit, AuthorMapper(), PostMapper())
-        super.setUp()
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
+
+        database = Room.inMemoryDatabaseBuilder(
+                RuntimeEnvironment.application,
+                Database::class.java)
+                .allowMainThreadQueries()
+                .build()
+
+        database.postDao().insert(Post(id = 1, userId = 1, title = "title", body = "body"))
+        database.authorDao().insert(Author(aid = 1, name = "name", email = "email"))
+
+        val repository = DataRepository(database.postDao(), database.authorDao(), retrofit, AuthorMapper(), PostMapper())
         useCase = GetPostsUseCase(repository)
     }
 
+    @After
+    @Throws(Exception::class)
+    fun closeDb() {
+        database.close()
+    }
+
     @Test
-    fun getPostsHappyPath() {
-        enqueueMockResponse(200, "posts.json")
-        enqueueMockResponse(200, "users.json")
-        val testSubscriber = TestSubscriber<List<PostUiModel>>()
+    fun getPosts() {
         val posts = arrayListOf(PostUiModel(
                 id = 1,
-                title = "tittle",
+                title = "title",
                 body = "body",
                 name = "name",
                 email = "email"
         ))
 
-        useCase.execute().subscribe(testSubscriber)
-        testSubscriber.await()
-
-        testSubscriber.assertNoErrors()
+        useCase.execute()
+                .test()
                 .assertValue(posts)
     }
 
-    @Test
-    fun getPostsUsesCorrectUrl() {
-        enqueueMockResponse(200, "posts.json")
-        enqueueMockResponse(200, "users.json")
-
-        useCase.execute().subscribe()
-
-        assertGetRequestSentTo("/posts")
-        assertGetRequestSentTo("/users")
-    }
-
-    @Test
-    fun getPostsManagesHttpError() {
-        enqueueMockResponse(500, "posts.json")
-        enqueueMockResponse(500, "users.json")
-        val subscriber = TestSubscriber<List<PostUiModel>>()
-
-        useCase.execute().subscribe(subscriber)
-        subscriber.await()
-
-        subscriber.assertError { it -> (it as HttpException).code() == 500 }
-    }
 }
