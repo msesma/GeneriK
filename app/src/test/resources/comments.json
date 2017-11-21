@@ -2,15 +2,15 @@
   {
     "postId": 1,
     "id": 1,
-    "name": "",
-    "email": "",
-    "body": ""
+    "name": "name1",
+    "email": "email1",
+    "body": "body1"
   },
   {
     "postId": 1,
     "id": 2,
-    "name": "",
-    "email": "",
-    "body": ""
+    "name": "name2",
+    "email": "email2",
+    "body": "body2"
   }
 ]

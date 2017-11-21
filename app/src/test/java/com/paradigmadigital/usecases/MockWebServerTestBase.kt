@@ -67,7 +67,7 @@ open class MockWebServerTestBase {
     @JvmOverloads protected fun getResponse(code: Int = 200, fileName: String? = null): MockResponse {
         val fileContent = getContentFromFile(fileName)
         return MockResponse()
-                .setResponseCode(200)
+                .setResponseCode(code)
                 .setBody(fileContent)
     }
 

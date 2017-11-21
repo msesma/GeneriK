@@ -58,6 +58,16 @@ constructor(
 
     }
 
+    fun getComments(postId: Int): Single<ApiResult> {
+
+        return service.getComments(postId)
+                .map { it.toApiResult() as ApiResult }
+                .onErrorReturn { it.toApiResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+    }
+
     fun savePosts(posts: List<Post>) {
         postDao.insert(posts)
     }

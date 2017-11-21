@@ -1,7 +1,7 @@
 package com.paradigmadigital.api.services
 
 
-import com.paradigmadigital.api.model.CommentData
+import com.paradigmadigital.api.model.Comment
 import com.paradigmadigital.api.model.PostData
 import com.paradigmadigital.api.model.UserData
 import io.reactivex.Single
@@ -20,5 +20,5 @@ interface TypicodeService {
     fun getUser(@Path("id") userId: Int): Single<UserData>
 
     @GET("post/{id}/comments")
-    fun getComments(@Path("id") commentId: Int): Single<List<CommentData>>
+    fun getComments(@Path("id") commentId: Int): Single<List<Comment>>
 }

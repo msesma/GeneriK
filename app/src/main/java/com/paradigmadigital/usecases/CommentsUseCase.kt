@@ -1,24 +1,18 @@
 package com.paradigmadigital.usecases
 
-import com.paradigmadigital.api.services.TypicodeService
-import com.paradigmadigital.domain.mappers.CommentsMapper
+import com.paradigmadigital.repository.ApiResult
+import com.paradigmadigital.repository.DataRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
 import javax.inject.Inject
-import javax.inject.Named
 
 class CommentsUseCase
 @Inject
 constructor(
-        @Named("authenticated") retrofit: Retrofit,
-        private val mapper: CommentsMapper
+        val repository: DataRepository
 ) {
-    val service = retrofit.create(TypicodeService::class.java)
-
-    fun execute(postId: Int): Single<Int> = service.getComments(postId)
-            .map { mapper.map(it) }
+    fun execute(postId: Int): Single<ApiResult> = repository.getComments(postId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }

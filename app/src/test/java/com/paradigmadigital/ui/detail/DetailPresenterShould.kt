@@ -1,9 +1,6 @@
 package com.paradigmadigital.ui.detail
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.usecases.CommentsUseCase
 import io.reactivex.Single
@@ -34,7 +31,7 @@ class DetailPresenterShould {
 
         presenter.initialize(decorator, post)
 
-        verify(decorator).initialize(post)
+        verify(decorator).initialize(any(), eq(post))
     }
 
     @Test
