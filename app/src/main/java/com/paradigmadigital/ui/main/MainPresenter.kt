@@ -29,8 +29,6 @@ class MainPresenter
         refresh()
     }
 
-    fun resume() = refresh()
-
     fun dispose() {
         this.decorator = null
     }

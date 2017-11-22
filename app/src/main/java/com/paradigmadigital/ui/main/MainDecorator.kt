@@ -50,7 +50,7 @@ constructor(
         ButterKnife.bind(this, view)
         initToolbar()
         val drawer = drawerManager.configureDrawer(toolbar)
-        drawer.setSelection(R.id.main.toLong())
+        drawer.setSelection(R.id.main.toLong(), false)
         list.layoutManager = layoutManager
         list.itemAnimator = DefaultItemAnimator()
         list.adapter = adapter

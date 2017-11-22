@@ -10,6 +10,7 @@ import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import com.paradigmadigital.ui.main.MainActivity
+import com.paradigmadigital.ui.profile.ProfileActivity
 import com.paradigmadigital.ui.register.RegisterActivity
 import com.paradigmadigital.ui.terms.CustomTabsManager
 import javax.inject.Inject
@@ -41,6 +42,11 @@ constructor(
     fun navigateToMain() {
         val intent = Intent(activity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)
+    }
+
+    fun navigateToProfile() {
+        val intent = Intent(activity, ProfileActivity::class.java)
         activity.startActivity(intent)
     }
 

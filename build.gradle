@@ -59,7 +59,7 @@ ext {
 
     easy_permissions = '0.3.0'
     fingerprint = '1.0.1'
-    materialdrawerkt = '1.0.6'
+    materialdrawerkt = '1.2.2'
     butterknife = '8.6.0'
     dagger = '2.5'
 

@@ -8,6 +8,7 @@ import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import com.paradigmadigital.ui.main.MainActivity
+import com.paradigmadigital.ui.profile.ProfileActivity
 import com.paradigmadigital.ui.register.RegisterActivity
 import com.paradigmadigital.ui.splash.SplashActivity
 import dagger.Component
@@ -25,6 +26,8 @@ interface ActivityComponent {
     fun inject(registerActivity: RegisterActivity)
 
     fun inject(mainActivity: MainActivity)
+
+    fun inject(profileActivity: ProfileActivity)
 
     fun inject(mainActivity: DetailActivity)
 

@@ -35,7 +35,7 @@ constructor(
         ) as ViewGroup
         ButterKnife.bind(this, header)
 
-        return activity.drawer {
+        val drawer = activity.drawer {
             toolbar = activityToolbar
             translucentStatusBar = false
             actionBarDrawerToggleEnabled = true
@@ -53,10 +53,25 @@ constructor(
 
             primaryItem(R.string.main_menu) {
                 identifier = R.id.main.toLong()
+                icon = R.drawable.abc_ic_star_black_36dp
+                iconTintingEnabled = true
+                selectable = true
+                onClick { _ ->
+                    navigator.navigateToMain()
+                    true
+                }
             }
 
             primaryItem(R.string.profile) {
-
+                identifier = R.id.profile.toLong()
+                icon = R.drawable.abc_ic_star_black_36dp
+                iconTintingEnabled = true
+                selectable = true
+                onClick { _ ->
+                    navigator.navigateToProfile()
+                    selected = true
+                    false
+                }
             }
 
             footer {
@@ -87,5 +102,7 @@ constructor(
             }
 
         }
+        return drawer
     }
 }
+

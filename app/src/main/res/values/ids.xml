@@ -3,4 +3,7 @@
     <item name="main"
         type="id">0
     </item>
+    <item name="profile"
+        type="id">1
+    </item>
 </resources>

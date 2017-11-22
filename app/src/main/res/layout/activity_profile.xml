@@ -2,19 +2,43 @@
 
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paradigmadigital.ui.register.RegisterActivity"
+    tools:context="com.paradigmadigital.ui.profile.ProfileActivity"
+    android:orientation="vertical"
+    android:background="#EEE"
     >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            >
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:id="@+id/form"
         android:layout_width="0dp"
         android:layout_height="0dp"
         tools:context="com.paradigmadigital.ui.register.RegisterActivity"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbarlayout"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/bt_register"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"

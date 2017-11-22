@@ -23,11 +23,6 @@ class MainActivity : BaseActivity() {
         presenter.initialize(decorator)
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.resume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         presenter.dispose()
