@@ -1,13 +1,14 @@
 package com.paradigmadigital.ui.profile
 
-import android.arch.lifecycle.Observer
 import android.os.Build
+import android.support.annotation.StringRes
 import android.support.design.widget.TextInputEditText
 import android.support.v4.app.ActivityCompat.startIntentSenderForResult
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -16,14 +17,12 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.android.gms.common.api.GoogleApiClient
 import com.paradigmadigital.R
+import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.DrawerManager
-import com.paradigmadigital.platform.Constants.REGISTER
-import com.paradigmadigital.repository.NetworkResult
-import com.paradigmadigital.repository.NetworkResultCode
+import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
 import com.paradigmadigital.ui.BaseDecorator
-import com.paradigmadigital.ui.viewmodels.ResultViewModel
 import javax.inject.Inject
 
 
@@ -36,7 +35,6 @@ class ProfileDecorator
 ) : BaseDecorator(dialog), ProfileUserInterface {
 
     companion object {
-        val REQUEST_REGISTER = REGISTER + 0
         val RESOLVE_HINT = 100
     }
 
@@ -48,10 +46,6 @@ class ProfileDecorator
     lateinit var email1: TextInputEditText
     @BindView(R.id.et_email2)
     lateinit var email2: TextInputEditText
-    @BindView(R.id.et_pass1)
-    lateinit var pass1: TextInputEditText
-    @BindView(R.id.et_pass2)
-    lateinit var pass2: TextInputEditText
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
@@ -68,20 +62,42 @@ class ProfileDecorator
         delegate = null
     }
 
-    override fun initialize(delegate: ProfileUserInterface.Delegate, resultViewModel: ResultViewModel) {
+    override fun initialize(
+            delegate: ProfileUserInterface.Delegate,
+            user: User
+    ) {
         this.delegate = delegate
-        resultViewModel.result.observe(activity, Observer<NetworkResult> { handleResult(it) })
+        name.setText(user.name)
+        tel.setText(user.phone)
+        email1.setText(user.email)
+        email2.setText(user.email)
     }
 
     override fun setPhone(phone: String) {
         tel.setText(phone)
     }
 
+    override fun onResult(result: ApiResult) {
+        when (result) {
+            is ApiResult.Success<*> -> {
+                delegate?.onProfileEdited()
+                stopWaitingMode()
+            }
+            is ApiResult.Failure -> showError()
+        }
+    }
+
+    private fun showError() {
+        stopWaitingMode()
+        showToast(R.string.server_error)
+    }
+
+    private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
+
     @OnClick(R.id.bt_register)
     fun onRegisterClick() {
         var ok = verifyPhone()
         ok = verifyEmail(ok)
-        ok = verifyPassword(ok)
 
         if (ok) {
             delegate?.onProfileEdit(
@@ -99,17 +115,6 @@ class ProfileDecorator
         requestHint()
     }
 
-    override fun handleResult(result: NetworkResult?) {
-        if (result?.requestId !in REGISTER..REGISTER + 99) return
-
-        if (result?.result == NetworkResultCode.SUCCESS) {
-            delegate?.onProfileEdited(email = email1.text.toString(), pass = pass1.text.toString())
-            stopWaitingMode()
-            return
-        }
-        super.handleResult(result)
-    }
-
     private fun requestHint() {
         val hintRequest = HintRequest.Builder()
                 .setPhoneNumberIdentifierSupported(true)
@@ -125,27 +130,6 @@ class ProfileDecorator
         val ok = android.util.Patterns.PHONE.matcher(tel.text.toString()).matches()
         if (!ok) tel.error = activity.getString(R.string.phone_empty)
         return ok
-    }
-
-    private fun verifyPassword(ok: Boolean): Boolean {
-        var ok1 = ok
-        val pass1Text = pass1.text.toString()
-        if (TextUtils.isEmpty(pass1Text)) {
-            pass1.error = activity.getString(R.string.pass_empty)
-            ok1 = false
-        }
-
-        val pass2Text = pass2.text.toString()
-        if (TextUtils.isEmpty(pass2Text)) {
-            pass2.error = activity.getString(R.string.pass_empty)
-            ok1 = false
-        }
-
-        if (pass1Text != pass2Text) {
-            pass2.error = activity.getString(R.string.pass_not_match)
-            ok1 = false
-        }
-        return ok1
     }
 
     private fun verifyEmail(ok: Boolean): Boolean {

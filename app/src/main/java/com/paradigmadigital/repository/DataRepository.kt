@@ -1,7 +1,8 @@
 package com.paradigmadigital.repository
 
+import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.model.PostData
-import com.paradigmadigital.api.services.TypicodeService
+import com.paradigmadigital.api.services.AuthenticatedService
 import com.paradigmadigital.domain.db.AuthorDao
 import com.paradigmadigital.domain.db.PostDao
 import com.paradigmadigital.domain.entities.Post
@@ -27,7 +28,15 @@ constructor(
         private val postMapper: PostMapper
 ) {
 
-    val service = retrofit.create(TypicodeService::class.java)
+    val service = retrofit.create(AuthenticatedService::class.java)
+
+    fun update(user: Login): Single<ApiResult> {
+        return service.update(user)
+                .map { it.toApiResult() as ApiResult }
+                .onErrorReturn { it.toApiResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
 
     fun getPosts(): Flowable<List<PostUiModel>> {
         return postDao.getPosts()

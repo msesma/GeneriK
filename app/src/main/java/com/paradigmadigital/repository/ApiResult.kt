@@ -2,6 +2,7 @@ package com.paradigmadigital.repository
 
 import retrofit2.HttpException
 
+fun <T> T.toApiResult() = ApiResult.Success(this)
 fun <T> List<T>.toApiResult() = ApiResult.Success(this)
 fun Throwable.toApiResult() = when (this) {
     is HttpException -> ApiResult.Failure(this.code().toString())

@@ -23,7 +23,7 @@ class ProfileActivity : BaseActivity() {
         activityComponent.inject(this)
 
         decorator.bind(getRootView())
-        presenter.initialize(decorator, resultViewModel)
+        presenter.initialize(decorator)
     }
 
     override fun onDestroy() {

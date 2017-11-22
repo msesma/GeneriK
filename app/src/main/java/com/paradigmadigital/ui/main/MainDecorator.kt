@@ -82,9 +82,6 @@ constructor(
     private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
     private fun setWaitingMode(waitingMode: Boolean) {
-//        if (waitingMode) {
-//            list.visibility = INVISIBLE
-//        }
         swipeRefresh.isRefreshing = waitingMode
     }
 

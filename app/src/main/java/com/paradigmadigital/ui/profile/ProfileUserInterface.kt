@@ -1,10 +1,13 @@
 package com.paradigmadigital.ui.profile
 
-import com.paradigmadigital.ui.viewmodels.ResultViewModel
+import com.paradigmadigital.domain.entities.User
+import com.paradigmadigital.repository.ApiResult
 
 interface ProfileUserInterface {
 
-    fun initialize(delegate: Delegate, resultViewModel: ResultViewModel)
+    fun initialize(delegate: Delegate, user: User)
+
+    fun onResult(result: ApiResult)
 
     fun setPhone(phone: String)
 
@@ -12,7 +15,7 @@ interface ProfileUserInterface {
 
         fun onProfileEdit(name: String, tel: String, email: String)
 
-        fun onProfileEdited(email: String, pass: String)
+        fun onProfileEdited()
 
     }
 }

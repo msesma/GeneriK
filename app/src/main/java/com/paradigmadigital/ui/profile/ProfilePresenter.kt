@@ -1,17 +1,18 @@
 package com.paradigmadigital.ui.profile
 
 import com.paradigmadigital.api.model.Login
+import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.ui.register.RegisterDecorator.Companion.REQUEST_REGISTER
-import com.paradigmadigital.ui.viewmodels.ResultViewModel
-import com.paradigmadigital.usecases.RegisterUserUseCase
+import com.paradigmadigital.repository.LoginRepository
+import com.paradigmadigital.usecases.ProfileUseCase
 import javax.inject.Inject
 
 class ProfilePresenter
 @Inject
 constructor(
         navigator: Navigator,
-        useCase: RegisterUserUseCase
+        val repository: LoginRepository,
+        useCase: ProfileUseCase
 ) {
 
     private var decorator: ProfileUserInterface? = null
@@ -20,16 +21,16 @@ constructor(
 
         override fun onProfileEdit(name: String, tel: String, email: String) {
             val user = Login(name = name, phone = tel, email = email)
-            useCase.execute(user, REQUEST_REGISTER)
+            useCase.execute(user).subscribe({ decorator?.onResult(it) }, { throw it })
         }
 
-        override fun onProfileEdited(email: String, pass: String) =
-                navigator.navigateToInputCode(email, pass)
+        override fun onProfileEdited() =
+                navigator.navigateToMain()
     }
 
-    fun initialize(decorator: ProfileUserInterface, resultViewModel: ResultViewModel) {
+    fun initialize(decorator: ProfileUserInterface) {
         this.decorator = decorator
-        this.decorator?.initialize(delegate, resultViewModel)
+        this.decorator?.initialize(delegate, repository.getUser() ?: User())
     }
 
     fun dispose() {
