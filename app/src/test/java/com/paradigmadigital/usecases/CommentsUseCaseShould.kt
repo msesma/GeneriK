@@ -7,6 +7,7 @@ import com.paradigmadigital.domain.mappers.AuthorMapper
 import com.paradigmadigital.domain.mappers.PostMapper
 import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.repository.DataRepository
+import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.repository.toApiResult
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -67,9 +68,9 @@ class CommentsUseCaseShould : MockWebServerTestBase() {
 
     @Test
     fun getCommentsManagesHttpError() {
-        enqueueMockResponse(500, "comments.json")
+        enqueueMockResponse(403, "comments.json")
         val testObserver = TestObserver<ApiResult>()
-        val result = ApiResult.Failure("500")
+        val result = ApiResult.Failure(NetworkResultCode.FORBIDDEN)
 
         useCase.execute(1).subscribe(testObserver)
         testObserver.await()

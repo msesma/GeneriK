@@ -9,6 +9,7 @@ import com.paradigmadigital.domain.mappers.AuthorMapper
 import com.paradigmadigital.domain.mappers.PostMapper
 import com.paradigmadigital.repository.ApiResult
 import com.paradigmadigital.repository.DataRepository
+import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.repository.toApiResult
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -72,9 +73,9 @@ class RefreshPostsUseCaseShould : MockWebServerTestBase() {
     @Test
     fun getPostsManagesHttpError() {
         whenever(authorDao.getAuthor(any())).thenReturn(Single.error(Exception()))
-        enqueueMockResponse(500, "posts.json")
+        enqueueMockResponse(403, "posts.json")
         val testObserver = TestObserver<ApiResult>()
-        val result = ApiResult.Failure("500")
+        val result = ApiResult.Failure(NetworkResultCode.FORBIDDEN)
 
         useCase.execute().subscribe(testObserver)
         testObserver.await()

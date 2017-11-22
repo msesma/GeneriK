@@ -92,7 +92,7 @@ class RegisterDecorator
         requestHint()
     }
 
-    override fun handleResult(result: NetworkResult?) {
+    private fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in REGISTER..REGISTER + 99) return
 
         if (result?.result == NetworkResultCode.SUCCESS) {
@@ -100,7 +100,7 @@ class RegisterDecorator
             stopWaitingMode()
             return
         }
-        super.handleResult(result)
+        super.handleResult(result?.result)
     }
 
     private fun requestHint() {

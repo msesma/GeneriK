@@ -108,7 +108,7 @@ class InputCodeDecorator
         delegate?.onSendNew()
     }
 
-    override fun handleResult(result: NetworkResult?) {
+    private fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in INPUT_CODE..INPUT_CODE + 99) return
 
         stopWaitingMode()

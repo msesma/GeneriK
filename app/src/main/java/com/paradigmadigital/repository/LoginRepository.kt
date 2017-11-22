@@ -7,15 +7,13 @@ import com.paradigmadigital.api.model.Login
 import com.paradigmadigital.api.services.LoginRegisterService
 import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.mappers.UserMapper
-import com.paradigmadigital.platform.CallbackFun
-import com.paradigmadigital.repository.NetworkResultCode.*
 import com.paradigmadigital.repository.preferences.Preferences
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import okhttp3.Credentials
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.net.HttpURLConnection
-import java.net.UnknownHostException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -77,7 +75,7 @@ constructor(
 
     fun login(email: String, pass: String): ApiResult {
         val response = loginRegisterService.login(Credentials.basic(email, pass)).execute()
-        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        if (!response.isSuccessful) return HttpException(response).toApiResult()
         return ApiResult.Success(response.body() as Login)
     }
 
@@ -91,13 +89,13 @@ constructor(
 
     fun register(user: Login): ApiResult {
         val response = loginRegisterService.register(user).execute()
-        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        if (!response.isSuccessful) return HttpException(response).toApiResult()
         return ApiResult.Success(response.body() as Login)
     }
 
     fun requestCode(): ApiResult {
         val response = loginRegisterService.requestCode(getEmail()).execute()
-        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        if (!response.isSuccessful) return HttpException(response).toApiResult()
         return ApiResult.Success(response.body() as Code)
     }
 
@@ -106,7 +104,7 @@ constructor(
                 .setPass(Credentials.basic(email, pass), code)
                 .execute()
 
-        if (!response.isSuccessful) return ApiResult.Failure(response.raw().code().toString())
+        if (!response.isSuccessful) return HttpException(response).toApiResult()
         return ApiResult.Success(Unit)
     }
 
@@ -115,20 +113,13 @@ constructor(
     suspend private fun suspendExecute(id: Int = 0, call: () -> Unit) {
         try {
             call()
-            networkResultLiveData.setNetworkResult(NetworkResult(SUCCESS, id))
         } catch (e: Throwable) {
-            println(e.message + " " + e.hashCode())
-            e.printStackTrace()
-            manageExceptions(e, id) { networkResultLiveData.setNetworkResult(it) }
+            sendResult(e.toApiResult().data, id)
         }
     }
 
-    private fun manageExceptions(e: Throwable, id: Int, callback: CallbackFun<NetworkResult>) {
-        when {
-            e is UnknownHostException -> callback(NetworkResult(DISCONNECTED, id))
-            e.message == HTTP_NOT_FOUND -> callback(NetworkResult(BAD_URL, id))
-            e.message == HTTP_FORBIDDEN -> callback(NetworkResult(FORBIDDEN, id))
-            else -> callback(NetworkResult(UNKNOWN, id))
-        }
+    fun sendResult(code: NetworkResultCode, id: Int) {
+        println("Code: $code, id: $id")
+        networkResultLiveData.setNetworkResult(NetworkResult(code, id))
     }
 }

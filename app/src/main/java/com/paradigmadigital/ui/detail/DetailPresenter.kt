@@ -39,11 +39,7 @@ constructor(
     private fun handleResult(result: ApiResult) {
         when (result) {
             is ApiResult.Success<*> -> decorator?.showComments(result.data as List<Comment>)
-            is ApiResult.Failure -> onError(RuntimeException(result.data))
+            is ApiResult.Failure -> decorator?.showError(result.data)
         }
-    }
-
-    private fun onError(ex: Exception) {
-        decorator?.showError(ex)
     }
 }

@@ -1,6 +1,7 @@
 package com.paradigmadigital.usecases
 
 import com.paradigmadigital.repository.LoginRepository
+import com.paradigmadigital.repository.NetworkResultCode
 import javax.inject.Inject
 
 class LogoutUseCase
@@ -13,6 +14,7 @@ class LogoutUseCase
             executeInteractor {
                 remoteLogout()
                 localLogout()
+                sendResult(NetworkResultCode.SUCCESS, 0)
             }
         }
     }

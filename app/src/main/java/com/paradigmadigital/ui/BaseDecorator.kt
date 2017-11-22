@@ -6,7 +6,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import butterknife.BindView
 import com.paradigmadigital.R
-import com.paradigmadigital.repository.NetworkResult
+import com.paradigmadigital.repository.NetworkResultCode
 import com.paradigmadigital.repository.NetworkResultCode.*
 
 
@@ -28,10 +28,10 @@ constructor(
         wait?.visibility = INVISIBLE
     }
 
-    open fun handleResult(result: NetworkResult?) {
+    open fun handleResult(result: NetworkResultCode?) {
         stopWaitingMode()
         if (result == null) return
-        when (result.result) {
+        when (result) {
             SUCCESS -> return
             DISCONNECTED -> dialog.show(R.string.connection_error, R.string.empty, true, { })
             BAD_URL -> dialog.show(R.string.server_error, R.string.empty, true, { })

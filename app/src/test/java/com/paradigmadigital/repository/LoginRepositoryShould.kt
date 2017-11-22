@@ -9,12 +9,16 @@ import com.paradigmadigital.domain.db.UserDao
 import com.paradigmadigital.domain.entities.User
 import com.paradigmadigital.domain.mappers.UserMapper
 import com.paradigmadigital.repository.preferences.Preferences
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import retrofit2.HttpException
+import retrofit2.Response
 import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
@@ -200,7 +204,9 @@ class LoginRepositoryShould {
     fun sendBadUrlOn404() {
 
         repository.executeInteractor {
-            throw RuntimeException("404")
+            throw HttpException(Response.error<String>(
+                    404,
+                    ResponseBody.create(MediaType.parse("application/json"), "{}")))
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
@@ -222,20 +228,12 @@ class LoginRepositoryShould {
     fun sendForbiddenOnForbidden403() {
 
         repository.executeInteractor {
-            throw RuntimeException("403")
+            throw HttpException(Response.error<String>(
+                    403,
+                    ResponseBody.create(MediaType.parse("application/json"), "{}")))
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
         assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FORBIDDEN)
-    }
-
-    @Test
-    fun sendSuccessOnNoError() {
-
-        repository.executeInteractor {
-        }
-
-        TimeUnit.MILLISECONDS.sleep(200);
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
     }
 }

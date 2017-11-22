@@ -1,7 +1,6 @@
 package com.paradigmadigital.ui.detail
 
 import android.graphics.Bitmap
-import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +9,6 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.paradigmadigital.R
@@ -18,7 +16,10 @@ import com.paradigmadigital.api.images.ImageRepository
 import com.paradigmadigital.api.images.ImageTarget
 import com.paradigmadigital.api.model.Comment
 import com.paradigmadigital.domain.entities.PostUiModel
+import com.paradigmadigital.repository.NetworkResultCode
+import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.BaseDecorator
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
@@ -28,8 +29,9 @@ constructor(
         val activity: BaseActivity,
         val imageRepo: ImageRepository,
         private val layoutManager: LinearLayoutManager,
-        private val adapter: CommentAdapter
-) : DetailUserInterface {
+        private val adapter: CommentAdapter,
+        alertDialog: AlertDialog
+) : DetailUserInterface, BaseDecorator(alertDialog) {
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -82,16 +84,11 @@ constructor(
         adapter.swap(comments)
     }
 
-    override fun showError(error: Exception) {
-        showToast(R.string.server_error)
+    override fun showError(error: NetworkResultCode) {
+        handleResult(error)
     }
 
-    private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
-
     private fun setWaitingMode(waitingMode: Boolean) {
-//        if (waitingMode) {
-//            list.visibility = View.INVISIBLE
-//        }
         swipeRefresh.isRefreshing = waitingMode
     }
 

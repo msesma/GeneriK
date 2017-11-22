@@ -92,14 +92,14 @@ class LoginDecorator
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun handleResult(result: NetworkResult?) {
+    private fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in LOGIN..LOGIN + 99) return
 
         stopWaitingMode()
         when (result?.result) {
             FORBIDDEN -> dialog.show(R.string.login_error, R.string.empty, true) { }
             SUCCESS -> delegate?.onLoggedIn()
-            else -> super.handleResult(result)
+            else -> handleResult(result?.result)
         }
     }
 }

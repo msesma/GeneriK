@@ -1,6 +1,5 @@
 package com.paradigmadigital.ui.main
 
-import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -9,13 +8,15 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.paradigmadigital.R
 import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.DrawerManager
+import com.paradigmadigital.repository.NetworkResultCode
+import com.paradigmadigital.ui.AlertDialog
 import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.BaseDecorator
 import javax.inject.Inject
 
 class MainDecorator
@@ -24,8 +25,9 @@ constructor(
         private val activity: BaseActivity,
         private val drawerManager: DrawerManager,
         private val layoutManager: LinearLayoutManager,
-        private val adapter: PostAdapter
-) : MainUserInterface {
+        private val adapter: PostAdapter,
+        alertDialog: AlertDialog
+) : MainUserInterface, BaseDecorator(alertDialog) {
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -68,9 +70,9 @@ constructor(
         setWaitingMode(true)
     }
 
-    override fun showError(error: Exception) {
+    override fun showError(error: NetworkResultCode) {
         setWaitingMode(false)
-        showToast(R.string.server_error)
+        handleResult(error)
     }
 
     override fun showPosts(posts: List<PostUiModel>) {
@@ -78,8 +80,6 @@ constructor(
         list.visibility = if (posts.isEmpty()) INVISIBLE else VISIBLE
         adapter.swap(posts)
     }
-
-    private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
     private fun setWaitingMode(waitingMode: Boolean) {
         swipeRefresh.isRefreshing = waitingMode

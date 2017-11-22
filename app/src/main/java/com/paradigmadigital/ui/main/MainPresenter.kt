@@ -42,6 +42,6 @@ class MainPresenter
     }
 
     private fun handleResult(result: ApiResult) {
-        if (result is ApiResult.Failure) decorator?.showError(RuntimeException(result.data))
+        if (result is ApiResult.Failure) decorator?.showError(result.data)
     }
 }
