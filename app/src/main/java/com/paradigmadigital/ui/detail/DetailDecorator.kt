@@ -64,7 +64,6 @@ constructor(
         list.itemAnimator = DefaultItemAnimator()
         list.adapter = adapter
         swipeRefresh.setOnRefreshListener(refreshListener)
-        setWaitingMode(true)
     }
 
     override fun initialize(delegate: DetailUserInterface.Delegate, post: PostUiModel) {
@@ -74,6 +73,7 @@ constructor(
         body.text = post.body
         author.text = post.name
         imageRepo.getCurrentIcon("https://api.adorable.io/avatars/256/${post.email}.png", iconTarget)
+        setWaitingMode(true)
     }
 
     override fun showComments(comments: List<Comment>) {
@@ -89,9 +89,9 @@ constructor(
     private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
     private fun setWaitingMode(waitingMode: Boolean) {
-        if (waitingMode) {
-            list.visibility = View.INVISIBLE
-        }
+//        if (waitingMode) {
+//            list.visibility = View.INVISIBLE
+//        }
         swipeRefresh.isRefreshing = waitingMode
     }
 

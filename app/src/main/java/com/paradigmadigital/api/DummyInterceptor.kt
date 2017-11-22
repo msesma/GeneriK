@@ -63,7 +63,7 @@ class DummyInterceptor
                     .addHeader("content-type", contentType)
                     .build()
         } catch (e: Exception) {
-            Log.e(TAG, e.message, e)
+            Log.d(TAG, e.message)
             response = chain.proceed(chain.request())
         }
 

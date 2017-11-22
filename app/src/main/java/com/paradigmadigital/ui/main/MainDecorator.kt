@@ -38,6 +38,7 @@ constructor(
 
     private val postClickListener = object : PostClickListener {
         override fun onClick(index: Int) {
+            if (index < 0) return
             delegate?.onClick(adapter.getItemAtPosition(index))
         }
     }
@@ -52,8 +53,9 @@ constructor(
         drawer.setSelection(R.id.main.toLong())
         list.layoutManager = layoutManager
         list.itemAnimator = DefaultItemAnimator()
+        list.adapter = adapter
+        adapter.setClickListener(postClickListener)
         swipeRefresh.setOnRefreshListener(refreshListener)
-        setWaitingMode(true)
     }
 
     fun dispose() {
@@ -63,8 +65,7 @@ constructor(
     override fun initialize(delegate: MainUserInterface.Delegate) {
         this.delegate = delegate
         toolbar.title = ""
-        list.adapter = adapter
-        adapter.setClickListener(postClickListener)
+        setWaitingMode(true)
     }
 
     override fun showError(error: Exception) {
@@ -81,9 +82,9 @@ constructor(
     private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
     private fun setWaitingMode(waitingMode: Boolean) {
-        if (waitingMode) {
-            list.visibility = INVISIBLE
-        }
+//        if (waitingMode) {
+//            list.visibility = INVISIBLE
+//        }
         swipeRefresh.isRefreshing = waitingMode
     }
 
