@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
         android:name="com.paradigmadigital.platform.AndroidApplication"
@@ -63,7 +64,7 @@
         </activity>
 
         <activity android:name=".ui.main.MainActivity"
-        android:theme="@style/AppDrawerTheme" />
+            android:theme="@style/AppDrawerTheme" />
 
         <activity android:name=".ui.profile.ProfileActivity"
             android:theme="@style/AppDrawerTheme" />

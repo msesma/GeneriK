@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
+import com.github.ajalt.reprint.core.Reprint
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
 import io.fabric.sdk.android.Fabric
@@ -33,6 +34,7 @@ class AndroidApplication : Application() {
         registerActivityLifecycleCallbacks(activityLifecycleCallback)
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
         Stetho.initializeWithDefaults(this)
+        Reprint.initialize(this)
     }
 
     override fun attachBaseContext(base: Context) {

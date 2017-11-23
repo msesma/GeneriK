@@ -13,7 +13,6 @@ class LoginPresenter
 constructor(
         private val navigator: Navigator,
         private val loginUseCase: LoginUseCase,
-//        private val fingerprintManager: FingerprintManager,
         private val repository: LoginRepository
 ) {
     private var decorator: LoginUserInterface? = null
@@ -31,14 +30,8 @@ constructor(
 
     fun initialize(decorator: LoginUserInterface, resultViewModel: ResultViewModel) {
         this.decorator = decorator
-//        repository.timeoutRequireLoginCheck()
         this.decorator?.initialize(delegate, resultViewModel)
-//        fingerprintManager.startAuth { onFingerprintAuth(it) }
     }
-
-//    private fun onFingerprintAuth(result: Boolean) {
-//        if (result) loginUseCase.execute(repository.getEmail(), repository.getPass(), REQUEST_LOGIN)
-//    }
 
     fun dispose() {
         this.decorator = null

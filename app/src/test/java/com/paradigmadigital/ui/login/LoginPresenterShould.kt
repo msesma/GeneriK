@@ -15,11 +15,9 @@ class LoginPresenterShould {
     @Mock private lateinit var navigator: Navigator
     @Mock private lateinit var decorator: LoginUserInterface
     @Mock private lateinit var resultViewModel: ResultViewModel
-    @Mock private lateinit var fingerprintManager: FingerprintManager
     @Mock private lateinit var repository: LoginRepository
 
     private val delegateCaptor = argumentCaptor<LoginUserInterface.Delegate>()
-    private val callbackCaptor = argumentCaptor<(Boolean) -> Unit>()
     private lateinit var presenter: LoginPresenter
 
     @Before
@@ -30,7 +28,6 @@ class LoginPresenterShould {
                 loginUseCase,
                 repository)
         doNothing().whenever(decorator).initialize(delegateCaptor.capture(), any())
-        doNothing().whenever(fingerprintManager).startAuth(callbackCaptor.capture())
     }
 
     @Test
