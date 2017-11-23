@@ -7,8 +7,10 @@
     <!-- Preferences -->
     <string name="allow_fingerprint"
         translatable="false">allow_fingerprint</string>
-    <string name="require_login"
-        translatable="false">require_login</string>
+    <string name="pin"
+        translatable="false">pin</string>
+    <string name="require_pin"
+        translatable="false">require_pin</string>
     <string name="email_notification"
         translatable="false">email_notification</string>
     <string name="sms_notification"

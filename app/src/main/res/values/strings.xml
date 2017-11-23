@@ -47,9 +47,10 @@
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_title_email_notification">Notify events by email</string>
     <string name="pref_title_sms_notification">Notify events by sms</string>
-    <string name="pref_title_require_login">Require login when returning to app</string>
-    <string name="pref_description_require_login">After some minutes the app will require login.</string>
-    <string name="pref_title_allow_fingerprint">Allow login with fingerprint</string>
+    <string name="pref_title_require_login">Require pin when returning to app</string>
+    <string name="pref_description_require_login">After some minutes the app will require pin to open.</string>
+    <string name="pref_title_allow_fingerprint">Allow fingerprint instead pin</string>
+    <string name="pref_title_insert_pin">Insert pin</string>
     <string name="pref_description_allow_fingerprint">Allow login with fingerprint if app has timed out</string>
     <string name="settings">Settings</string>
     <string name="update_button">Update</string>

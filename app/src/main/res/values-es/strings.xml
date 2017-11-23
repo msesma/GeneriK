@@ -47,10 +47,10 @@
     <string name="pref_header_notifications">Notificaciones</string>
     <string name="pref_title_email_notification">Notificar eventos por email</string>
     <string name="pref_title_sms_notification">Notificar evemtos por SMS</string>
-    <string name="pref_title_require_login">Solicitar login al volver a la app</string>
-    <string name="pref_description_require_login">Después de un tiempo, la app requerirá login para entrar</string>
-    <string name="pref_title_allow_fingerprint">Permitir login con huella dactilar</string>
-    <string name="pref_description_allow_fingerprint">Permitir entrar con huella dactilar si ala app está bloqueada por tiempo</string>
+    <string name="pref_title_require_login">Solicitar pin al volver a la app</string>
+    <string name="pref_description_require_login">Después de un tiempo, la app requerirá pin para entrar</string>
+    <string name="pref_title_allow_fingerprint">Permitir huella dactilar en vez de pin</string>
+    <string name="pref_description_allow_fingerprint">Permitir entrar con huella dactilar si la app está bloqueada por tiempo</string>
     <string name="settings">Preferencias</string>
     <string name="update_button">Actualizar</string>
 </resources>

@@ -87,7 +87,7 @@ dependencies {
 
     implementation "co.zsmb:materialdrawer-kt:$materialdrawerkt"
     implementation "pub.devrel:easypermissions:$easy_permissions"
-    implementation "com.github.ajalt.reprint:core:$reprint"
+    implementation "com.github.ajalt.reprint:core:$reprint@aar"
     implementation "com.github.ajalt.reprint:reprint_spass:$reprint@aar"
     implementation "com.github.ajalt.reprint:rxjava2:$reprint@aar"
 
