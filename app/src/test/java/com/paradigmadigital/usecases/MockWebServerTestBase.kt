@@ -82,6 +82,13 @@ open class MockWebServerTestBase {
         assertThat("GET").isEqualTo(request.method)
     }
 
+    @Throws(InterruptedException::class)
+    protected fun assertPostRequestSentTo(url: String) {
+        val request = server.takeRequest()
+        assertThat(url).isEqualTo(request.path)
+        assertThat("POST").isEqualTo(request.method)
+    }
+
     @Throws(IOException::class)
     protected fun getContentFromFile(name: String?): String {
         var fileName: String? = name ?: return ""
