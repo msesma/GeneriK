@@ -15,7 +15,7 @@ class FingerprintManager
 @Inject constructor() {
     private val TAG = FingerprintManager::class.simpleName
 
-    fun startAuth(): Single<AuthenticationResult> {
+     fun startAuth(): Single<AuthenticationResult> {
         return RxReprint.authenticate()
                 .firstOrError()
                 .doOnSuccess {

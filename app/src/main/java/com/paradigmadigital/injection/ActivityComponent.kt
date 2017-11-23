@@ -8,16 +8,21 @@ import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import com.paradigmadigital.ui.main.MainActivity
+import com.paradigmadigital.ui.pin.PinActivity
 import com.paradigmadigital.ui.profile.ProfileActivity
 import com.paradigmadigital.ui.register.RegisterActivity
 import com.paradigmadigital.ui.splash.SplashActivity
 import dagger.Component
 
 @PerActivity
-@Component(dependencies = arrayOf(ApplicationComponent::class), modules = arrayOf(ActivityModule::class))
+@Component(
+        dependencies = arrayOf(ApplicationComponent::class),
+        modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
 
     fun inject(splashActivity: SplashActivity)
+
+    fun inject(pinActivity: PinActivity)
 
     fun inject(loginRegisterActivity: LoginRegisterActivity)
 

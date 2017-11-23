@@ -37,6 +37,11 @@
                 android:value=".ui.loginregister.LoginRegisterActivity" />
         </activity>
 
+        <activity android:name=".ui.pin.PinActivity"
+            android:label="@string/enter_pin"
+            android:theme="@style/InputCodeTheme">
+        </activity>
+
         <activity android:name=".ui.inputcode.InputCodeActivity"
             android:label="@string/verification_code"
             android:theme="@style/InputCodeTheme">

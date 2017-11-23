@@ -71,7 +71,7 @@ class LoginRepositoryShould {
     @Ignore
     fun LogoutOnTimeoutCheckifTimedOut() {
         whenever(preferences.timeout).thenReturn(true)
-        whenever(preferences.requireLogin).thenReturn(true)
+        whenever(preferences.requirePin).thenReturn(true)
 
         repository.timeoutRequireLoginCheck()
 
@@ -82,7 +82,7 @@ class LoginRepositoryShould {
     @Ignore
     fun notLogoutOnTimeoutCheckifTimedOut() {
         whenever(preferences.timeout).thenReturn(false)
-        whenever(preferences.requireLogin).thenReturn(true)
+        whenever(preferences.requirePin).thenReturn(true)
 
         repository.timeoutRequireLoginCheck()
 

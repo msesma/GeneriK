@@ -38,6 +38,8 @@ constructor(
 
     val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
 
+    fun requirePin() = preferences.requirePin
+
     fun getErrors(): LiveData<NetworkResult> = networkResultLiveData
 
     fun isLoggedIn(): Boolean {
@@ -81,6 +83,7 @@ constructor(
 
     fun localLogout() {
         accountManager.logout()
+        preferences.logout()
     }
 
     fun remoteLogout() {
@@ -122,4 +125,5 @@ constructor(
         println("Code: $code, id: $id")
         networkResultLiveData.setNetworkResult(NetworkResult(code, id))
     }
+
 }

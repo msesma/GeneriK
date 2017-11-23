@@ -10,6 +10,7 @@ import com.paradigmadigital.ui.inputcode.InputCodeActivity
 import com.paradigmadigital.ui.login.LoginActivity
 import com.paradigmadigital.ui.loginregister.LoginRegisterActivity
 import com.paradigmadigital.ui.main.MainActivity
+import com.paradigmadigital.ui.pin.PinActivity
 import com.paradigmadigital.ui.profile.ProfileActivity
 import com.paradigmadigital.ui.register.RegisterActivity
 import com.paradigmadigital.ui.terms.CustomTabsManager
@@ -32,6 +33,11 @@ constructor(
     fun closeActivity() {
         activity.finish()
     }
+
+    fun navigateToPin() {
+        val intent = Intent(activity, PinActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)    }
 
     fun navigateToLoginRegister() {
         val intent = Intent(activity, LoginRegisterActivity::class.java)
@@ -87,5 +93,6 @@ constructor(
         intent.putExtra(EXTRA_ITEM, post)
         activity.startActivity(intent)
     }
+
 
 }

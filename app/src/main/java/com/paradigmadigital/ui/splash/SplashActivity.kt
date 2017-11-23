@@ -30,8 +30,16 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun navigate() {
-        if (repository.getUser() == null && repository.isLoggedIn()) repository.localLogout()
-        if (repository.isLoggedIn()) navigator.navigateToMain() else navigator.navigateToLoginRegister()
+        logoutOnDataLoss()
+
+        if (!repository.isLoggedIn()) navigator.navigateToLoginRegister()
+
+        if (repository.requirePin()) navigator.navigateToPin() else navigator.navigateToMain()
+
         finish()
+    }
+
+    private fun logoutOnDataLoss() {
+        if (repository.getUser() == null && repository.isLoggedIn()) repository.localLogout()
     }
 }

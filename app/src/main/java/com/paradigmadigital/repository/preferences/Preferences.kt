@@ -19,11 +19,14 @@ class Preferences @Inject constructor(
         private val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
     }
 
-    val requireLogin: Boolean
+    val requirePin: Boolean
         get() = preferences.getBoolean(context.getString(R.string.require_pin), false)
 
     val allowFingerPrint: Boolean
         get() = preferences.getBoolean(context.getString(R.string.allow_fingerprint), false)
+
+    val pin: String?
+        get() = preferences.getString(context.getString(R.string.pin), null)
 
     val code
         get() = preferences.getString(CODE_KEY, "")
@@ -50,6 +53,8 @@ class Preferences @Inject constructor(
                 .apply()
     }
 
-
+    fun logout() {
+        preferences.edit().clear().apply()
+    }
 
 }
