@@ -94,7 +94,7 @@ class ProfileDecorator
 
     private fun showToast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
-    @OnClick(R.id.bt_register)
+    @OnClick(R.id.bt_update)
     fun onRegisterClick() {
         var ok = verifyPhone()
         ok = verifyEmail(ok)

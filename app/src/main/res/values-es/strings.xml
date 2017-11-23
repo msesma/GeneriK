@@ -52,4 +52,5 @@
     <string name="pref_title_allow_fingerprint">Permitir login con huella dactilar</string>
     <string name="pref_description_allow_fingerprint">Permitir entrar con huella dactilar si ala app está bloqueada por tiempo</string>
     <string name="settings">Preferencias</string>
+    <string name="update_button">Actualizar</string>
 </resources>
