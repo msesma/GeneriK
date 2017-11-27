@@ -53,7 +53,7 @@
     <string name="pref_description_allow_fingerprint">Permitir entrar con huella dactilar si la app está bloqueada por tiempo</string>
     <string name="settings">Preferencias</string>
     <string name="update_button">Actualizar</string>
-    <string name="enter_pin">Introduce PIN</string>
+    <string name="enter_pin">Introduce PIN de 4 dígitos</string>
 
     <string name="fingerprint_explain">O usa tu huella dactilar</string>
 </resources>

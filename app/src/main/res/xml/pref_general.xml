@@ -9,8 +9,7 @@
         android:key="@string/pin"
         android:dependency="@string/require_pin"
         android:title="@string/pref_title_insert_pin"
-        android:maxLength="4"
-        android:defaultValue=" " />
+        android:maxLength="4" />
     <SwitchPreference
         android:key="@string/allow_fingerprint"
         android:dependency="@string/require_pin"

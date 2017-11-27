@@ -54,7 +54,7 @@
     <string name="pref_description_allow_fingerprint">Allow login with fingerprint if app has timed out</string>
     <string name="settings">Settings</string>
     <string name="update_button">Update</string>
-    <string name="enter_pin">Enter PIN</string>
+    <string name="enter_pin">Enter 4 digits PIN</string>
 
     <plurals name="num_comments">
         <item quantity="other">%1$d comments</item>

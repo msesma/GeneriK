@@ -20,7 +20,8 @@ class Preferences @Inject constructor(
     }
 
     val requirePin: Boolean
-        get() = preferences.getBoolean(context.getString(R.string.require_pin), false)
+        get() = preferences.getBoolean(context.getString(R.string.require_pin), false) &&
+                preferences.getString(context.getString(R.string.pin), null).length == 4
 
     val allowFingerPrint: Boolean
         get() = preferences.getBoolean(context.getString(R.string.allow_fingerprint), false)
