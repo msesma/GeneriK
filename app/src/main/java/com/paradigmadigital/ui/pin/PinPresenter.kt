@@ -1,6 +1,6 @@
 package com.paradigmadigital.ui.pin
 
-import com.github.ajalt.reprint.core.AuthenticationResult
+import com.github.ajalt.reprint.core.AuthenticationResult.Status.SUCCESS
 import com.paradigmadigital.navigation.Navigator
 import com.paradigmadigital.repository.preferences.Preferences
 import io.reactivex.disposables.Disposable
@@ -30,9 +30,13 @@ constructor(
         this.decorator?.initialize(delegate)
 
         if (preferences.allowFingerPrint) {
+            this.decorator?.showFingerprint(true)
             disposable = fingerprintManager.startAuth().subscribe({
-                if (it.status == AuthenticationResult.Status.SUCCESS) navigator.navigateToMain()
-            }, {})
+                when (it.status) {
+                    SUCCESS -> navigator.navigateToMain()
+                    else -> this.decorator?.showFingerprint(false)
+                }
+            }, { this.decorator?.showFingerprint(false) })
         }
     }
 

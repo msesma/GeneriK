@@ -2,7 +2,12 @@ package com.paradigmadigital.ui.pin
 
 import android.os.Handler
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.paradigmadigital.R
@@ -18,6 +23,13 @@ class PinDecorator
     companion object {
         private val CODE_LEN = 4
     }
+
+    @BindView(R.id.tv_code)
+    lateinit var pin: TextView
+    @BindView(R.id.tv_fpexplanation)
+    lateinit var fpText: TextView
+    @BindView(R.id.im_fpicon)
+    lateinit var fpIcon: ImageView
 
     private var codeText = ""
 
@@ -36,6 +48,10 @@ class PinDecorator
         this.delegate = delegate
     }
 
+    override fun showFingerprint(show: Boolean){
+        fpIcon.visibility= if (show) VISIBLE else GONE
+        fpText.visibility= if (show) VISIBLE else GONE
+    }
 
     private fun initToolbar() {
         val actionBar = activity.supportActionBar
@@ -60,6 +76,7 @@ class PinDecorator
             R.id.bt_8 -> codeText += "8 "
             R.id.bt_9 -> codeText += "9 "
         }
+        pin.text = codeText
         if (codeText.length == CODE_LEN * 2) sendCode()
     }
 
@@ -73,5 +90,6 @@ class PinDecorator
     @OnClick(R.id.bt_back)
     fun onBackClick() {
         codeText = codeText.dropLast(2)
+        pin.text = codeText
     }
 }

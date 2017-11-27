@@ -5,6 +5,8 @@ interface PinUserInterface {
 
     fun initialize(delegate: Delegate)
 
+    fun showFingerprint(show: Boolean)
+
     interface Delegate {
 
         fun onCode(pin: String)

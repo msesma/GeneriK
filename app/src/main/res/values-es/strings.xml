@@ -54,4 +54,6 @@
     <string name="settings">Preferencias</string>
     <string name="update_button">Actualizar</string>
     <string name="enter_pin">Introduce PIN</string>
+
+    <string name="fingerprint_explain">O usa tu huella dactilar</string>
 </resources>

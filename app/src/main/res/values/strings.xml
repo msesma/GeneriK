@@ -61,4 +61,6 @@
         <item quantity="one">%1$d comment</item>
     </plurals>
 
+    <string name="fingerprint_explain">Or use your fingerprint</string>
+
 </resources>
