@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import com.google.android.gms.auth.api.credentials.Credential
 import com.paradigmadigital.R
-import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.LoggedInBaseActivity
 import com.paradigmadigital.ui.register.RegisterDecorator.Companion.RESOLVE_HINT
 import javax.inject.Inject
 
 
-class ProfileActivity : BaseActivity() {
+class ProfileActivity : LoggedInBaseActivity() {
 
     @Inject
     lateinit var decorator: ProfileDecorator

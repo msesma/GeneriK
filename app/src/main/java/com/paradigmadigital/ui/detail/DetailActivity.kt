@@ -2,14 +2,13 @@ package com.paradigmadigital.ui.detail
 
 import android.os.Bundle
 import com.paradigmadigital.R
-import com.paradigmadigital.domain.entities.Post
 import com.paradigmadigital.domain.entities.PostUiModel
 import com.paradigmadigital.navigation.Navigator
-import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.LoggedInBaseActivity
 import javax.inject.Inject
 
 
-class DetailActivity : BaseActivity() {
+class DetailActivity : LoggedInBaseActivity() {
 
     @Inject
     lateinit var decorator: DetailDecorator

@@ -20,8 +20,10 @@ constructor(
 
     private val delegate = object : PinUserInterface.Delegate {
         override fun onCode(pin: String) {
-            val a = preferences.pin
-            if (pin == preferences.pin) navigator.navigateToMain()
+           if (pin == preferences.pin) {
+                preferences.timeout = true
+                navigator.navigateToMain()
+            }
         }
     }
 

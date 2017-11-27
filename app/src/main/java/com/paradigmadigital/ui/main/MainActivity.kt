@@ -2,11 +2,11 @@ package com.paradigmadigital.ui.main
 
 import android.os.Bundle
 import com.paradigmadigital.R
-import com.paradigmadigital.ui.BaseActivity
+import com.paradigmadigital.ui.LoggedInBaseActivity
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : LoggedInBaseActivity() {
 
     @Inject
     lateinit var decorator: MainDecorator
