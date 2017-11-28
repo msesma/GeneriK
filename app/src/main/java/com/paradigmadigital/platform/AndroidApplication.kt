@@ -7,9 +7,11 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.multidex.MultiDex
+import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.github.ajalt.reprint.core.Reprint
+import com.google.firebase.iid.FirebaseInstanceId
 import com.paradigmadigital.injection.ApplicationComponent
 import com.paradigmadigital.injection.DaggerApplicationComponent
 import io.fabric.sdk.android.Fabric
@@ -18,6 +20,7 @@ import io.fabric.sdk.android.Fabric
 class AndroidApplication : Application() {
 
     companion object {
+        private val TAG = AndroidApplication::class.simpleName
         private val SECURE_PREFERENCES = "secure_preferences"
     }
 
@@ -35,6 +38,8 @@ class AndroidApplication : Application() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
         Stetho.initializeWithDefaults(this)
         Reprint.initialize(this)
+
+        Log.d(TAG, "Instance ID: " + FirebaseInstanceId.getInstance().getToken())
     }
 
     override fun attachBaseContext(base: Context) {

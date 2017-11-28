@@ -67,10 +67,6 @@ constructor(
         return preferences.code
     }
 
-    fun timeoutRequireLoginCheck() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     fun addAccount(user: Login) {
         accountManager.addAccount(user)
     }

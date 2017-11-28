@@ -31,7 +31,6 @@ class RequestCodeUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-//        verify(userDao).getUserLiveData()
         verify(loginRegisterService).requestCode(any())
     }
 
@@ -57,7 +56,6 @@ class RequestCodeUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-//        verify(userDao).setCode(eq("1234"), any(), eq("bob@acme.com"))
         Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
     }
 

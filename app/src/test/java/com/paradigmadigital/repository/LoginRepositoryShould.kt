@@ -13,7 +13,6 @@ import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -64,29 +63,6 @@ class LoginRepositoryShould {
         val errorLiveData = repository.getErrors()
 
         assertThat(errorLiveData).isEqualTo(networkResultLiveData)
-    }
-
-
-    @Test
-    @Ignore
-    fun LogoutOnTimeoutCheckifTimedOut() {
-        whenever(preferences.timeout).thenReturn(true)
-        whenever(preferences.requirePin).thenReturn(true)
-
-        repository.timeoutRequireLoginCheck()
-
-//        verify(userDao).logout()
-    }
-
-    @Test
-    @Ignore
-    fun notLogoutOnTimeoutCheckifTimedOut() {
-        whenever(preferences.timeout).thenReturn(false)
-        whenever(preferences.requirePin).thenReturn(true)
-
-        repository.timeoutRequireLoginCheck()
-
-        verifyZeroInteractions(userDao)
     }
 
     @Test

@@ -31,6 +31,7 @@ constructor(
         this.decorator = decorator
         this.decorator?.initialize(delegate)
 
+        //We will only consider the happy case. Any other result will hide the fingerprint icon
         if (preferences.allowFingerPrint) {
             this.decorator?.showFingerprint(true)
             disposable = fingerprintManager.startAuth().subscribe({

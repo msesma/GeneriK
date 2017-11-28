@@ -118,6 +118,7 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$estetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$estetho"
     implementation "com.google.firebase:firebase-core:$firebase"
+    implementation "com.google.firebase:firebase-messaging:$firebase"
     implementation "com.google.firebase:firebase-crash:$firebase"
 
     testImplementation "junit:junit:$junit"

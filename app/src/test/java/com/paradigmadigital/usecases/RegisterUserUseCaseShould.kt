@@ -47,7 +47,6 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(Login(), 5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-        //TODO verify insert user data into account
         Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
     }
 

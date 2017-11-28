@@ -16,7 +16,7 @@ class Preferences @Inject constructor(
         private val CODE_KEY = "key_code"
         private val CODE_TIME_KEY = "key_code_time"
         private val CODE_EMAIL_KEY = "key_code_email"
-        private val TIMEOUT = TimeUnit.MINUTES.toMillis(1)
+        private val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
     }
 
     val requirePin: Boolean

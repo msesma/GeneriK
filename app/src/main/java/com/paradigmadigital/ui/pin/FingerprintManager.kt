@@ -15,6 +15,7 @@ class FingerprintManager
 @Inject constructor() {
     private val TAG = FingerprintManager::class.simpleName
 
+    //We are only interested in the first result, so let's convert from Flowable to Single
      fun startAuth(): Single<AuthenticationResult> {
         return RxReprint.authenticate()
                 .firstOrError()
@@ -30,6 +31,7 @@ class FingerprintManager
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
+    //Sample code, but consider informing the user about the problem found.
     private fun showError(reason: AuthenticationFailureReason?, message: CharSequence?) =
             Log.e(TAG, "$reason, $message")
 }
