@@ -13,7 +13,6 @@ import kotlinx.coroutines.experimental.launch
 import okhttp3.Credentials
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import java.net.HttpURLConnection
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -32,8 +31,6 @@ constructor(
 
     companion object {
         val TIMEOUT = TimeUnit.MINUTES.toMillis(5)
-        private val HTTP_FORBIDDEN = HttpURLConnection.HTTP_FORBIDDEN.toString()
-        private val HTTP_NOT_FOUND = HttpURLConnection.HTTP_NOT_FOUND.toString()
     }
 
     val loginRegisterService = retrofit.create(LoginRegisterService::class.java)
