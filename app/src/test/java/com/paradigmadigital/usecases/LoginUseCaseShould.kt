@@ -49,7 +49,7 @@ class LoginUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200);
         verify(networkResultLiveData).setNetworkResult(any())
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.BAD_URL)
     }
 
     @Test
@@ -62,7 +62,7 @@ class LoginUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200);
         verify(networkResultLiveData).setNetworkResult(any())
-        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FORBIDDEN)
+        Assertions.assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.FORBIDDEN)
     }
 
     @Test
@@ -75,7 +75,7 @@ class LoginUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200);
         //TODO verify add account
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.SUCCESS)
 //        assertThat(loginCaptor.firstValue.token).isEqualTo("token")
     }
 

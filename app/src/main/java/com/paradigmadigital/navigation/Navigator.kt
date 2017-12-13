@@ -37,7 +37,8 @@ constructor(
     fun navigateToPin() {
         val intent = Intent(activity, PinActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        activity.startActivity(intent)    }
+        activity.startActivity(intent)
+    }
 
     fun navigateToLoginRegister() {
         val intent = Intent(activity, LoginRegisterActivity::class.java)

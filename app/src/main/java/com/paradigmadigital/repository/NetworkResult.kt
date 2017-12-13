@@ -1,6 +1,6 @@
 package com.paradigmadigital.repository
 
 data class NetworkResult(
-        val result: NetworkResultCode,
+        val code: NetworkResultCode,
         val requestId: Int
 )

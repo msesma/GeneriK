@@ -96,10 +96,10 @@ class LoginDecorator
         if (result?.requestId !in LOGIN..LOGIN + 99) return
 
         stopWaitingMode()
-        when (result?.result) {
+        when (result?.code) {
             FORBIDDEN -> dialog.show(R.string.login_error, R.string.empty, true) { }
             SUCCESS -> delegate?.onLoggedIn()
-            else -> handleResult(result?.result)
+            else -> handleResult(result?.code)
         }
     }
 }

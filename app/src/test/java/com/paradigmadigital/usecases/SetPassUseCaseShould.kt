@@ -37,7 +37,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200)
         verify(networkResultLiveData).setNetworkResult(any())
-        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.result)
+        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.code)
     }
 
     @Test
@@ -49,7 +49,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200)
         verify(networkResultLiveData).setNetworkResult(any())
-        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.result)
+        assertEquals(NetworkResultCode.FAIL, resultCaptor.firstValue.code)
     }
 
     @Test
@@ -80,7 +80,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200)
         verify(networkResultLiveData).setNetworkResult(any())
-        assertEquals(NetworkResultCode.BAD_URL, resultCaptor.firstValue.result)
+        assertEquals(NetworkResultCode.BAD_URL, resultCaptor.firstValue.code)
     }
 
     @Test
@@ -95,7 +95,7 @@ class SetPassUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute("1234", "bob@acme.com", "654321", 5)
 
         TimeUnit.MILLISECONDS.sleep(200)
-        assertEquals(NetworkResultCode.SUCCESS, resultCaptor.firstValue.result)
+        assertEquals(NetworkResultCode.SUCCESS, resultCaptor.firstValue.code)
     }
 
 

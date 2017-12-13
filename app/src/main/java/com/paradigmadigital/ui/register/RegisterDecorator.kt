@@ -95,12 +95,12 @@ class RegisterDecorator
     private fun handleResult(result: NetworkResult?) {
         if (result?.requestId !in REGISTER..REGISTER + 99) return
 
-        if (result?.result == NetworkResultCode.SUCCESS) {
+        if (result?.code == NetworkResultCode.SUCCESS) {
             delegate?.onRegistered(email = email1.text.toString(), pass = pass1.text.toString())
             stopWaitingMode()
             return
         }
-        super.handleResult(result?.result)
+        super.handleResult(result?.code)
     }
 
     private fun requestHint() {

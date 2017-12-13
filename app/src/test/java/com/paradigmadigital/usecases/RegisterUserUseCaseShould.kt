@@ -35,7 +35,7 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
 
         TimeUnit.MILLISECONDS.sleep(200);
         verify(networkResultLiveData).setNetworkResult(any())
-        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
+        Assertions.assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.BAD_URL)
     }
 
     @Test
@@ -47,7 +47,7 @@ class RegisterUserUseCaseShould : BaseRepositoryUseCaseTest() {
         usecase.execute(Login(), 5)
 
         TimeUnit.MILLISECONDS.sleep(200);
-        Assertions.assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.SUCCESS)
+        Assertions.assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.SUCCESS)
     }
 
 

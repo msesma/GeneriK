@@ -113,16 +113,19 @@ class InputCodeDecorator
 
         stopWaitingMode()
         if (result == null) return
-        when {
-            result.result == FAIL && result.requestId == REQUEST_SET_PASS ->
-                dialog.show(R.string.incorrect_code, R.string.empty, true) { }
-            result.result == SUCCESS && result.requestId == REQUEST_CODE -> return
-            result.result == SUCCESS && result.requestId == REQUEST_SET_PASS -> delegate?.onCodeSent()
-            result.requestId == REQUEST_CODE ->
-                dialog.show(R.string.unknown_error, R.string.connection_error, true) { }
-            result.requestId == REQUEST_SET_PASS ->
-                dialog.show(R.string.unknown_error, R.string.pass_not_updated, true)
-                { delegate?.onCodeSent() }
+
+        with(result) {
+            when (code to requestId) {
+                FAIL to REQUEST_SET_PASS ->
+                    dialog.show(R.string.incorrect_code, R.string.empty, true) { }
+                SUCCESS to REQUEST_CODE -> return
+                SUCCESS to REQUEST_SET_PASS -> delegate?.onCodeSent()
+                code to REQUEST_CODE ->
+                    dialog.show(R.string.unknown_error, R.string.connection_error, true) { }
+                else ->
+                    dialog.show(R.string.unknown_error, R.string.pass_not_updated, true)
+                    { delegate?.onCodeSent() }
+            }
         }
     }
 }

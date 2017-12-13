@@ -173,7 +173,7 @@ class LoginRepositoryShould {
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.DISCONNECTED)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.DISCONNECTED)
     }
 
     @Test
@@ -186,7 +186,7 @@ class LoginRepositoryShould {
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.BAD_URL)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.BAD_URL)
     }
 
     @Test
@@ -197,7 +197,7 @@ class LoginRepositoryShould {
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.UNKNOWN)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.UNKNOWN)
     }
 
     @Test
@@ -210,6 +210,6 @@ class LoginRepositoryShould {
         }
 
         TimeUnit.MILLISECONDS.sleep(200);
-        assertThat(resultCaptor.firstValue.result).isEqualTo(NetworkResultCode.FORBIDDEN)
+        assertThat(resultCaptor.firstValue.code).isEqualTo(NetworkResultCode.FORBIDDEN)
     }
 }

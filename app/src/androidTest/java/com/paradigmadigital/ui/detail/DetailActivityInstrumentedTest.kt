@@ -23,21 +23,22 @@ import org.junit.runner.RunWith
 class DetailActivityInstrumentedTest {
 
     @get:Rule
-    var activityTestRule: ActivityTestRule<DetailActivity> = object : ActivityTestRule<DetailActivity>(DetailActivity::class.java) {
-        override fun getActivityIntent(): Intent {
-            val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
-            val result = Intent(targetContext, DetailActivity::class.java)
-            val post = PostUiModel(
-                    id = 1,
-                    title = "tittle",
-                    body = "body",
-                    name = "name",
-                    email = "email"
-            )
-            result.putExtra(Navigator.EXTRA_ITEM, post)
-            return result
-        }
-    }
+    var activityTestRule: ActivityTestRule<DetailActivity> =
+            object : ActivityTestRule<DetailActivity>(DetailActivity::class.java) {
+                override fun getActivityIntent(): Intent {
+                    val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
+                    val result = Intent(targetContext, DetailActivity::class.java)
+                    val post = PostUiModel(
+                            id = 1,
+                            title = "tittle",
+                            body = "body",
+                            name = "name",
+                            email = "email"
+                    )
+                    result.putExtra(Navigator.EXTRA_ITEM, post)
+                    return result
+                }
+            }
 
     @Test
     fun showTimeOnToolbar() {
