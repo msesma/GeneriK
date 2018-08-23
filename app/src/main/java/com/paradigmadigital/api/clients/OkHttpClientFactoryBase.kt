@@ -2,7 +2,6 @@ package com.paradigmadigital.api.clients
 
 import android.content.Context
 import android.util.Log
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.paradigmadigital.BuildConfig
 import com.paradigmadigital.api.DummyInterceptor
 import com.paradigmadigital.platform.Constants
@@ -46,7 +45,6 @@ constructor(
     private val builder = OkHttpClient.Builder()
             .addInterceptor(getLoggingInterceptor())
             .addInterceptor(cacheInterceptor)
-            .addNetworkInterceptor(StethoInterceptor())
             .cache(cache)
 
     abstract fun getClient(): OkHttpClient
