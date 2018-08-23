@@ -1,4 +1,3 @@
-Paradigma sample application
 
 # Features
 ## Screens
@@ -15,7 +14,7 @@ Paradigma sample application
 ## Language and libraries
 - Full Kotlin
 - Android Room based SQLite database
-- Android Architecture Com ponents used in Login Register screens
+- Android Architecture Components used in Login Register screens
 - Kotlin coroutine based background threading for Login Register screens
 - Single point of truth based on Database
 - RxJava 2 Used for main and detail screens
@@ -27,7 +26,6 @@ Paradigma sample application
 - Clean MVVM / MVP architecture.
 - Use Cases for each business rule
 - Repositories to isolate Use cases from real data access implementations
-- Detekt based lint static code checks
 - Drawer based navigation
 - Either based networks results
 - Proguard obfuscation and optimization
@@ -36,7 +34,6 @@ Paradigma sample application
 - Reaction to back / foreground events
 
 ## Analytics and tests
-- Firebase based crash reporting (Old crashlytics)
 - Integration tests
 - Unit Tests
 - MockWebServer Dummy interceptor for testing
