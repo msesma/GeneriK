@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"
-        translatable="false">Paradigma</string>
+        translatable="false">GeneriK</string>
     <string name="empty"
         translatable="false" />
     <!-- Preferences -->
@@ -16,6 +16,6 @@
     <string name="sms_notification"
         translatable="false">sms_notification</string>
     <string name="account_type"
-        translatable="false">com.paradigmadigital</string>
+        translatable="false">eu.sesma.generik</string>
 
 </resources>

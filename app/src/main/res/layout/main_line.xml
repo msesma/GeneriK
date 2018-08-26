@@ -6,7 +6,7 @@
     android:id="@+id/main_row"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    tools:context="com.paradigmadigital.ui.main.MainActivity"
+    tools:context="eu.sesma.generik.ui.main.MainActivity"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
     >

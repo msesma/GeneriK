@@ -7,7 +7,7 @@
     android:id="@+id/activity_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paradigmadigital.ui.profile.ProfileActivity"
+    tools:context="eu.sesma.generik.ui.profile.ProfileActivity"
     android:orientation="vertical"
     android:background="#EEE"
     >
@@ -37,7 +37,7 @@
         android:id="@+id/form"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:context="com.paradigmadigital.ui.register.RegisterActivity"
+        tools:context="eu.sesma.generik.ui.register.RegisterActivity"
         app:layout_constraintTop_toBottomOf="@+id/appbarlayout"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/bt_update"

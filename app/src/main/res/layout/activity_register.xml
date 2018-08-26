@@ -6,14 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paradigmadigital.ui.register.RegisterActivity"
+    tools:context="eu.sesma.generik.ui.register.RegisterActivity"
     >
 
     <ScrollView
         android:id="@+id/form"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:context="com.paradigmadigital.ui.register.RegisterActivity"
+        tools:context="eu.sesma.generik.ui.register.RegisterActivity"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/bt_register"

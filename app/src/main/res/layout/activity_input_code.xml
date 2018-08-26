@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paradigmadigital.ui.inputcode.InputCodeActivity"
+    tools:context="eu.sesma.generik.ui.inputcode.InputCodeActivity"
     >
 
     <include layout="@layout/keypad" />

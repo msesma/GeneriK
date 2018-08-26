@@ -1,12 +1,12 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
     <header
-        android:fragment="com.paradigmadigital.repository.preferences.GeneralPreferenceFragment"
+        android:fragment="eu.sesma.generik.repository.preferences.GeneralPreferenceFragment"
         android:title="@string/pref_header_general"
         android:icon="@drawable/ic_info_black_24dp" />
 
     <header
-        android:fragment="com.paradigmadigital.repository.preferences.NotificationPreferenceFragment"
+        android:fragment="eu.sesma.generik.repository.preferences.NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications"
         android:icon="@drawable/ic_notifications_black_24dp" />
 

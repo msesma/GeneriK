@@ -40,7 +40,7 @@
 -dontnote org.w3c.dom.**
 -dontnote org.xml.sax.**
 -dontnote org.xmlpull.v1.**
--dontnote com.paradigmadigital.**
+-dontnote eu.sesma.generik.**
 -dontnote okhttp3.**
 -dontnote kotlin.**
 -dontnote com.squareup.**
